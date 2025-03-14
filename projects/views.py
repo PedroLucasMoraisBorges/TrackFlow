@@ -42,12 +42,10 @@ class RegisterProject(APIView):
                     }
                 }, status=status.HTTP_201_CREATED
             )
-        
-        errors = getErrors([form])
 
         return Response(
             {
                 'message' : 'Erro no Formulário',
-                'errors' : errors
+                'errors' : getErrors([form])
             }, status= status.HTTP_400_BAD_REQUEST
         )
