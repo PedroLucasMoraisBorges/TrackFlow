@@ -1,7 +1,7 @@
 from django import forms
 from .models import *
 
-class RegisterMilestone(forms.ModelForm):
+class RegisterStage(forms.ModelForm):
     name = forms.CharField(
     required = True,
     label = 'Nome',
@@ -22,4 +22,4 @@ class RegisterMilestone(forms.ModelForm):
     
     class Meta:
         model = Stage
-        fields = ['name', 'description', 'is_final']
+        fields = ['name', 'description',]

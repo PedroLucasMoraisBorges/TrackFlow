@@ -8,7 +8,7 @@ class Stage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=64)
     description = models.TextField(null=True, blank=True)
-    dt_creation = models.DateField()
+    dt_creation = models.DateField(auto_now_add=True)
 
     files = models.ManyToManyField(File, related_name='stage_files')
     stages = models.ManyToManyField('self', related_name='substages', symmetrical=False)
