@@ -19,6 +19,10 @@
                 <button type="submit">Cadastrar</button>
             </form>
         </div>
+
+        <div id="milestone-list">
+            
+        </div>
     {% else %}
         <div id="milestone-list">
             <div class="milestone-card" id="{{milestone.id}}">
@@ -49,14 +53,32 @@
         </form>
     {% endif %}
 
-    <div id="milestone-list"></div>
+    <div id="stage-list" style="display: none;">
+        {% for stage in stages %}
+            <div class="stage-card" id="{{stage.name}}">
+                <h3>{{stage.name}}</h3>
+                <p>{{stage.description}}</p>
+            </div>
+        {% endfor %}
+        <!-- Os novos stages serão adicionados aqui -->
+    </div>
+
+    <form id="stage_form" style="display: none;">
+        {% csrf_token %}
+
+        {% for field in stageForm %}
+            {{ field.label_tag }}
+            {{ field }}
+        {% endfor %}
+
+        <button type="submit">Cadastrar</button>
+    </form>
 {% endblock %}
 
 {% block scripts %}
 <script>
 
     document.getElementById("milestone-form").addEventListener("submit", async function(event) {
-        console.log('teste')
         event.preventDefault();  // Impede o recarregamento da página
 
         let formData = new FormData(this);  // Captura os dados do formulário
@@ -72,6 +94,8 @@
             }
         });
 
+        console.log(response.ok)
+
 
         if (response.ok) {
             let data = await response.json();
@@ -81,7 +105,7 @@
 
             // Cria o componente do milestone
             let milestoneComponent = `
-                <div class="milestone-card" id="${data.milestone.name}>
+                <div class="milestone-card" id="${data.milestone.id}">
                     <h3>${data.milestone.name}</h3>
                     <p>${data.milestone.description}</p>
                 </div>
@@ -89,6 +113,12 @@
 
             // Adiciona o componente na lista de milestones
             document.getElementById("milestone-list").innerHTML += milestoneComponent;
+            document.getElementById("stage-list").style.display = "block"
+            document.getElementById("stage_form").style.display = "block"
+
+            console.log('teste')
+
+
 
             // Pega a URL atual da página
             let currentUrl = new URL(window.location.href);
