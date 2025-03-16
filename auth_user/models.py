@@ -1,4 +1,5 @@
 from django.db import models
+from .managers import UserManager
 from django.contrib.auth.models import AbstractUser, Group, Permission
 import uuid
 # Create your models here.
@@ -13,7 +14,7 @@ class User(AbstractUser):
     name = models.CharField(max_length = 256)
     email = models.EmailField(unique = True, blank = False)
     type = models.CharField(choices=types, blank=False, max_length=1)
-    clients = models.ManyToManyField('self', related_name='managed_by', symmetrical=False)
+    clients = models.ManyToManyField('self', related_name='managed_by', symmetrical=False, null=True, blank=True)
 
     groups = models.ManyToManyField(
         Group,
@@ -28,6 +29,8 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name']
+
+    objects = UserManager()
 
     def __str__(self):
         return self.name

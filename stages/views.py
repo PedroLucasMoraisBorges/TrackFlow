@@ -10,7 +10,7 @@ from rest_framework import status
 
 # Create your views here.
 class CreateStage(APIView):
-    def post(self, request, id):
+    def post(self, request, id, type):
         form = RegisterStageForm(request.POST, request.FILES)
         milestone = Milestone.objects.get(id=id)
 

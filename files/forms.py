@@ -1,7 +1,7 @@
 from django import forms
 from .models import *
 
-class RegisterFile(forms.ModelForm):
+class RegisterFileForm(forms.ModelForm):
     file = forms.FileField(
         required=True,
         label='Upload de Arquivo',

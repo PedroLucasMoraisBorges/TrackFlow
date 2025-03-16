@@ -6,7 +6,7 @@ class RegisterStageForm(forms.ModelForm):
     required = True,
     label = 'Nome',
     widget = forms.TextInput(attrs={
-        'placeholder' : 'Nome do Projeto',
+        'placeholder' : 'Nome da etapa',
         'class' : ''
         })
     )
@@ -15,7 +15,7 @@ class RegisterStageForm(forms.ModelForm):
         required=True,
         label='Descrição',
         widget=forms.Textarea(attrs={
-            'placeholder' : 'Descrição do projeto',
+            'placeholder' : 'Descrição da etapa',
             'class' : ''
         })
     )
@@ -29,7 +29,7 @@ class EditStageForm(forms.ModelForm):
     required = False,
     label = 'Nome',
     widget = forms.TextInput(attrs={
-        'placeholder' : 'Nome do Projeto',
+        'placeholder' : 'Nome da etapa',
         'class' : ''
         })
     )
@@ -38,7 +38,7 @@ class EditStageForm(forms.ModelForm):
         required=False,
         label='Descrição',
         widget=forms.Textarea(attrs={
-            'placeholder' : 'Descrição do projeto',
+            'placeholder' : 'Descrição da etapa',
             'class' : ''
         })
     )

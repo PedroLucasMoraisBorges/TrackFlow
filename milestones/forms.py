@@ -1,13 +1,13 @@
 from django import forms
 from .models import *
 
-class RegisterMilestone(forms.ModelForm):
+class RegisterMilestoneForm(forms.ModelForm):
     name = forms.CharField(
-    required = True,
-    label = 'Nome',
-    widget = forms.TextInput(attrs={
-        'placeholder' : 'Nome do Projeto',
-        'class' : ''
+        required = True,
+        label = 'Nome',
+        widget = forms.TextInput(attrs={
+            'placeholder' : 'Nome do marco',
+            'class' : ''
         })
     )
 
@@ -15,7 +15,7 @@ class RegisterMilestone(forms.ModelForm):
         required=True,
         label='Descrição',
         widget=forms.Textarea(attrs={
-            'placeholder' : 'Descrição do projeto',
+            'placeholder' : 'Descrição do marco',
             'class' : ''
         })
     )
