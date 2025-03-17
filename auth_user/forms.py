@@ -11,14 +11,15 @@ UserModel = get_user_model()
 
 class AuthenticationForm(forms.Form):
     username = forms.EmailField(
+        required=True,
         label="Email", 
-        widget=forms.TextInput(attrs={"autofocus": True, 'placeholder': 'EMAIL'})
+        widget=forms.TextInput(attrs={"autofocus": True, 'placeholder': 'voce.empresa@gmail.com', 'id' : 'email'})
     )
     
     password = forms.CharField(
         label="Password",
         strip=False,
-        widget=forms.PasswordInput(attrs={"autocomplete": "current-password", 'placeholder': 'SENHA'}),
+        widget=forms.PasswordInput(attrs={"autocomplete": "current-password", 'placeholder': '********', 'id' : 'senha'}),
     )
 
     error_messages = {
@@ -93,7 +94,8 @@ class CustomUserCreationForm(UserCreationForm):
         label='Nome completo',
         widget = forms.TextInput(
             attrs={
-                'placeholder': 'Nome completo'
+                'placeholder': 'Seu nome',
+                'id' : 'nome'
             }
         )
     )
@@ -103,7 +105,8 @@ class CustomUserCreationForm(UserCreationForm):
         label='Email',
         widget = forms.TextInput(
             attrs={
-                'placeholder': 'E-mail Institucional'
+                'placeholder': 'voce.empresa@gmail.com',
+                'id' : 'email'
             }
         )
     )
@@ -114,7 +117,8 @@ class CustomUserCreationForm(UserCreationForm):
         required=True,
         widget=forms.PasswordInput(
             attrs={
-                'placeholder' : 'Senha'
+                'placeholder' : '********',
+                'id' : 'senha'
             }
         )
     )
@@ -124,7 +128,9 @@ class CustomUserCreationForm(UserCreationForm):
         required=True,
         widget=forms.PasswordInput(
             attrs={
-                'placeholder' : 'Confirme a senha'})
+                'placeholder' : '********',
+                'id' : 'confirmarSenha'
+            })
     )
 
     class Meta:

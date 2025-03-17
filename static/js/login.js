@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const emailError = document.getElementById('emailError');
     const senhaError = document.getElementById('senhaError');
 
-    // Função para mostrar popup
     const showPopup = (message) => {
         const existingPopup = document.querySelector('.popup');
         if (existingPopup) {
@@ -24,29 +23,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     };
 
-    // Função para validar email
     const isValidEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     };
 
-    // Função para validar senha
     const isValidPassword = (password) => password.length >= 6;
 
-    // Função para mostrar erro
     const showError = (input, errorElement, message) => {
         input.classList.add('error');
         errorElement.textContent = message;
         showPopup(message);
     };
 
-    // Função para limpar erro
     const clearError = (input, errorElement) => {
         input.classList.remove('error');
         errorElement.textContent = '';
     };
 
-    // Validação ao sair do campo
     emailInput.addEventListener('blur', () => {
         if (!emailInput.value) {
             showError(emailInput, emailError, 'O email é obrigatório');
@@ -67,13 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Limpar erros ao digitar
     emailInput.addEventListener('input', () => clearError(emailInput, emailError));
     senhaInput.addEventListener('input', () => clearError(senhaInput, senhaError));
 
-    // Manipulação do envio do formulário
     loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
         let isValid = true;
 
         if (!emailInput.value) {
@@ -92,9 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
             isValid = false;
         }
 
-        if (isValid) {
-            showPopup('Login realizado com sucesso!');
-            loginForm.reset();
+        if (!isValid) {
+            e.preventDefault(); // Impede envio se houver erro
         }
     });
 });

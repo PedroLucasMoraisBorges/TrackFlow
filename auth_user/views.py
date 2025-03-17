@@ -40,17 +40,13 @@ class Login(View):
         return render(request, 'auth/login.html', context)
 
     def post(self, request):
-        form = AuthenticationForm(request.POST)
+        form = AuthenticationForm(request, data=request.POST)
         errors = getErrors([form])
-
+        
         if form.is_valid():
-            user = form.save(commit=False)
-            user.save()
+            user = form.get_user()  
             login(request, user)
-
-            # send_account_activation(user)
-            # return redirect('alert_user_inactive')
-            return redirect('')
+            return redirect('/')
         
         context = {
             'errors' : errors,
@@ -74,6 +70,7 @@ class Register(View):
         form = CustomUserCreationForm(request.POST)
 
         errors = getErrors([form])
+        print(errors)
 
         if form.is_valid():
             user = form.save(commit=False)
