@@ -18,6 +18,10 @@
 
     <button type="submit">Cadastrar</button>
 </form>
+
+{% for project in projects %}
+    <a href="{% url 'view_project' id=project.id %}">{{project.name}}</a>
+{% endfor %}
 {% endblock %}
 
 <!-- Aqui pode ser colocado todo o conteúdo do <script> ou importar scripts pelo src -->

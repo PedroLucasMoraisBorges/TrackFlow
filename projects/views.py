@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from .models import *
 from .forms  import  * 
+from milestones.models import *
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -49,3 +50,44 @@ class RegisterProject(APIView):
                 'errors' : getErrors([form])
             }, status= status.HTTP_400_BAD_REQUEST
         )
+    
+class ViewProject(View):
+    def get(self, request, id):
+        project = Project.objects.get(id=id)
+        edit_project_form = EditProjectForm(instance=project)
+
+        project_milestones = Milestone.objects.filter(fk_project = project)
+        returning_milestones = []
+
+        for mls in project_milestones:
+            stages = mls.stages.order_by('dt_creation')
+            returning_stages = []
+            files = mls.files.all()
+
+            for stg in stages:
+                stg_files = stg.files.all()
+                stg_stgs = stg.stages.all()
+
+                returning_stages.append(
+                    {   
+                        'info' : stg,
+                        'files' : stg_files,
+                        'sub_stages' : stg_stgs
+                    }
+                )
+
+            returning_milestones.append(
+                {
+                'info' : mls,
+                'files' : files,
+                'stages' : returning_stages
+                }
+            )
+        
+        context = {
+            'projetc' : project,
+            'edit_project_form' : edit_project_form,
+            'milestones' : returning_milestones
+        }
+
+        return render(request, 'manager/viewProject.html', context)
