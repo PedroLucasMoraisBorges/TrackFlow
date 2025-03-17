@@ -1,0 +1,37 @@
+{% if file.type == 'image' %}
+    <div class="file-preview">
+        <img src="{{ file.file.url }}" alt="Imagem enviada" class="uploaded-image">
+    </div>
+{% elif file.type == 'pdf' %}
+    <div class="file-preview">
+        <a href="{{ file.file.url }}" target="_blank" class="uploaded-pdf">Abrir PDF</a>
+    </div>
+{% elif file.type == 'csv' %}
+    <div class="file-preview">
+        <a href="{{ file.file.url }}" target="_blank" class="uploaded-csv">Abrir CSV</a>
+    </div>
+{% elif file.type == 'excel' %}
+    <div class="file-preview">
+        <a href="{{ file.file.url }}" target="_blank" class="uploaded-excel">Abrir Excel</a>
+    </div>
+{% elif file.type == 'docx' %}
+    <div class="file-preview">
+        <a href="{{ file.file.url }}" target="_blank" class="uploaded-docx">Abrir Documento Word</a>
+    </div>
+{% elif file.type == 'txt' %}
+    <div class="file-preview">
+        <a href="{{ file.file.url }}" target="_blank" class="uploaded-txt">Abrir Arquivo de Texto</a>
+    </div>
+{% elif file.type == 'pptx' %}
+    <div class="file-preview">
+        <a href="{{ file.file.url }}" target="_blank" class="uploaded-pptx">Abrir Apresentação PowerPoint</a>
+    </div>
+{% elif file.type == 'zip' %}
+    <div class="file-preview">
+        <a href="{{ file.file.url }}" target="_blank" class="uploaded-zip">Baixar Arquivo ZIP</a>
+    </div>
+{% else %}
+    <div class="file-preview">
+        <p>Tipo de arquivo não suportado.</p>
+    </div>
+{% endif %}

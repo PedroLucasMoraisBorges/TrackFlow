@@ -1,0 +1,53 @@
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+    }
+    .container {
+        padding: 10px;
+        max-width: 400px;
+    }
+    .read-view {
+        display: flex;
+        padding: 5px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        word-break: break-word;
+    }
+    .edit-view {
+        display: flex;
+        gap: 5px;
+    }
+    .hidden {
+        display: none;
+    }
+</style>
+
+<div class="container">
+    <div id="readView" class="read-view" onclick="startEditing()">Default description value</div>
+    <div id="editView" class="edit-view hidden">
+        <input type="text" id="editInput" value="Default description value">
+        <button onclick="confirmEdit()">✔</button>
+        <button onclick="cancelEdit()">✖</button>
+    </div>
+</div>
+
+<script>
+    function startEditing() {
+        document.getElementById("readView").classList.add("hidden");
+        document.getElementById("editView").classList.remove("hidden");
+        document.getElementById("editInput").focus();
+    }
+
+    function confirmEdit() {
+        const newValue = document.getElementById("editInput").value;
+        document.getElementById("readView").textContent = newValue;
+        cancelEdit();
+    }
+
+    function cancelEdit() {
+        document.getElementById("readView").classList.remove("hidden");
+        document.getElementById("editView").classList.add("hidden");
+    }
+</script>

@@ -3,11 +3,27 @@
 
 <!-- Aqui pode ser colocado todo o conteúdo do <head> -->
 {% block head %}
-<title>{Clientes}</title>
+<title>Clientes</title>
 {% endblock %}
 
 <!-- Aqui pode ser colocado todo o conteúdo do <body> -->
 {% block body %}
+<form method="post">
+    {% csrf_token %}
+
+    {% for field in form %}
+        {{field.label_tag}}
+        {{field}}
+    {% endfor %}
+
+    <button type="submit">Cadastrar</button>
+</form>
+
+<div>
+    {% for client in clients %}
+        <a href="{% url 'client_page' id=client.id %}"><p>{{client.name}}</p></a>
+    {% endfor %}
+</div>
 {% endblock %}
 
 <!-- Aqui pode ser colocado todo o conteúdo do <script> ou importar scripts pelo src -->

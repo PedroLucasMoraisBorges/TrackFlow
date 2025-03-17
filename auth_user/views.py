@@ -131,9 +131,10 @@ class Clients(View):
 # Página de detalhes do cliente, servindo para manager e cliente com verificações no front-end
 class ClientPage(View):
     def get(self, request, id):
+        print('teste')
         user = request.user
-        client = User.objects.get(id)
-        projects = Project.objects.filter(fl_owner = client, fk_manager = user)
+        client = User.objects.get(id=id)
+        projects = Project.objects.filter(fk_owner = client, fk_manager = user)
         form = RegisterUserProjectForm()
 
         context = {
@@ -146,8 +147,8 @@ class ClientPage(View):
     
     def post(self, request, id):
         user = request.user
-        client = User.objects.get(id)
-        projects = Project.objects.filter(fl_owner = client, fk_manager = user)
+        client = User.objects.get(id=id)
+        projects = Project.objects.filter(fk_owner = client, fk_manager = user)
         form = RegisterUserProjectForm(request.POST)
 
         if form.is_valid():
@@ -156,7 +157,7 @@ class ClientPage(View):
             project.fk_manager = user
             project.save()
 
-            return redirect('register milestone', id=project.id)
+            return redirect('register_milestone', project_id=project.id, milestone_id='first_creation')
 
         context = {
             'client' : client,

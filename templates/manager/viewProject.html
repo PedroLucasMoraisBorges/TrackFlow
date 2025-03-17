@@ -1,0 +1,32 @@
+{% extends 'components/base.html' %}
+
+
+{% block head %}
+<title>{{project.name}}</title>
+{% endblock %}
+
+
+{% block body %}
+<div>
+    {% for milestone in milestones %}
+        <div>
+            <h2>{{milestone.info.name}}</h2>
+            <h3>{{milestone.info.description}}</h3>
+        </div>
+
+
+        <div class="stages">
+            {% for stage in milestone.stages %}
+                <div>
+                    <p><strong>{{stage.info.name}}</strong></p>
+                    <p>{{stage.info.description}}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}
