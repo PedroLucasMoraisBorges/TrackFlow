@@ -2,10 +2,14 @@ from django.db import models
 import uuid
 
 doc_types = [
-    ('img' , 'img'),
-    ('pdf' , 'pdf'),
-    ('csv' , 'csv'),
-    ('excel' , 'excel')
+    ('img', 'Imagem'),
+    ('pdf', 'PDF'),
+    ('csv', 'CSV'),
+    ('excel', 'Excel'),
+    ('docx', 'Word (DOCX)'),
+    ('txt', 'Texto (TXT)'),
+    ('pptx', 'PowerPoint (PPTX)'),
+    ('zip', 'Arquivo ZIP'),
 ]
 
 # Create your models here.

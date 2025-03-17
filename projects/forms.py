@@ -40,7 +40,6 @@ class RegisterProjectForm(forms.ModelForm):
         if user:
             self.fields['fk_owner'].queryset = user.clients.all()
 
-
 class RegisterUserProjectForm(forms.ModelForm):
     name = forms.CharField(
         required = True,
@@ -66,7 +65,7 @@ class RegisterUserProjectForm(forms.ModelForm):
 
 class EditProjectForm(forms.ModelForm):
     name = forms.CharField(
-        required = True,
+        required = False,
         label = 'Nome',
         widget = forms.TextInput(attrs={
             'placeholder' : 'Nome do Projeto',
@@ -75,7 +74,7 @@ class EditProjectForm(forms.ModelForm):
     )
 
     description = forms.CharField(
-        required=True,
+        required=False,
         label='Descrição',
         widget=forms.Textarea(attrs={
             'placeholder' : 'Descrição do projeto',

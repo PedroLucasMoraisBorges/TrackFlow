@@ -3,7 +3,9 @@ from django.views import View
 from .models import *
 from .forms  import  * 
 from milestones.models import *
-
+from milestones.forms import *
+from stages.models import *
+from stages.forms import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -67,12 +69,24 @@ class ViewProject(View):
             for stg in stages:
                 stg_files = stg.files.all()
                 stg_stgs = stg.stages.all()
+                sub_stages = []
+                
+                for sub_stage in stg_stgs:
+                    sub_stages.append(
+                        {
+                            'info' : sub_stage,
+                            'form' : EditStageForm(instance=sub_stage)
+                        }
+                    )
+
+                form = EditStageForm(instance=stg)
 
                 returning_stages.append(
                     {   
                         'info' : stg,
                         'files' : stg_files,
-                        'sub_stages' : stg_stgs
+                        'sub_stages' : sub_stages,
+                        'form' : form
                     }
                 )
 
@@ -80,7 +94,8 @@ class ViewProject(View):
                 {
                 'info' : mls,
                 'files' : files,
-                'stages' : returning_stages
+                'stages' : returning_stages,
+                'form' : EditMilestoneForm(instance=mls)
                 }
             )
         

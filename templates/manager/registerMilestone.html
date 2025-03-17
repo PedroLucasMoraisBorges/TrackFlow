@@ -21,8 +21,20 @@
         </div>
     {% else %}
         <div class="milestone-card" id="{{milestone.id}}">
-            <h3>{{milestone.name}}</h3>
-            <p>{{milestone.description}}</p>
+            <div id="info">
+                <h3>{{milestone.name}}</h3>
+                <p>{{milestone.description}}</p>
+            </div>
+
+            <form id="uploadForm" url="{% url 'create_file' id=milestone.id type='milestone' %}">
+                {% csrf_token %}
+                {{file_form.file}}
+                <button type="submit">Upload</button>
+            </form>
+
+            {% for file in files %}
+                {% include 'components/fileView.html' %}
+            {% endfor %}
         </div>
 
         <form id="stage_form" url="{% url 'create_state' id=milestone.id %}">
@@ -40,8 +52,10 @@
     <div id="stage-list">
         {% for stage in stages %}
             <div class="stage-card" id="{{stage.name}}">
-                <h3>{{stage.name}}</h3>
-                <p>{{stage.description}}</p>
+                <div id="info">
+                    <h3>{{stage.name}}</h3>
+                    <p>{{stage.description}}</p>
+                </div>
             </div>
         {% endfor %}
         <!-- Os novos stages serão adicionados aqui -->
@@ -51,6 +65,7 @@
 {% block scripts %}
 <!-- <script src="{% static 'js/requests/create_milestone.js' %}"></script> -->
 
+<script src="{% static 'js/requests/create_file_milestone.js' %}"></script>
 <script src="{% static 'js/requests/create_stage_for_milestone.js' %}"></script>
 
 

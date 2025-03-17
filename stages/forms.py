@@ -26,12 +26,12 @@ class RegisterStageForm(forms.ModelForm):
 
 class EditStageForm(forms.ModelForm):
     name = forms.CharField(
-    required = False,
-    label = 'Nome',
-    widget = forms.TextInput(attrs={
-        'placeholder' : 'Nome da etapa',
-        'class' : ''
-        })
+        required = False,
+        label = 'Nome',
+        widget = forms.TextInput(attrs={
+            'placeholder' : 'Nome da etapa',
+            'class' : ''
+            })
     )
 
     description = forms.CharField(
