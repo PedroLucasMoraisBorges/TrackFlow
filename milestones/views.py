@@ -19,8 +19,10 @@ class RegisterMilestonePage(View):
 
         milestone = None
         stages = []
+        print(milestone_id)
         if milestone_id != 'first_creation':
             milestone = get_object_or_404(Milestone, id=milestone_id)
+            
             stages = milestone.stages.all()
 
         context = {
@@ -33,10 +35,22 @@ class RegisterMilestonePage(View):
 
         return render(request, 'manager/registerMilestone.html', context)
 
+    def post(self, request, project_id, milestone_id=None):
+        form = RegisterMilestoneForm(request.POST)
+        project = get_object_or_404(Project, id=project_id)
+
+        if form.is_valid():
+            milestone = form.save(commit=False)
+            milestone.fk_project = project
+            milestone.save()
+
+            return redirect('register_milestone', project_id=project_id, milestone_id=milestone.id)
+
 class CreateMilestone(APIView):
     def post(self, request, id):
         project = get_object_or_404(Project, id=id)
         form = RegisterMilestoneForm(request.POST)
+
 
         if form.is_valid():
             milestone = form.save(commit=False)
