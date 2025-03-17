@@ -1,12 +1,85 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
+    <title>TrackFlow - Cadastro</title>
+    <link rel="stylesheet" href="/TrackFlow/static/css/register.css">
+    <link rel="shortcut icon" href="https://i.ibb.co/ynKX07wq/logo1.png" type="image/x-icon">
 </head>
 <body>
-    {% for field in form %}
-    {% endfor %}
+    <main class="container">
+        
+        <div class="content-container">
+            <div class="hero-content">
+                <h2>
+                <span style="font-weight: bold;">As melhores soluções</span>
+                <span style="font-weight: 300;">começam com o Flow!</span>
+            </h2>
+            <p>É da nossa ferramenta de gerenciamento que você necessita para organizar os seus projetos</p>
+            <a href="#" class="cadastro"> Já tem uma conta? Faça login em nossa plataforma! </a>
+        </div>
+    </div>
+    
+    <div class="vertical-divider"></div>
+
+    <div class="register-container">
+        <div class="logo">
+            <img src="https://i.ibb.co/KxpNbyZg/Track-Flow-LOGIN.png" alt="TrackFlow Logo" class="logo-img">
+        </div>
+        <form class="register-form" id="registerForm" novalidate>
+
+            <div class="form-group">
+                <label for="nome">Como gostaria de ser chamado?</label>
+                <input type="text" id="nome" placeholder="Carlos Roberto" required>
+                <span class="error-message" id="nomeError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="voce.empresa@gmail.com" required>
+                <span class="error-message" id="emailError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" placeholder="********" required>
+                <span class="error-message" id="senhaError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmarSenha">Confirme sua senha</label>
+                <input type="password" id="confirmarSenha" placeholder="********" required>
+                <span class="error-message" id="confirmarSenhaError"></span>
+            </div>
+
+            <button type="submit" class="btn-cadastrar">Cadastrar</button>
+        </form>
+    </div>
+
+    <div class="services">
+        <div class="service-card">
+            <h3>Gestão de projetos</h3>
+                <img src="https://i.ibb.co/p6xBVYRx/Gest-o-de-projetos.png" alt="Gestão de projetos">
+            </div>
+            <div class="service-card">
+                <h3>Desenvolvimento de Software</h3>
+                <img src="https://i.ibb.co/1txXJ0x1/Desenvolvimento-de-Software.png" alt="Desenvolvimento de Software">
+            </div>
+            <div class="service-card">
+                <h3>Design</h3>
+                <img src="https://i.ibb.co/wNqcdspb/Design.png" alt="Design">
+            </div>
+            <div class="service-card">
+                <h3>Marketing</h3>
+                <img src="https://i.ibb.co/VYQJkrYX/Marketing.png" alt="Marketing">
+            </div>
+            <div class="service-card">
+                <h3>Infraestrutura - TI</h3>
+                <img src="https://i.ibb.co/Wp6RX6jQ/Infraestutura-TI.png" alt="Infraestrutura - TI">
+            </div>
+        </div>
+    </main>
+    <script src="/TrackFlow/static/js/register.js"></script>
 </body>
 </html>
