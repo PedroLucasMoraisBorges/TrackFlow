@@ -26,7 +26,7 @@
                 <p>{{milestone.description}}</p>
             </div>
 
-            <form id="uploadForm" url="{% url 'create_file' id=milestone.id type='milestone' %}">
+            <form class="uploadForm" url="{% url 'create_file' id=milestone.id type='milestone' %}">
                 {% csrf_token %}
                 {{file_form.file}}
                 <button type="submit">Upload</button>
@@ -51,11 +51,22 @@
 
     <div id="stage-list">
         {% for stage in stages %}
-            <div class="stage-card" id="{{stage.name}}">
+            <div class="stage-card" id="{{stage.id}}">
                 <div id="info">
                     <h3>{{stage.name}}</h3>
                     <p>{{stage.description}}</p>
                 </div>
+
+
+                {% for file in stage.files %}
+                    {% include 'components/fileView.html' %}
+                {% endfor %}
+
+                <form class="uploadForm" url="{% url 'create_file' id=stage.id type='stage' %}">
+                    {% csrf_token %}
+                    {{file_form.file}}
+                    <button type="submit">Upload</button>
+                </form>
             </div>
         {% endfor %}
         <!-- Os novos stages serão adicionados aqui -->

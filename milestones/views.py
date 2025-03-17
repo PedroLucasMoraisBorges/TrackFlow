@@ -18,19 +18,31 @@ class RegisterMilestonePage(View):
         project = get_object_or_404(Project, id=project_id)
 
         milestone = None
-        stages = []
+        stage_list = []
         files = []
         if milestone_id != 'first_creation':
             milestone = get_object_or_404(Milestone, id=milestone_id)
             stages = milestone.stages.all()
+
+            for stage in stages:
+                stage_list.append(
+                    {
+                        'id' : stage.id,
+                        'name' : stage.name,
+                        'description' : stage.description,
+                        'files' : stage.files.all()
+                    }
+                )
             files = milestone.files.all()
+        
+        print(stage_list)
 
         context = {
             'project' : project,
             'milestone' : milestone,
             'milestoneForm' : RegisterMilestoneForm(),
             'stageForm' : RegisterStageForm(),
-            'stages' : stages,
+            'stages' : stage_list,
             'file_form' : RegisterFileForm(),
             'files' : files
         }

@@ -1,38 +1,44 @@
-document.getElementById("uploadForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Impede o envio tradicional do formulário
+let forms = document.querySelectorAll('.uploadForm')
 
-    const form = event.target; // O formulário
-    const fileInput = form.querySelector("input[type='file']"); // Encontrar o campo de arquivo
-    const file = fileInput.files[0]; // Obter o arquivo selecionado
-
-    if (!file) return; // Se não houver arquivo, não faz nada
-
-    const url = form.getAttribute('url'); // Obtém a URL do formulário
-
-    const formData = new FormData();
-    formData.append("file", file);
-
-    // Obtém o CSRF token
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
-    fetch(url, {
-        method: "POST",
-        body: formData,
-        headers: {
-            'X-CSRFToken': csrfToken // Envia o CSRF token no cabeçalho
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Sucesso:", data);
-
-        // Verifica o tipo de arquivo retornado e chama a função para renderizar
-        if (data.file && data.file.type) {
-            renderFileElement(data.file);
-        }
-    })
-    .catch(error => console.error("Erro:", error));
+forms.forEach(element => {
+    element.addEventListener("submit", function(event) {
+        event.preventDefault(); // Impede o envio tradicional do formulário
+    
+        const form = event.target; // O formulário
+        const fileInput = form.querySelector("input[type='file']"); // Encontrar o campo de arquivo
+        const file = fileInput.files[0]; // Obter o arquivo selecionado
+    
+        if (!file) return; // Se não houver arquivo, não faz nada
+    
+        const url = form.getAttribute('url'); // Obtém a URL do formulário
+    
+        const formData = new FormData();
+        formData.append("file", file);
+    
+        // Obtém o CSRF token
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    
+        fetch(url, {
+            method: "POST",
+            body: formData,
+            headers: {
+                'X-CSRFToken': csrfToken // Envia o CSRF token no cabeçalho
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Sucesso:", data);
+    
+            // Verifica o tipo de arquivo retornado e chama a função para renderizar
+            if (data.file && data.file.type) {
+                renderFileElement(data.file);
+            }
+        })
+        .catch(error => console.error("Erro:", error));
+    });
 });
+
+document.getElementById("uploadForm")
 
 // Função para criar o elemento baseado no tipo de arquivo
 function renderFileElement(fileData) {

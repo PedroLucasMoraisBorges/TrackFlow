@@ -19,6 +19,7 @@ class CreateFile(APIView):
             target_object = Milestone.objects.get(id=id)
         if type == 'stage':
             target_object = Stage.objects.get(id=id)
+    
 
         if form.is_valid():
             
