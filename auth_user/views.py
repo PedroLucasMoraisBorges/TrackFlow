@@ -48,6 +48,7 @@ class Login(View):
             login(request, user)
             return redirect('/')
         
+        print(errors)
         context = {
             'errors' : errors,
             'form'   : form

@@ -176,9 +176,10 @@ body {
 /* Popup styles */
 .popup {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    bottom: 20px; /* Alinha na parte inferior */
+    left: 20px; /* Alinha à esquerda */
     padding: 1rem;
+    padding-right: 2rem;
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -186,8 +187,30 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    animation: slideIn 0.3s ease-out;
+    animation: slideUp 0.5s ease-out;
     max-width: 300px;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(100%);
+        opacity: 0;
+    }
 }
 
 .popup.error {
@@ -200,25 +223,6 @@ body {
     font-size: 0.9rem;
 }
 
-@keyframes slideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
 
 @media (max-width: 768px) {
     .container {

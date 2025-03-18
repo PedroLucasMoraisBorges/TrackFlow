@@ -87,4 +87,16 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault(); // Impede envio se houver erro
         }
     });
+
+    const divErrors = document.querySelector('.errors')
+    
+    const errors = divErrors ? divErrors.querySelectorAll('p') : [];
+    console.log(errors)
+    // 🔹 Junta os erros em uma única string
+    let errorMessages = Array.from(errors).map(el => el.textContent).join('\n');
+
+    // 🔹 Exibe o popup caso existam erros do backend
+    if (errorMessages) {
+        showPopup(errorMessages);
+    }
 });

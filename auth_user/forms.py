@@ -167,18 +167,24 @@ class CustomUserCreationForm(UserCreationForm):
     def clean_name(self):
         name = self.cleaned_data.get('name')
         if not name:
-            raise forms.ValidationError('Por favor, informe seu nome completo.')
+            raise forms.ValidationError('O campo "Nome completo" é obrigatório.')
         return name
-    
-    def clean_password2(self):
-        password1 = self.cleaned_data.get('password1')
-        password2 = self.cleaned_data.get('password2')
-        if password1 and password2 and password1 != password2:
-            raise ValidationError('Os dois campos de Senha não correspondem.')
-        return password2
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
+        if not email:
+            raise forms.ValidationError('O campo "E-mail" é obrigatório.')
         if User.objects.filter(email=email).exists():
-            raise ValidationError('Usuário com este Endereço de email já existe.')
+            raise ValidationError('Já existe um usuário com este endereço de email.')
         return email
+
+    def clean_password(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+        if not password1:
+            raise forms.ValidationError('O campo "Senha" é obrigatório.')
+        if not password2:
+            raise forms.ValidationError('O campo "Confirme sua senha" é obrigatório.')
+        if password1 and password2 and password1 != password2:
+            raise ValidationError('As senhas digitadas não correspondem.')
+        return password2

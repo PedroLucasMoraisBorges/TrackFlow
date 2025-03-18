@@ -10,6 +10,13 @@
     <link rel="shortcut icon" href="https://i.ibb.co/ynKX07wq/logo1.png" type="image/x-icon">
 </head>
 <body>
+
+    <div style="display: none;" class="errors">
+        {% for error in errors %}
+            <p>{{error}}</p>
+        {% endfor %}
+    </div>
+    
     <main class="container">
         
         <div class="content-container">
