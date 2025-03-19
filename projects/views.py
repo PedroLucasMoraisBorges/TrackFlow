@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from .models import *
 from .forms  import  * 
@@ -26,32 +26,26 @@ class Projects(View):
 
         return render(request, 'manager/projects.html', context)
     
-class RegisterProject(APIView):
     def post(self, request):
         user = request.user
-        form = RegisterProjectForm(request.POST)
+        form = RegisterProjectForm(request.POST, user=user)
+        projects = Project.objects.filter(fk_manager = user)
 
+        print(form.errors)
         if form.is_valid():
             project = form.save(commit=False)
             project.fk_manager = user
             project.save()
 
-            return Response(
-                {
-                    'message': 'Projeto Cadastrado',
-                    'project' : {
-                        'id' : project.id,
-                        'name' : project.name,
-                    }
-                }, status=status.HTTP_201_CREATED
-            )
+            return redirect('register_milestone', project_id=project.id, milestone_id='first_creation')
 
-        return Response(
-            {
-                'message' : 'Erro no Formulário',
-                'errors' : getErrors([form])
-            }, status= status.HTTP_400_BAD_REQUEST
-        )
+        context = {
+            'projects' : projects,
+            'form'     : form,
+            'errors'   : getErrors([form])
+        }
+
+        return render(request, 'manager/projects.html', context)
     
 class ViewProject(View):
     def get(self, request, id):

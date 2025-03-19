@@ -1,0 +1,134 @@
+/* LIST */
+
+.projects_list {
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20%;
+    justify-content: space-between;
+}
+
+
+/* CARD */
+.project_card {
+    padding: .8rem;
+    border: 1px solid #5B21B699;
+    border-radius: 15px;
+    box-shadow: 0px 4px 4px #00000040;
+    text-decoration: none;
+    color: #1E1E1E;
+}
+
+.project_card .project_img {
+    width: 100%;
+    display: block;
+    margin-bottom: .6rem;
+}
+
+.project_card .client {
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: .6rem;
+}
+
+.project_card .name {
+    font-weight: bold;
+}
+
+.project_card .email {
+    font-size: 12px;
+}
+
+.project_card .project {
+    display: flex;
+    justify-content: center;
+}
+
+.project_card .project img {
+    margin-right: .4rem;
+}
+
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+    overflow: auto;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+    animation: slideIn 0.3s ease-out;
+}
+
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.modal button {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal button[type="submit"] {
+    background-color: #5B21B6;
+    color: white;
+}
+
+.modal button[type="button"] {
+    color: #1E1E1E;
+    border: 1px solid #1E1E1E;
+}
+
+
+.modal button[type="submit"]:hover {
+    background-color: #4C1D95;
+}

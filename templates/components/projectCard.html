@@ -1,0 +1,15 @@
+{% load static %}
+
+
+<a href="{% url 'view_project' id=project.id %}" class="project_card">
+    <img src="{% static 'imgs/imageProject.png' %}" class="project_img" alt="">
+
+    <div class="client">
+        <p class="name">{{project.fk_owner.name}}</p>
+        <p class="email">{{project.fk_owner.email}}</p>
+    </div>
+
+    <div class="project">
+        <p>{{project.name}}</p>
+    </div>
+</a>   

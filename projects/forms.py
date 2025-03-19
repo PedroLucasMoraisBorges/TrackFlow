@@ -25,7 +25,7 @@ class RegisterProjectForm(forms.ModelForm):
     fk_owner = forms.ModelChoiceField(
         required=True,
         label='Cliente',
-        queryset=User.objects.none(),  # Definido como vazio inicialmente
+        queryset=User.objects.none(),
         widget=forms.Select(attrs={
             'class': ''
         })

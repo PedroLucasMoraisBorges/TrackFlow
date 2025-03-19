@@ -5,12 +5,8 @@
 {% block head %}
 <title>Projetos</title>
 
-<style>
-    h1 {
-        margin-bottom: 2rem;
-        font-size: 28px;
-    }
-</style>
+<link rel="stylesheet" href="{% static 'css/search.css' %}">
+<link rel="stylesheet" href="{% static 'css/projects.css' %}">
 {% endblock %}
 
 <!-- Aqui pode ser colocado todo o conteúdo do <body> -->
@@ -20,77 +16,6 @@
 
     <section id="main_section">
         <h1>Meus Projetos</h1>
-
-        <style>
-            .div_search {
-                width: 100%;
-                display: flex;
-                align-items: center; 
-                gap: 1rem;
-                margin-bottom: 2.5rem;
-            }
-
-            .search {
-                display: flex;
-                align-items: center;
-                background-color: white;
-                border: 2px solid #D9D9D9;
-                border-radius: 20px;
-                overflow: hidden;
-                flex-grow: 1;
-                box-shadow: 0px 2px 4px #00000040;
-            }
-
-            .search button {
-                background-color: white;
-                border: none;
-                padding: 0.4rem 0.8rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-right: 2px solid #D9D9D9;
-                cursor: pointer;
-                transition: .3s;
-            }
-
-            .search button:hover {
-                background-color: #5B21B6;
-            }
-
-            .search button img {
-                width: 20px;
-                transition: .3s;
-            }
-
-            .search button:hover img {
-                filter: brightness(0) invert(1);
-            }
-
-            .search input {
-                flex: 1; /* Faz o input crescer dentro da div */
-                background-color: white;
-                border: none;
-                padding: 0.4rem 0.8rem;
-                outline: none;
-                font-size: 1rem;
-                width: 100%; /* Garante que o input ocupe todo o espaço disponível */
-            }
-
-            .add_button {
-                background-color: #5B21B6;
-                color: white;
-                text-align: center;
-                width: 200px;
-                height: 40px; /* Mantém o botão alinhado com a altura da barra de pesquisa */
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border: none;
-                border-radius: 20px;
-                cursor: pointer;
-                font-size: 1rem;
-            }
-        </style>
         
         <div class="div_search">
             <form class="search">
@@ -100,177 +25,18 @@
                 <input type="text" placeholder="Buscar por projetos" name="search">
             </form>
 
-            <button class="add_button" onclick="openModal()">Criar novo projeto</button>
+            <button class="add_button" onclick="openModal()">
+                <img src="{% static 'imgs/add_ring.svg' %}" alt="">
+                <p>Criar novo projeto</p>
+            </button>
         </div>
-
-        <style>
-            .projects_list {
-                display: grid;
-                grid-template-columns: 20% 20% 20% 20%;
-                justify-content: space-between;
-            }
-
-            .project_card {
-                padding: .8rem;
-                border: 1px solid #5B21B699;
-                border-radius: 15px;
-                box-shadow: 0px 4px 4px #00000040;
-                text-decoration: none;
-                color: #1E1E1E;
-            }
-
-            .project_card .project_img {
-                width: 100%;
-                display: block;
-                margin-bottom: .6rem;
-            }
-
-            .project_card .client {
-                text-align: center;
-                border-radius: 10px;
-                margin-bottom: .6rem;
-            }
-
-            .project_card .name {
-                font-weight: bold;
-            }
-
-            .project_card .email {
-                font-size: 12px;
-            }
-
-            .project_card .project {
-                display: flex;
-                justify-content: center;
-            }
-
-            .project_card .project img {
-                margin-right: .4rem;
-            }
-        </style>
         
         <div class="projects_list">
             {% for project in projects %}
-                <a href="{% url 'view_project' id=project.id %}" class="project_card">
-                    <img src="{% static 'imgs/imageProject.png' %}" class="project_img" alt="">
-
-                    <div class="client">
-                        <p class="name">{{project.fk_owner.name}}</p>
-                        <p class="email">{{project.fk_owner.email}}</p>
-                    </div>
-
-                    <div class="project">
-                        <p>{{project.name}}</p>
-                    </div>
-                </a>        
+                {% include 'components/projectCard.html' %}       
             {% endfor %}
         </div>
 
-        <style>
-            /* Estilos gerais */
-            .modal {
-                display: none; /* Inicialmente escondido */
-                position: fixed;
-                z-index: 1; /* Fica acima do conteúdo */
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
-                overflow: auto;
-                animation: fadeIn 0.3s ease;
-            }
-
-            /* Modal conteúdo */
-            .modal-content {
-                background-color: #fff;
-                margin: 15% auto;
-                padding: 20px;
-                border-radius: 10px;
-                width: 50%;
-                animation: slideIn 0.3s ease-out;
-            }
-
-            /* Fechar o modal */
-            .close {
-                color: #aaa;
-                font-size: 28px;
-                font-weight: bold;
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                cursor: pointer;
-            }
-
-            .close:hover,
-            .close:focus {
-                color: black;
-                text-decoration: none;
-                cursor: pointer;
-            }
-
-            /* Animação de fade in */
-            @keyframes fadeIn {
-                from {
-                    opacity: 0;
-                }
-                to {
-                    opacity: 1;
-                }
-            }
-
-            /* Animação de slide in */
-            @keyframes slideIn {
-                from {
-                    transform: translateY(-50px);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateY(0);
-                    opacity: 1;
-                }
-            }
-
-            /* Estilos do formulário */
-            .form-group {
-                margin-bottom: 15px;
-            }
-
-            .modal button {
-                border: none;
-                padding: 10px 20px;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-
-            .modal button[type="submit"] {
-                background-color: #5B21B6;
-                color: white;
-            }
-
-            .modal button[type="button"] {
-                color: #1E1E1E;
-                border: 1px solid #1E1E1E;
-            }
-
-
-            .modal button[type="submit"]:hover {
-                background-color: #4C1D95;
-            }
-
-            .add_button {
-                background-color: #5B21B6;
-                color: white;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-
-            .add_button:hover {
-                background-color: #4C1D95;
-            }
-        </style>
         <div class="modal" id="projectModal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
