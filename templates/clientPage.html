@@ -1,29 +1,35 @@
 {% extends 'components/base.html' %}
 {% load static %}
 
-<!-- Aqui pode ser colocado todo o conteúdo do <head> -->
+
 {% block head %}
 <title>{{client.name}}</title>
 {% endblock %}
 
-<!-- Aqui pode ser colocado todo o conteúdo do <body> -->
+
 {% block body %}
-<form method="post">
-    {% csrf_token %}
+<main>
+    {% include 'components/sidebar.html' %}
 
-    {% for field in form %}
-        {{field.label_tag}}
-        {{field}}
-    {% endfor %}
-
-    <button type="submit">Cadastrar</button>
-</form>
-
-{% for project in projects %}
-    <a href="{% url 'view_project' id=project.id %}">{{project.name}}</a>
-{% endfor %}
-
-{% include 'components/example_inline_edit.html' %}
+    <section>
+        <form method="post">
+            {% csrf_token %}
+        
+            {% for field in form %}
+                {{field.label_tag}}
+                {{field}}
+            {% endfor %}
+        
+            <button type="submit">Cadastrar</button>
+        </form>
+        
+        {% for project in projects %}
+            <a href="{% url 'view_project' id=project.id %}">{{project.name}}</a>
+        {% endfor %}
+        
+        {% include 'components/example_inline_edit.html' %}
+    </section>
+</main>
 {% endblock %}
 
 <!-- Aqui pode ser colocado todo o conteúdo do <script> ou importar scripts pelo src -->

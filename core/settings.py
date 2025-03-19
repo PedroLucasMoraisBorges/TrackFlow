@@ -78,10 +78,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            # 'libraries' : {
-            #     'reports_tags' : 'reports.custom_tags',
-            #     'reagent_tags' : 'reagents.custom_tags',
-            # },
+            'libraries' : {
+                'projects_tags' : 'projects.custom_tags',
+                'auth_user_tags' : 'auth_user.custom_tags',
+            },
         },
     },
 ]

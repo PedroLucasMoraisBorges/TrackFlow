@@ -1,12 +1,52 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'imgs/logo1.svg' %}" type="image/x-icon">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Roboto", sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: 15% 85%;
+            height: 100%;
+            flex: 1;
+        }
+
+        #main_section {
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 4rem;
+        }
+    </style>
     {% block head %}
     {% endblock %}
 </head>
 <body>
+    {% include 'components/header.html' %}
+
+
     {% block body %}
     {% endblock %}
 

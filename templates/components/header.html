@@ -1,0 +1,23 @@
+{% load static %}
+
+<style>
+    header {
+        background-color: #5B21B6;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        color: white;
+    }
+
+    header p {
+        font-size: 22px;
+    }
+</style>
+
+
+<header>
+    <img src="{% static 'imgs/TrackFlow.svg' %}" alt="">
+
+    <p>{{user.name}}</p>
+</header>

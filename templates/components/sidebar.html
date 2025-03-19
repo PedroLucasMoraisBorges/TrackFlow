@@ -1,0 +1,115 @@
+{% load static %}
+{% load projects_tags %}
+{% get_projects request.user as my_projects %}
+
+{% load auth_user_tags %}
+{% get_clients request.user as my_clients %}
+
+<style>
+    aside {
+        height: 100%;
+        background-color: #5B21B61A;
+        border-right: 1px solid #1E1E1E59;
+        padding: 2rem 1rem;
+    }
+    
+    .menu-item {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: .6rem;
+        transition: .3s;
+        color: black;
+        font-weight: bold;
+    }
+
+    .menu-item img {
+        margin-right: .5rem;
+        transition: transform 0.3s ease-in-out, filter 0.3s;
+    }
+
+    .menu-item:hover {
+        background-color: #5B21B6;
+        color: white;
+    }
+
+    .menu-item:hover img {
+        filter: invert(1) brightness(2);
+    }
+
+    .dropdown {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+        background-color: rgba(91, 33, 182, 0.1);
+        border-left: 3px solid #5B21B6;
+        margin-left: 1rem;
+    }
+
+    .dropdown a {
+        display: block;
+        padding: 0.5rem 1rem;
+        color: black;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .dropdown a:hover {
+        background-color: #5B21B6;
+        color: white;
+    }
+
+    .menu-item.open img:last-child {
+        transform: rotate(180deg);
+    }
+
+    .dropdownIcon {
+        width: 17px;
+    }
+</style>
+
+<aside>
+    <nav>
+        <div class="menu-item" onclick="toggleDropdown('clientsDropdown', this)">
+            <div style="display: flex; align-items: center;">
+                <img src="{% static 'imgs/users.svg' %}" alt="users">
+                <p>Clientes</p>
+            </div>
+            <img src="{% static 'imgs/dropdown.svg' %}" class="dropdownIcon" alt="">
+        </div>
+        <div id="clientsDropdown" class="dropdown">
+            {% for my_client in my_clients %}
+                <a href="{% url 'client_page' id=my_client.id %}">{{my_client.name}}</a>
+            {% endfor %}
+            <a href="{% url 'clients' %}">Lista de Clientes</a>
+        </div>
+
+        <div class="menu-item" onclick="toggleDropdown('projectsDropdown', this)">
+            <div style="display: flex; align-items: center;">
+                <img src="{% static 'imgs/projects.svg' %}" alt="projects">
+                <p>Projetos</p>
+            </div>
+            <img src="{% static 'imgs/dropdown.svg' %}" class="dropdownIcon" alt="">
+        </div>
+        <div id="projectsDropdown" class="dropdown">
+            {% for my_project in my_projects %}
+                <a href="{% url 'view_project' id=my_project.id %}">{{ my_project.name }}</a>
+            {% endfor %}
+            <a href="{% url 'my_projects' %}">Meus Projetos</a>
+        </div>
+    </nav>
+</aside>
+
+<script>
+    function toggleDropdown(id, element) {
+        const dropdown = document.getElementById(id);
+        if (dropdown.style.maxHeight) {
+            dropdown.style.maxHeight = null;
+            element.classList.remove('open');
+        } else {
+            dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+            element.classList.add('open');
+        }
+    }
+</script>
