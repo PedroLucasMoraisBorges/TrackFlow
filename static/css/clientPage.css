@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+dialog::backdrop{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: none;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+.user_greet {
+    font-size: 2.5em;
+    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    margin: 5% ;
+}
+
+.search_client {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    height: 50px;
+    border-radius: 30px;
+    border: 1px solid #5B21B6;
+    box-shadow: 0px 2px 2px rgb(130, 130, 130);
+    padding-left: 15px;
+    background-color: white;
+    position: relative;
+    margin: 5% ;
+}
+
+.search_client svg {
+    width: 23px;
+    height: 23px;
+    fill: #5B21B6;
+
+}
+
+.search_client input {
+    flex: 1;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding-left: 10px;
+    border-radius: 30px;
+    background: transparent;
+    
+}
+
+.client_section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 5% ;
+}
+
+.client_section h2{
+    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+    font-weight: 600;
+}
+
+.modal_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 5%;
+}
+
+.close-modal {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+
+}
+
+.new_client_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.new_client_label{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.new_client_container form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 50rem;
+}
+
+.new_client_container h1 {
+    margin-left: 10px;
+}
+
+.new_client_container input {
+    width: 400px;
+    height: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+    box-shadow: 0px 2px 2px rgb(130, 130, 130);
+}
+
+.new_client_container label {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.submit_client {
+    color: #fff; 
+    width: 400px;
+    height: 50px;
+    margin: 20px 0;
+    border-radius: 100px;
+    box-shadow: 0px 2px 2px rgb(130, 130, 130);
+    border: none;
+    font-weight: 700;
+    text-decoration: none;
+    background-color: #5B21B6;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    transition: all 0.5s linear;
+    
+}
+
+.add_client_button button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; 
+    width: 250px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: #5B21B6;
+    color: white;
+    font-weight: 700;
+    box-shadow: 0px 2px 2px rgb(130, 130, 130);
+    cursor: pointer;
+    padding: 0 15px;
+}
+
+.submit_client:hover, .add_client_button button:hover {
+    background-size: 0% 100%; 
+    background-color: #8f60dc; 
+    transition: all 0.5s cubic-bezier(0.000, 0.000, 0.230, 1);
+}
