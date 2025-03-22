@@ -92,7 +92,10 @@ class Register(View):
 class Clients(View):
     def get(self, request):
         form = CustomUserCreationForm(request.POST)
-        clients = request.user.clients.all()
+
+        search = request.GET.get('search', "")
+
+        clients = request.user.clients.filter(name__startswith=search)
 
         context = {
             'clients' : clients,
@@ -129,7 +132,6 @@ class Clients(View):
 # Página de detalhes do cliente, servindo para manager e cliente com verificações no front-end
 class ClientPage(View):
     def get(self, request, id):
-        print('teste')
         user = request.user
         client = User.objects.get(id=id)
         projects = Project.objects.filter(fk_owner = client, fk_manager = user)

@@ -34,3 +34,14 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.name
+    
+    @property
+    def user_image(self):
+        if " " in self.name:
+           name = self.name.split(" ")
+        else: name = self.name
+
+        firstName = name[0]
+        secondName = name[1]
+        
+        return firstName[0].upper() + secondName[0].upper()
