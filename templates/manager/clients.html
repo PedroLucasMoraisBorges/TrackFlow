@@ -3,6 +3,7 @@
 
 <!-- Aqui pode ser colocado todo o conteúdo do <head> -->
 {% block head %}
+<link rel="stylesheet" href="{% static 'css/clientPage.css'%}">
 <title>Clientes</title>
 {% endblock %}
 
@@ -12,26 +13,91 @@
     {% include 'components/sidebar.html' %}
 
     <section>
-        <form method="post">
-            {% csrf_token %}
+        <h1 class="user_greet"> Olá, Usuário </h1>
         
-            {% for field in form %}
-                {{field.label_tag}}
-                {{field}}
-            {% endfor %}
         
-            <button type="submit">Cadastrar</button>
-        </form>
-        
-        <div>
-            {% for client in clients %}
-                <a href="{% url 'client_page' id=client.id %}"><p>{{client.name}}</p></a>
-            {% endfor %}
+        <div class="search_client">
+        <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.5574 21.6327L15.2534 14.3287C16.3868 12.8634 16.9999 11.0718 16.9999 9.18746C16.9999 6.93185 16.1196 4.81686 14.5277 3.22218C12.9359 1.6275 10.8153 0.75 8.56246 0.75C6.30966 0.75 4.18904 1.63031 2.59718 3.22218C1.0025 4.81404 0.125 6.93185 0.125 9.18746C0.125 11.4403 1.00531 13.5609 2.59718 15.1527C4.18904 16.7474 6.30685 17.6249 8.56246 17.6249C10.4468 17.6249 12.2356 17.0118 13.7009 15.8812L21.0049 23.1824C21.0263 23.2038 21.0518 23.2208 21.0797 23.2324C21.1077 23.244 21.1377 23.25 21.168 23.25C21.1983 23.25 21.2283 23.244 21.2563 23.2324C21.2843 23.2208 21.3097 23.2038 21.3312 23.1824L22.5574 21.959C22.5788 21.9376 22.5958 21.9121 22.6074 21.8841C22.619 21.8561 22.625 21.8261 22.625 21.7958C22.625 21.7655 22.619 21.7355 22.6074 21.7076C22.5958 21.6796 22.5788 21.6541 22.5574 21.6327ZM13.0174 13.6424C11.825 14.8321 10.2443 15.4874 8.56246 15.4874C6.8806 15.4874 5.29998 14.8321 4.10748 13.6424C2.9178 12.45 2.26249 10.8693 2.26249 9.18746C2.26249 7.5056 2.9178 5.92217 4.10748 4.73248C5.29998 3.5428 6.8806 2.88749 8.56246 2.88749C10.2443 2.88749 11.8278 3.53999 13.0174 4.73248C14.2071 5.92498 14.8624 7.5056 14.8624 9.18746C14.8624 10.8693 14.2071 12.4528 13.0174 13.6424Z" fill="#5B21B6"/>
+        </svg>
+        <input placeholder="Buscar por clientes" type="text"> 
         </div>
+
+        <div class="client_section">
+            <h2>Clientes</h2>
+                <div class="add_client_button">
+                    <button class="open-modal" data-modal="modal-1">  
+                        <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12.5" cy="12" r="9" stroke="white" stroke-width="2"/>
+                            <path d="M12.5 15L12.5 9" stroke="white" stroke-width="2" stroke-linecap="square"/>
+                            <path d="M15.5 12L9.5 12" stroke="white" stroke-width="2" stroke-linecap="square"/>
+                        </svg>
+                    Adicionar novo cliente</button>
+                </div>
+            </div>
+
+        <dialog id="modal-1">
+            <div class="new_client_container">
+                
+                <div class="modal_header">
+                    <div class="new_client_label">
+                        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24.6821 23.2295C25.6544 22.7072 26.7674 22.4099 27.9526 22.4099H27.9567C28.0772 22.4099 28.1335 22.2652 28.0451 22.1849C26.8124 21.0787 25.4044 20.1852 23.8785 19.5411C23.8625 19.5331 23.8464 19.5291 23.8303 19.521C26.3254 17.709 27.9486 14.7639 27.9486 11.4411C27.9486 5.93666 23.4968 1.47684 18.0044 1.47684C12.512 1.47684 8.06425 5.93666 8.06425 11.4411C8.06425 14.7639 9.68747 17.709 12.1866 19.521C12.1705 19.5291 12.1544 19.5331 12.1384 19.5411C10.3424 20.3005 8.73122 21.3893 7.34506 22.7795C5.9669 24.1552 4.86971 25.786 4.1147 27.5809C3.37185 29.3385 2.97094 31.2217 2.93345 33.1295C2.93238 33.1724 2.9399 33.2151 2.95557 33.255C2.97124 33.2949 2.99475 33.3313 3.02471 33.362C3.05466 33.3927 3.09046 33.4171 3.12999 33.4338C3.16952 33.4504 3.21198 33.459 3.25488 33.459H5.66158C5.83434 33.459 5.97899 33.3184 5.983 33.1456C6.06336 30.0438 7.30488 27.1389 9.50265 24.9371C11.7727 22.659 14.7942 21.4054 18.0085 21.4054C20.2866 21.4054 22.4723 22.0362 24.3567 23.2175C24.4051 23.2479 24.4606 23.265 24.5178 23.2671C24.5749 23.2692 24.6316 23.2563 24.6821 23.2295ZM18.0085 18.3518C16.1683 18.3518 14.4366 17.6326 13.1308 16.3268C12.4883 15.686 11.979 14.9244 11.6321 14.0859C11.2853 13.2474 11.1077 12.3485 11.1098 11.4411C11.1098 9.59693 11.829 7.86122 13.1308 6.55541C14.4326 5.24961 16.1643 4.53041 18.0085 4.53041C19.8526 4.53041 21.5803 5.24961 22.8861 6.55541C23.5286 7.19622 24.0379 7.95782 24.3848 8.79634C24.7316 9.63485 24.9092 10.5337 24.9071 11.4411C24.9071 13.2853 24.1879 15.021 22.8861 16.3268C21.5803 17.6326 19.8486 18.3518 18.0085 18.3518ZM32.7861 27.9143H29.4111V24.5393C29.4111 24.3626 29.2665 24.2179 29.0897 24.2179H26.8397C26.6629 24.2179 26.5183 24.3626 26.5183 24.5393V27.9143H23.1433C22.9665 27.9143 22.8218 28.059 22.8218 28.2358V30.4858C22.8218 30.6626 22.9665 30.8072 23.1433 30.8072H26.5183V34.1822C26.5183 34.359 26.6629 34.5036 26.8397 34.5036H29.0897C29.2665 34.5036 29.4111 34.359 29.4111 34.1822V30.8072H32.7861C32.9629 30.8072 33.1076 30.6626 33.1076 30.4858V28.2358C33.1076 28.059 32.9629 27.9143 32.7861 27.9143Z" fill="black" fill-opacity="0.85"/>
+                        </svg>
+                        <h1> Novo Cliente </h1>
+                    </div>
+
+                    <button class="close-modal" data-modal="modal-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10ZM9.17 14.83l5.66-5.66M14.83 14.83 9.17 9.17" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+                
+                    {% for field in form %}
+                        {{field.label_tag}}
+                        {{field}}
+                    {% endfor %}
+                
+                    <button class="submit_client" type="submit">Cadastrar</button>
+                </form>
+            </div>
+        </dialog>
+
+            <div>
+                {% for client in clients %}
+                    <a href="{% url 'client_page' id=client.id %}"><p>{{client.name}}</p></a>
+                {% endfor %}
+            </div>
     </section>
 </main>
 {% endblock %}
 
 <!-- Aqui pode ser colocado todo o conteúdo do <script> ou importar scripts pelo src -->
 {% block scripts %}
+<script>
+    const openButton = document.querySelectorAll('.open-modal');
+
+    openButton.forEach(button => {
+        button.addEventListener('click',() => {
+            const modalId = button.getAttribute('data-modal');
+            const modal = document.getElementById(modalId);
+
+            modal.showModal();
+        });
+    });
+
+const closeButton = document.querySelectorAll('.close-modal');
+
+closeButton.forEach(button => {
+    button.addEventListener('click', () => {
+        const modalId = button.getAttribute('data-modal');
+        const modal = document.getElementById(modalId);
+
+        modal.close();
+    });
+});
+</script>
 {% endblock %}
