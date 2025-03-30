@@ -3,74 +3,137 @@
 
 {% block head %}
 <title>{{ project.name }}</title>
+<link rel="stylesheet" href="{% static 'css/milestone.css' %}">
 {% endblock %}
 
 {% block body %}
-    {% if not milestone %}
-        <div id="form-container">
-            <form id="milestone-form" method="post" enctype="multipart/form-data">
+<main>
+    {% include 'components/sidebar.html' %}
+
+    <section id="main_section">
+        {% if not milestone %}
+            <div id="form-container">
+                <form id="milestone-form" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% for field in milestoneForm %}
+                        {{ field.label_tag }}
+                        {{ field }}
+                    {% endfor %}
+
+                    <button type="submit">Cadastrar</button>
+                </form>
+            </div>
+        {% else %}
+            <div class="milestone-card" id="{{milestone.id}}">
+                <div class="title">
+                    <div class="info">
+                        <img src="{% static 'imgs/info.svg' %}" alt="info">
+                        <h3>{{milestone.name}}</h3>
+                    </div>
+
+                    <div class="buttonEdit"><img src="{% static 'imgs/edit.svg' %}" alt=""></div>
+                </div>
+
+                <div class="description">
+                    <p class="d_title">
+                        Descrição
+                    </p>
+                    <p>{{milestone.description}}</p>
+                </div>
+
+                
+            </div>
+
+            <article class="milestoneDocuments">
+                <div class="title">
+                    <div class="info">
+                        <img src="{% static 'imgs/info.svg' %}" alt="info">
+                        <h3>{{milestone.name}}</h3>
+                    </div>
+
+                    <div class="buttonEdit"><img src="{% static 'imgs/edit.svg' %}" alt=""></div>
+                </div>
+
+                <div class="documents">
+                    <div class="images" id="images{{milestone.id}}">
+                        <section class="slider">
+                            <button id="previous">
+                                <img src="{% static 'imgs/seta.svg' %}" alt="">
+                            </button>
+
+                            <div class="slider-content no_image">
+                                {% if not images %}
+                                    <img id="no_image" src="{% static 'imgs/no_image.svg' %}" alt="no_image">
+                                {% endif %}
+                                {% for image in images %}
+                                    <img src="{{image.file.url}}" alt="no_image">
+                                {% endfor %}
+                            </div>
+                            
+
+                            <button id="next">
+                                <img src="{% static 'imgs/seta.svg' %}" alt="">
+                            </button>
+                        </section>
+                    </div>
+
+                    <div class="geralDocs" id="geralDocs{{milestone.id}}">
+                        <h4>Arquivos <span>anexados</span></h4>
+
+                        <div class="docList">
+                            {% for file in files %}
+                                <a href="{{file.file.url}}" target="_blank" class="docItem">
+                                    <img src="{% static 'imgs/folder.svg' %}" alt="image document">
+                                    <p>{{file.name}}</p>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <form class="uploadForm" url="{% url 'create_file' id=milestone.id type='milestone' %}">
+                    {% csrf_token %}
+                    {{file_form.file}}
+                    <button type="submit">Upload</button>
+                </form>
+            </article>
+
+            <form id="stage_form" url="{% url 'create_state' id=milestone.id %}">
                 {% csrf_token %}
 
-                {% for field in milestoneForm %}
+                {% for field in stageForm %}
                     {{ field.label_tag }}
                     {{ field }}
                 {% endfor %}
 
                 <button type="submit">Cadastrar</button>
             </form>
-        </div>
-    {% else %}
-        <div class="milestone-card" id="{{milestone.id}}">
-            <div id="info">
-                <h3>{{milestone.name}}</h3>
-                <p>{{milestone.description}}</p>
-            </div>
+        {% endif %}
 
-            <form class="uploadForm" url="{% url 'create_file' id=milestone.id type='milestone' %}">
-                {% csrf_token %}
-                {{file_form.file}}
-                <button type="submit">Upload</button>
-            </form>
+        <div id="stage-list">
+            {% for stage in stages %}
+                <div class="stage-card" id="{{stage.id}}">
+                    <div id="info">
+                        <h3>{{stage.name}}</h3>
+                        <p>{{stage.description}}</p>
+                    </div>
 
-            {% for file in files %}
-                {% include 'components/fileView.html' %}
-            {% endfor %}
-        </div>
 
-        <form id="stage_form" url="{% url 'create_state' id=milestone.id %}">
-            {% csrf_token %}
+                    {% for file in stage.files %}
+                        {% include 'components/fileView.html' %}
+                    {% endfor %}
 
-            {% for field in stageForm %}
-                {{ field.label_tag }}
-                {{ field }}
-            {% endfor %}
-
-            <button type="submit">Cadastrar</button>
-        </form>
-    {% endif %}
-
-    <div id="stage-list">
-        {% for stage in stages %}
-            <div class="stage-card" id="{{stage.id}}">
-                <div id="info">
-                    <h3>{{stage.name}}</h3>
-                    <p>{{stage.description}}</p>
+                    <form class="uploadForm" url="{% url 'create_file' id=stage.id type='stage' %}">
+                        {% csrf_token %}
+                        {{file_form.file}}
+                        <button type="submit">Upload</button>
+                    </form>
                 </div>
-
-
-                {% for file in stage.files %}
-                    {% include 'components/fileView.html' %}
-                {% endfor %}
-
-                <form class="uploadForm" url="{% url 'create_file' id=stage.id type='stage' %}">
-                    {% csrf_token %}
-                    {{file_form.file}}
-                    <button type="submit">Upload</button>
-                </form>
-            </div>
-        {% endfor %}
-        <!-- Os novos stages serão adicionados aqui -->
-    </div>
+            {% endfor %}
+            <!-- Os novos stages serão adicionados aqui -->
+        </div>
+    </section>
+</main>
 {% endblock %}
 
 {% block scripts %}
@@ -78,14 +141,6 @@
 
 <script src="{% static 'js/requests/create_file_milestone.js' %}"></script>
 <script src="{% static 'js/requests/create_stage_for_milestone.js' %}"></script>
+<script src="{% static 'js/carrocel.js' %}"></script>
 
-
-<style>
-    .milestone-card {
-        border: 1px solid #ddd;
-        padding: 10px;
-        margin-top: 10px;
-        border-radius: 5px;
-    }
-</style>
 {% endblock %}

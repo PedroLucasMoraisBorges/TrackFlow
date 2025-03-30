@@ -44,6 +44,7 @@ document.getElementById("uploadForm")
 function renderFileElement(fileData) {
     const fileType = fileData.type;
     const fileUrl = fileData.url;
+    const fileName = fileData.name
     const id = fileData.id
     let element;
 
@@ -53,6 +54,8 @@ function renderFileElement(fileData) {
             element.src = fileUrl;
             element.alt = 'Imagem enviada';
             element.classList.add('uploaded-image');
+
+            document.getElementById('no_image').remove()
             break;
         case 'pdf': // PDF
             element = document.createElement('a');
@@ -110,8 +113,20 @@ function renderFileElement(fileData) {
     }
 
     // Adiciona o elemento criado ao DOM (por exemplo, dentro de um contêiner com id "uploaded-files")
-    console.log(id)
-    const container = document.getElementById(id);
+
+    let container = null
+    let newId = ''
+    if (fileType == 'image') {
+        newId = 'images'+id
+        container = document.querySelector(`#${newId} .slider .slider-content`);
+    }
+    else {
+        newId = 'geralDocs'+id
+        container = document.querySelector(`#${newId} .docList`);
+    }
+
+    console.log(newId)
+
     if (container) {
         container.appendChild(element);
     } else {

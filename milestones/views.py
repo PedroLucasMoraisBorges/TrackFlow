@@ -20,6 +20,8 @@ class RegisterMilestonePage(View):
         milestone = None
         stage_list = []
         files = []
+        images = []
+
         if milestone_id != 'first_creation':
             milestone = get_object_or_404(Milestone, id=milestone_id)
             stages = milestone.stages.all()
@@ -34,9 +36,14 @@ class RegisterMilestonePage(View):
                     }
                 )
             files = milestone.files.all()
-        
-        print(stage_list)
+            images = files.filter(type='image')
+            files = files.exclude(type='image')
 
+            for file in files:
+                if file.type == 'image':
+                    images.append(file)
+                    files.remove(file)
+        
         context = {
             'project' : project,
             'milestone' : milestone,
@@ -44,7 +51,8 @@ class RegisterMilestonePage(View):
             'stageForm' : RegisterStageForm(),
             'stages' : stage_list,
             'file_form' : RegisterFileForm(),
-            'files' : files
+            'files' : files,
+            'images' : images
         }
 
         return render(request, 'manager/registerMilestone.html', context)

@@ -20,7 +20,6 @@ class CreateFile(APIView):
         if type == 'stage':
             target_object = Stage.objects.get(id=id)
     
-
         if form.is_valid():
             
 
@@ -49,12 +48,11 @@ class CreateFile(APIView):
                     status=status.HTTP_400_BAD_REQUEST
                 )
             
+
             file = form.save(commit=False)
             file.type = file_category
             file.save()
             target_object.files.add(file)
-
-            print(file_category)
 
             return Response(
                 {
@@ -63,7 +61,8 @@ class CreateFile(APIView):
                         'id' : id,
                         'file_id' : file.id,
                         'url' : file.file.url,
-                        'type' : file.type
+                        'type' : file.type,
+                        'name' : file.name
                     },
                 }, status=status.HTTP_201_CREATED
             )

@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.milestone-card {
+    border-radius: 5px;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+    margin-bottom: 2rem;
+}
+
+.milestone-card .title {
+    background-color: #5B21B6;
+    display: flex;
+    padding: .6rem 3rem;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.milestone-card .title .info {
+    display: flex;
+    align-items: center;
+    color: white;
+    width: 100%;
+    font-size: 18px;
+}
+
+.milestone-card .title .info img {
+    width: 30px;
+    margin-right: .3rem;
+}
+
+.milestone-card .buttonEdit {
+    background-color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.milestone-card .buttonEdit img {
+    width: 24px;
+}
+
+
+/* Description */
+.description {
+    padding: 1rem 5rem;
+    background-color: white;
+    border-radius: 0px 0px 5px 5px;
+    padding-bottom: 3rem;
+}
+
+.d_title {
+    background-color: #D09EFF;
+    color: #100028;
+    border: 0.7px solid #10002880;
+    padding: 1px 80px;
+    width: min-content;
+    font-weight: bold;
+    border-radius: 20px;
+    margin-bottom: .4rem;
+}
+
+
+/* Milestone Image */
+.slider {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #100028;
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 4px #00000040;
+    margin-bottom: 1.5rem;
+}
+
+.slider-content {
+    height: 600px;
+    width: 100%;
+}
+
+.slider button {
+    background-color: white;
+    border-radius: 100%;
+    border: 0.7px solid #100028;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.slider button img {
+    width: 100%;
+}
+
+.no_image {
+    display: flex;
+    justify-content: center;
+    width: 70%;
+}
+.slider #no_image{
+    width: 40% !important;
+    height: auto;
+}
+
+.slider-content img {
+    width: 100%;  /* Ajusta a largura ao container */
+    height: 100%; /* Ajusta a altura ao container */
+    object-fit: contain; /* Mantém a proporção da imagem sem cortes */
+}
+
+#previous {
+    transform: rotate(180deg);
+}
+
+/* MilestoneDocuments */
+.milestoneDocuments {
+    border-radius: 5px;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+}
+
+.milestoneDocuments .title {
+    background-color: #33363F;
+    display: flex;
+    padding: .6rem 3rem;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.milestoneDocuments .title .info {
+    display: flex;
+    align-items: center;
+    color: white;
+    width: 100%;
+    font-size: 18px;
+}
+
+.milestoneDocuments .title .info img {
+    width: 30px;
+    margin-right: .3rem;
+}
+
+.milestoneDocuments .buttonEdit {
+    background-color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.milestoneDocuments .buttonEdit img {
+    width: 24px;
+}
+
+.milestoneDocuments .documents {
+    background-color: white;
+    border-radius: 0px 0px 5px 5px;
+    padding: 1.4rem 2.5rem 2.5rem 2.5rem;
+}
+
+.milestoneDocuments .geralDocs h4 {
+    font-size: 20px;
+    margin-bottom: 1rem;
+}
+.milestoneDocuments .geralDocs span{
+    color: #5B21B6;
+    text-decoration: underline;
+}
+
+.milestoneDocuments .geralDocs .docList{
+    display: grid;
+    grid-template-columns: 19% 19% 19% 19% 19%;
+    justify-content: space-between;
+}
+
+.milestoneDocuments .docItem {
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+    padding: 8px;
+    border: 1px solid #8C8C8C;
+    border-radius: 5px;
+    width: 100%; 
+    max-width: 200px; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    text-decoration: none;
+    margin-bottom: 1rem;
+    color: #383737;
+}
+
+.milestoneDocuments .docItem p {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
