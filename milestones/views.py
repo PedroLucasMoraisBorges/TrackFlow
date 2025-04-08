@@ -90,5 +90,18 @@ class FinalizeMilestone(View):
         milestone_historic = Milestone.objects.filter(fk_project=milestone.fk_project).order_by("order")
 
         milestone.order = milestone_historic.last().order + 1
+        milestone.save()
 
         return redirect('register_milestone', project_id=milestone.fk_project.id, milestone_id='first_creation')
+    
+class MarkLastMilestone(View):
+    def get(self, request, id):
+        milestone = Milestone.objects.get(id=id)
+        milestone_historic = Milestone.objects.filter(fk_project=milestone.fk_project).order_by("order")
+
+        milestone.order = milestone_historic.last().order + 1
+        milestone.save()
+
+        project = Project.objects.get(id=milestone.fk_project.id)
+
+        return redirect('view_project', id=project.id)

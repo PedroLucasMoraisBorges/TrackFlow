@@ -109,7 +109,7 @@
 
             <div class="milestoneButtons">
                 <a href="{% url 'finalize_milestone' id=milestone.id %}">Salvar Milestone</a>
-                <a href="">Salvar Projeto</a>
+                <a href="{% url 'mark_last_milestone' id=milestone.id %}">Salvar Projeto</a>
             </div>
         {% endif %}
     </section>
