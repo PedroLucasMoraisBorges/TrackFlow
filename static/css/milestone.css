@@ -27,7 +27,7 @@
     margin-right: .3rem;
 }
 
-.milestone-card .buttonEdit {
+.buttonEdit {
     background-color: white;
     width: 40px;
     height: 40px;
@@ -162,7 +162,7 @@
 .milestoneDocuments .documents {
     background-color: white;
     border-radius: 0px 0px 5px 5px;
-    padding: 1.4rem 2.5rem 2.5rem 2.5rem;
+    padding: 1.4rem 2.5rem 1.4rem 2.5rem;
 }
 
 .milestoneDocuments .geralDocs h4 {
@@ -202,4 +202,126 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+
+/* STAGES */
+
+.stages {
+    border-radius: 5px;
+}
+
+.stage-card {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 0.6rem 2rem;
+    cursor: pointer;
+    color: black;
+    transition: background-color 0.5s ease, color 0.3s ease;
+    margin-top: 1rem;
+}
+
+.stage-card .stage_name {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.stage-card .stage_name img {
+    margin-right: 20px;
+    width: 1.8rem;
+    transition: filter 0.3s ease;
+}
+
+.stage-card h3 {
+    font-weight: normal;
+    font-size: 1.2rem;
+    transition: color 0.1s ease;
+}
+
+.dropdown-icon {
+    width: 1rem;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.dropdown-content {
+    max-height: 0;
+    overflow: hidden;
+    background-color: #6a0dad;
+    color: white;
+    border-radius: 0 0 5px 5px;
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+    position: relative;
+    padding-bottom: 3rem; /* Garante espaço para os botões no final */
+}
+
+.dropdown-content p {
+    margin-bottom: 2rem;
+    padding: 0rem 2rem 0rem 2rem;
+}
+
+.dropdown-content .buttonEdit {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.stage-card.active {
+    background-color: #6a0dad;
+    color: white;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.stage-card.active .stage_name img,
+.stage-card.active .dropdown-icon {
+    filter: brightness(0) invert(1);
+}
+
+.stage-card + .dropdown-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+    padding: 0 20px; /* Remove padding quando fechado */
+}
+
+.stage-card.active + .dropdown-content {
+    max-height: 300px; /* Ajuste conforme o conteúdo */
+    padding: 10px 20px;
+}
+.stage-card.active .dropdown-icon {
+    transform: rotate(180deg);
+}
+
+
+.edit-input, .edit-textarea {
+    width: 100%;
+    padding: 5px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.edit-textarea {
+    resize: vertical;
+    min-height: 50px;
+}
+
+.buttonEdit {
+    display: flex;
+    gap: 5px;
+    border: 0;
+}
+
+.save-btn, .cancel-btn {
+    background-color: #6a0dad;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.cancel-btn {
+    background-color: #d9534f;
 }

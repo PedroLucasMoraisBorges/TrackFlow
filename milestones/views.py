@@ -36,14 +36,7 @@ class RegisterMilestonePage(View):
                     }
                 )
             files = milestone.files.all()
-            images = files.filter(type='image')
-            files = files.exclude(type='image')
 
-            for file in files:
-                if file.type == 'image':
-                    images.append(file)
-                    files.remove(file)
-        
         context = {
             'project' : project,
             'milestone' : milestone,
@@ -52,7 +45,6 @@ class RegisterMilestonePage(View):
             'stages' : stage_list,
             'file_form' : RegisterFileForm(),
             'files' : files,
-            'images' : images
         }
 
         return render(request, 'manager/registerMilestone.html', context)
@@ -91,3 +83,12 @@ class CreateMilestone(APIView):
                 status=status.HTTP_201_CREATED,
             )
         return Response({"error": "Dados inválidos"}, status=status.HTTP_400_BAD_REQUEST)
+
+class FinalizeMilestone(View):
+    def get(self, request, id):
+        milestone = Milestone.objects.get(id=id)
+        milestone_historic = Milestone.objects.filter(fk_project=milestone.fk_project).order_by("order")
+
+        milestone.order = milestone_historic.last().order + 1
+
+        return redirect('register_milestone', project_id=milestone.fk_project.id, milestone_id='first_creation')
