@@ -20,6 +20,8 @@ class RegisterMilestonePage(View):
         milestone = None
         stage_list = []
         files = []
+        images = []
+
         if milestone_id != 'first_creation':
             milestone = get_object_or_404(Milestone, id=milestone_id)
             stages = milestone.stages.all()
@@ -34,8 +36,6 @@ class RegisterMilestonePage(View):
                     }
                 )
             files = milestone.files.all()
-        
-        print(stage_list)
 
         context = {
             'project' : project,
@@ -44,7 +44,7 @@ class RegisterMilestonePage(View):
             'stageForm' : RegisterStageForm(),
             'stages' : stage_list,
             'file_form' : RegisterFileForm(),
-            'files' : files
+            'files' : files,
         }
 
         return render(request, 'manager/registerMilestone.html', context)
@@ -83,3 +83,25 @@ class CreateMilestone(APIView):
                 status=status.HTTP_201_CREATED,
             )
         return Response({"error": "Dados inválidos"}, status=status.HTTP_400_BAD_REQUEST)
+
+class FinalizeMilestone(View):
+    def get(self, request, id):
+        milestone = Milestone.objects.get(id=id)
+        milestone_historic = Milestone.objects.filter(fk_project=milestone.fk_project).order_by("order")
+
+        milestone.order = milestone_historic.last().order + 1
+        milestone.save()
+
+        return redirect('register_milestone', project_id=milestone.fk_project.id, milestone_id='first_creation')
+    
+class MarkLastMilestone(View):
+    def get(self, request, id):
+        milestone = Milestone.objects.get(id=id)
+        milestone_historic = Milestone.objects.filter(fk_project=milestone.fk_project).order_by("order")
+
+        milestone.order = milestone_historic.last().order + 1
+        milestone.save()
+
+        project = Project.objects.get(id=milestone.fk_project.id)
+
+        return redirect('view_project', id=project.id)

@@ -43,6 +43,8 @@ class EditStage(APIView):
         stage = Stage.objects.get(id=id)
         form = EditStageForm(request.POST, request.FILES, instance=stage)
 
+        print("kdklfdklfsfdsfdsfsdfdfds")
+
         if form.is_valid():
             stage = form.save()
 

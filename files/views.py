@@ -20,14 +20,12 @@ class CreateFile(APIView):
         if type == 'stage':
             target_object = Stage.objects.get(id=id)
     
-
         if form.is_valid():
             
 
             uploaded_file = request.FILES['file']
-            file_type = uploaded_file.content_type  # Obtém o tipo MIME do arquivo
+            file_type = uploaded_file.content_type 
 
-            # Mapeamento dos tipos MIME para categorias
             categories = {
                 'image': ['image/jpeg', 'image/png', 'image/gif', 'image/bmp'],
                 'pdf': ['application/pdf'],
@@ -35,26 +33,23 @@ class CreateFile(APIView):
                 'excel': ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
             }
 
-            # Função para categorizar o tipo de arquivo
             file_category = None
             for category, mime_types in categories.items():
                 if file_type in mime_types:
                     file_category = category
                     break
 
-            # Se não encontrar uma categoria, retorna erro
             if not file_category:
                 return Response(
                     {'error': 'Tipo de arquivo inválido.'}, 
                     status=status.HTTP_400_BAD_REQUEST
                 )
             
+
             file = form.save(commit=False)
             file.type = file_category
             file.save()
             target_object.files.add(file)
-
-            print(file_category)
 
             return Response(
                 {
@@ -63,7 +58,8 @@ class CreateFile(APIView):
                         'id' : id,
                         'file_id' : file.id,
                         'url' : file.file.url,
-                        'type' : file.type
+                        'type' : file.type,
+                        'name' : file.name
                     },
                 }, status=status.HTTP_201_CREATED
             )

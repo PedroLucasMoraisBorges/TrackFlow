@@ -44,76 +44,35 @@ document.getElementById("uploadForm")
 function renderFileElement(fileData) {
     const fileType = fileData.type;
     const fileUrl = fileData.url;
-    const id = fileData.id
-    let element;
+    const fileName = fileData.name;
+    const id = fileData.id;
 
-    switch(fileType) {
-        case 'image': // Imagens
-            element = document.createElement('img');
-            element.src = fileUrl;
-            element.alt = 'Imagem enviada';
-            element.classList.add('uploaded-image');
-            break;
-        case 'pdf': // PDF
-            element = document.createElement('a');
-            element.href = fileUrl;
-            element.target = '_blank';
-            element.textContent = 'Abrir PDF';
-            element.classList.add('uploaded-pdf');
-            break;
-        case 'csv': // CSV
-            element = document.createElement('a');
-            element.href = fileUrl;
-            element.target = '_blank';
-            element.textContent = 'Abrir CSV';
-            element.classList.add('uploaded-csv');
-            break;
-        case 'excel': // Excel
-            element = document.createElement('a');
-            element.href = fileUrl;
-            element.target = '_blank';
-            element.textContent = 'Abrir Excel';
-            element.classList.add('uploaded-excel');
-            break;
-        case 'docx': // Word
-            element = document.createElement('a');
-            element.href = fileUrl;
-            element.target = '_blank';
-            element.textContent = 'Abrir Documento Word';
-            element.classList.add('uploaded-docx');
-            break;
-        case 'txt': // Texto
-            element = document.createElement('a');
-            element.href = fileUrl;
-            element.target = '_blank';
-            element.textContent = 'Abrir Arquivo de Texto';
-            element.classList.add('uploaded-txt');
-            break;
-        case 'pptx': // PowerPoint
-            element = document.createElement('a');
-            element.href = fileUrl;
-            element.target = '_blank';
-            element.textContent = 'Abrir Apresentação PowerPoint';
-            element.classList.add('uploaded-pptx');
-            break;
-        case 'zip': // Arquivo ZIP
-            element = document.createElement('a');
-            element.href = fileUrl;
-            element.target = '_blank';
-            element.textContent = 'Baixar Arquivo ZIP';
-            element.classList.add('uploaded-zip');
-            break;
-        default:
-            element = document.createElement('p');
-            element.textContent = 'Tipo de arquivo não suportado.';
-            element.classList.add('unsupported-file');
-    }
+    let a = document.createElement("a");
+    a.href = fileUrl;
+    a.target = "_blank";
+    a.classList.add("docItem");
 
-    // Adiciona o elemento criado ao DOM (por exemplo, dentro de um contêiner com id "uploaded-files")
-    console.log(id)
-    const container = document.getElementById(id);
+    // Cria o elemento img
+    const img = document.createElement("img");
+    img.src = "/static/imgs/folder.svg";
+    img.alt = "image document";
+
+    // Cria o elemento p
+    const p = document.createElement("p");
+    p.textContent = fileName;
+
+    // Adiciona os elementos filhos corretamente
+    a.appendChild(img);
+    a.appendChild(p);
+
+    // Adiciona o elemento ao DOM
+    let newId = 'geralDocs' + id;
+    let container = document.querySelector(`#${newId} .docList`);
+
+    console.log(newId);
+
     if (container) {
-        container.appendChild(element);
+        container.appendChild(a);
     } else {
         console.log("Container para arquivos não encontrado!");
     }
