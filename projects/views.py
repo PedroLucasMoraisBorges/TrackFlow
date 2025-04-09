@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from .models import *
-from .forms  import  * 
+from .forms  import  *
+from milestones.forms import * 
 from milestones.models import *
-from milestones.forms import *
+from files.forms import *
 from stages.models import *
 from stages.forms import *
 from rest_framework.views import APIView
@@ -57,46 +58,21 @@ class ViewProject(View):
 
         for mls in project_milestones:
             stages = mls.stages.order_by('dt_creation')
-            returning_stages = []
             files = mls.files.all()
-
-            for stg in stages:
-                stg_files = stg.files.all()
-                stg_stgs = stg.stages.all()
-                sub_stages = []
-                
-                for sub_stage in stg_stgs:
-                    sub_stages.append(
-                        {
-                            'info' : sub_stage,
-                            'form' : EditStageForm(instance=sub_stage)
-                        }
-                    )
-
-                form = EditStageForm(instance=stg)
-
-                returning_stages.append(
-                    {   
-                        'info' : stg,
-                        'files' : stg_files,
-                        'sub_stages' : sub_stages,
-                        'form' : form
-                    }
-                )
 
             returning_milestones.append(
                 {
-                'info' : mls,
-                'files' : files,
-                'stages' : returning_stages,
-                'form' : EditMilestoneForm(instance=mls)
+                    'info' : mls,
+                    'files' : files,
+                    'stages' : stages
                 }
             )
         
         context = {
             'projetc' : project,
             'edit_project_form' : edit_project_form,
-            'milestones' : returning_milestones
+            'milestones' : returning_milestones,
+            'file_form' : RegisterFileForm(),
         }
 
         return render(request, 'manager/viewProject.html', context)

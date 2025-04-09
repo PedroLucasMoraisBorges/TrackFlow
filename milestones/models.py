@@ -12,6 +12,7 @@ class Milestone(models.Model):
     name = models.CharField(max_length=64)
     description = models.TextField(null=False)
     order = models.IntegerField(default=0)
+    is_finished = models.BooleanField(default=False)
     
     fk_project = models.ForeignKey(Project, related_name='project', on_delete=models.CASCADE)
     stages = models.ManyToManyField(Stage, related_name='milestone_stages')

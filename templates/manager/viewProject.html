@@ -1,32 +1,66 @@
 {% extends 'components/base.html' %}
+{% load static %}
 
 
 {% block head %}
 <title>{{project.name}}</title>
+<link rel="stylesheet" href="{% static 'css/milestone.css' %}">
 {% endblock %}
 
 
 {% block body %}
-<div>
-    {% for milestone in milestones %}
-        <div>
-            <h2>{{milestone.info.name}}</h2>
-            <h3>{{milestone.info.description}}</h3>
-        </div>
+<main>
+    {% include 'components/sidebar.html' %}
 
+    <section id="main_section">
+        <article class="roadMap_milestones">
+            {% for milestone in milestones %}
+                <div id="{{milestone.info.id}}">
+                    <div>
+                        <p>{{milestone.info.order}}° Marco</p>
+                    </div>
 
-        <div class="stages">
-            {% for stage in milestone.stages %}
-                <div>
-                    <p><strong>{{stage.info.name}}</strong></p>
-                    <p>{{stage.info.description}}</p>
+                    <div>
+                        {{milestone.info.name}}
+                    </div>
                 </div>
             {% endfor %}
-        </div>
-    {% endfor %}
-</div>
+        </article>
+        {% for milestone in milestones %}
+            <section id="milestoneDiv{{milestone.info.id}}" order="{{milestone.info.order}}">
+                {% with milestone=milestone.info files=milestone.files %}
+                    {% include 'components/milestoneCard.html' %}
+                {% endwith %}
+
+                <div class="stages">
+                    {% for stage in milestone.stages %}
+                        {% include 'components/stageCard.html' %}
+                    {% endfor %}
+                </div>
+            </section>
+        {% endfor %}
+    </section>
+</main>
 {% endblock %}
 
 
 {% block scripts %}
+<script src="{% static 'js/requests/create_file_milestone.js' %}"></script>
+<script src="{% static 'js/requests/create_stage_for_milestone.js' %}"></script>
+<script src="{% static 'js/inlineEdit.js' %}"></script>
+
+<script>
+    function toggleStageDropdown(element) {
+        const dropdownContent = element.nextElementSibling;
+
+        // Se estiver em modo de edição, cancela o toggle
+        const isEditing = dropdownContent.querySelector(".edit-input, .edit-textarea") !== null;
+        if (isEditing) {
+            console.log("Dropdown bloqueado durante edição.");
+            return;
+        }
+
+        element.classList.toggle("active");
+    }
+</script>
 {% endblock %}

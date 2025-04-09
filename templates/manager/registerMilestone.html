@@ -25,73 +25,12 @@
                 </form>
             </div>
         {% else %}
-            <div class="milestone-card" id="{{milestone.id}}">
-                <div class="title">
-                    <div class="info">
-                        <img src="{% static 'imgs/info.svg' %}" alt="info">
-                        <h3>{{milestone.name}}</h3>
-                    </div>
-
-                    <div class="buttonEdit"><img src="{% static 'imgs/edit.svg' %}" alt=""></div>
-                </div>
-
-                <div class="description">
-                    <p class="d_title">
-                        Descrição
-                    </p>
-                    <p>{{milestone.description}}</p>
-                </div>
-
-                
-            </div>
-
-            <article class="milestoneDocuments">
-                <div class="title">
-                    <div class="info">
-                        <img src="{% static 'imgs/info.svg' %}" alt="info">
-                        <h3>Arquivos anexados do {{milestone.name}} (imagens, PDF’s, arquivos, etc.)</h3>
-                    </div>
-
-                    <div class="buttonEdit"><img src="{% static 'imgs/edit.svg' %}" alt=""></div>
-                </div>
-
-
-                <div class="documents">
-                    <div class="geralDocs" id="geralDocs{{milestone.id}}">
-                        <div class="docList">
-                            {% for file in files %}
-                                <a href="{{file.file.url}}" target="_blank" class="docItem">
-                                    <img src="{% static 'imgs/folder.svg' %}" alt="image document">
-                                    <p>{{file.name}}</p>
-                                </a>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-
-                <form class="uploadForm" url="{% url 'create_file' id=milestone.id type='milestone' %}">
-                    {% csrf_token %}
-                    {{file_form.file}}
-                    <button type="submit">Upload</button>
-                </form>
-            </article>
+        
+            {% include 'components/milestoneCard.html' %}
 
             <article class="stages">
                 {% for stage in stages %}
-                    <div class="stage-card" onclick="toggleStageDropdown(this)" id="stage{{stage.id}}">
-                        <div class="stage_name">
-                            <img src="{% static 'imgs/bar-chart-steps.svg' %}" alt="">
-                            <h3>{{ stage.name }}</h3>
-                        </div>
-                        <img class="dropdown-icon" src="{% static 'imgs/dropdown.svg' %}" alt="">
-                    </div>
-                    <form class="dropdown-content" id="stage.id" url="{% url 'edit_stage' id=stage.id %}">
-                        {% csrf_token %}
-                        <p>{{ stage.description }}</p>
-                        <div class="buttons">
-                            <button class="buttonEdit" onclick="enableEdit(this)"><img src="{% static 'imgs/edit.svg' %}" alt=""></button>
-                        </div>
-                    </form>
+                    {% include 'components/stageCard.html' %}
                 {% endfor %}
             </article>
 
@@ -117,8 +56,6 @@
 {% endblock %}
 
 {% block scripts %}
-<!-- <script src="{% static 'js/requests/create_milestone.js' %}"></script> -->
-
 <script src="{% static 'js/requests/create_file_milestone.js' %}"></script>
 <script src="{% static 'js/requests/create_stage_for_milestone.js' %}"></script>
 <script src="{% static 'js/inlineEdit.js' %}"></script>
