@@ -23,16 +23,58 @@
         
             <button type="submit">Cadastrar</button>
         </form>
+
+        <form id="generate_ai">
+            <h2>Crie o projeto com IA</h2>
+            {% csrf_token %}
+
+            <textarea id="description_for_ai" name="description">
+
+            </textarea>
+
+            <input type="hidden" name="owner" id="owner" value="{{client.id}}">
+
+            <button>Criar</button>
+        </form>
         
         {% for project in projects %}
             <a href="{% url 'view_project' id=project.id %}">{{project.name}}</a>
         {% endfor %}
-        
-        {% include 'components/example_inline_edit.html' %}
     </section>
 </main>
 {% endblock %}
 
 <!-- Aqui pode ser colocado todo o conteúdo do <script> ou importar scripts pelo src -->
 {% block scripts %}
+<script>
+    document.getElementById('generate_ai').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const description = document.querySelector('#description_for_ai').value;
+        const owner = document.querySelector('#owner').value;
+
+        fetch('/createProjectWithAi/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ description: description, owner: owner })
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Erro ao gerar projeto.");
+            return response.json();
+        })
+        .then(data => {
+            console.log()
+            if (data.redirect_url) {
+                window.location.href = data.redirect_url;
+            }
+        })
+        .catch(error => {
+            console.error("Erro:", error);
+            document.getElementById('output').textContent = 'Erro ao gerar projeto.';
+        });
+    });
+</script>
 {% endblock %}

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views import View
 from .models import *
 from .forms  import  *
@@ -76,3 +77,117 @@ class ViewProject(View):
         }
 
         return render(request, 'manager/viewProject.html', context)
+    
+from google import generativeai as genai
+import json
+
+class CreateProjectWithAi(APIView):
+    def post(self, request):
+        genai.configure(api_key="AIzaSyBE28Htrlf6l8Bdo41GV5SmQsxYSP46aPQ")
+        model = genai.GenerativeModel('gemini-1.5-pro')
+
+        prompt = request.data.get("description")  
+        ownerId = request.data.get("owner")
+
+
+        if not prompt:
+            return Response({"error": "Descrição do projeto está vazia."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        
+        complete_prompt = f"""
+Você é uma IA especialista em gestão de projetos, com foco em estruturação estratégica de qualquer tipo de iniciativa — seja ela criativa, técnica, operacional ou pessoal. Sua função é transformar uma descrição detalhada de um projeto em uma estrutura hierárquica organizada com base em marcos (milestones) e etapas (stages), independentemente do setor ou natureza do projeto.
+
+Regras gerais:
+     1. Leia com atenção toda a descrição do projeto fornecida pelo usuário.
+     2. Identifique os principais objetivos, entregas esperadas e atividades-chave descritas.
+     3. Divida o projeto em marcos principais, representando fases, temas ou grandes entregas.
+     4. Dentro de cada marco, defina etapas específicas, que são ações ou componentes detalhados daquela entrega.
+     5. Utilize linguagem objetiva, técnica e adaptada ao contexto do projeto — seja ele corporativo, pessoal, artístico ou operacional.
+     6. Nunca utilize nomes genéricos como “Etapa 1” ou “Marco 1”. Sempre nomeie com base no conteúdo específico.
+     7. A saída deve ser exclusivamente no formato JSON, conforme a estrutura a seguir.
+     8. A saída deve ser exclusivamente no formato JSON, obedecendo à estrutura abaixo.
+     9. Não adicione a palavra json para identificar o objeto, isso atrapalha a manipulação dos dados.
+
+Descrição do projeto fornecida pelo usuário:
+{prompt}
+
+Estrutura JSON obrigatória de saída:
+{{
+  "project_name": "Título inferido com base na descrição",
+  "project_description": "Resumo conciso e técnico do projeto como um todo",
+  "milestones": [
+    {{
+      "milestone_name": "Nome do marco (claro e descritivo)",
+      "milestone_description": "Descrição do marco explicando sua função no projeto",
+      "milestone_stages": [
+        {{
+          "stage_name": "Nome da etapa (específico e técnico)",
+          "stage_description": "Descrição detalhada da etapa"
+        }}
+        // ... outras etapas
+      ]
+    }}
+    // ... outros marcos
+  ]
+}}
+"""
+        response = model.generate_content(complete_prompt)
+        
+        project_data = json.loads(response.text)
+
+        owner = User.objects.get(id=ownerId)
+
+        
+
+        project = Project.objects.create(
+            name = project_data['project_name'],
+            description = project_data['project_description'],
+            fk_manager = request.user,
+            fk_owner = owner
+        )
+        project.save()
+
+        print(project.id)
+
+        order = 0
+
+        for mlst in project_data['milestones']:
+            order += 1
+            milestone = Milestone.objects.create(
+                name = mlst['milestone_name'],
+                description = mlst['milestone_description'],
+                order = order,
+                fk_project = project
+            )
+            milestone.save()
+
+            for stage in mlst['milestone_stages']:
+                stage = Stage.objects.create(
+                    name = stage['stage_name'],
+                    description = stage['stage_description']
+                )
+                stage.save()
+
+                milestone.stages.add(stage)
+                milestone.save()
+        
+        return Response({'redirect_url': reverse('view_project', kwargs={'id': project.id})}, status=201)
+
+
+
+        # # Acessando alguns dados no JSON
+        # print("Nome do projeto:", project_data['project_name'])
+        # print("Descrição do projeto:", project_data['project_description'])
+
+        # # Acessando os marcos (milestones) e suas etapas
+        # for milestone in project_data['milestones']:
+        #     print(f"\nMarco: {milestone['milestone_name']}")
+        #     print(f"Descrição: {milestone['milestone_description']}")
+        #     for stage in milestone['milestone_stages']:
+        #         print(f"  Etapa: {stage['stage_name']}")
+        #         print(f"  Descrição: {stage['stage_description']}")
+
+        # # Caso queira retornar o dicionário como uma string JSON novamente:
+        # json_string = json.dumps(project_data, indent=2)  # indent=2 para deixar a formatação legível
+        # print("\nJSON formatado novamente:")
+        # print(json_string)
