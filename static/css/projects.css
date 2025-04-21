@@ -1,4 +1,35 @@
-/* LIST */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+dialog::backdrop{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: none;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.user_welcome {
+    font-size: 2.5em;
+    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
 
 .projects_list {
     display: grid;
@@ -6,6 +37,13 @@
     justify-content: space-between;
 }
 
+.add_button{
+    transition: all 0.5s linear;
+}
+.add_button:hover{
+    background-color: rgb(71, 34, 130);
+    box-shadow: 0px 2px 2px rgb(130, 130, 130);
+}
 
 /* CARD */
 .project_card {
@@ -61,6 +99,21 @@
     animation: fadeIn 0.3s ease;
 }
 
+.new_project_title {
+    display: flex;
+    flex-direction: row;
+    padding-block: 2rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.new_project_title h2 {
+    font-size: 2.5em;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
 .modal-content {
     background-color: #fff;
     margin: 15% auto;
@@ -68,8 +121,16 @@
     border-radius: 10px;
     width: 50%;
     animation: slideIn 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+.modal-content img {
+    width: 100%;
+    display: block;
+    margin-bottom: .6rem;
+}
 .close {
     color: #aaa;
     font-size: 28px;
@@ -78,6 +139,41 @@
     top: 10px;
     right: 10px;
     cursor: pointer;
+}
+
+.new_project_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+}
+.new_project_form label {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.new_project_form input, select, textarea {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.new_project_form input, select {
+    width: 400px;
+    height: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+    box-shadow: 0px 2px 2px rgb(130, 130, 130);
+}
+
+.new_project_form textarea {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 2px rgb(130, 130, 130);
 }
 
 .close:hover,
@@ -111,24 +207,18 @@
     margin-bottom: 15px;
 }
 
-.modal button {
+.register_button {
+    background-color: #5B21B6;
+    color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    border-radius: 100px;
+    transition: all 0.5s linear;
+    width:100%
 }
 
-.modal button[type="submit"] {
-    background-color: #5B21B6;
-    color: white;
-}
-
-.modal button[type="button"] {
-    color: #1E1E1E;
-    border: 1px solid #1E1E1E;
-}
-
-
-.modal button[type="submit"]:hover {
-    background-color: #4C1D95;
+.register_button:hover{
+    background-color: #8f60dc;
 }

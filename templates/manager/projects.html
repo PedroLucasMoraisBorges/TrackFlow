@@ -15,7 +15,7 @@
     {% include 'components/sidebar.html' %}
 
     <section id="main_section">
-        <h1>Meus Projetos</h1>
+        <h1 class="user_welcome">Meus Projetos</h1>
         
         <div class="div_search">
             <form class="search">
@@ -39,19 +39,28 @@
 
         <div class="modal" id="projectModal">
             <div class="modal-content">
+                <img src="{% static 'imgs/project-image.png' %}" alt=" imagem do título">
                 <span class="close" onclick="closeModal()">&times;</span>
-                <h2>Cadastrar novo projeto</h2>
-                <form method="post">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="form-group">
-                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                            {{ field }}
-                        </div>
-                    {% endfor %}
-                    <button type="submit">Cadastrar</button>
-                    <button type="button" onclick="closeModal()">Fechar</button>
-                </form>
+
+                <div class="new_project_title">
+                    <svg width="36" height="35" viewBox="0 0 36 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18.4585 2.91663V11.125L18.4585 11.1794V11.1794V11.1794V11.1794C18.4584 11.6035 18.4583 12.0156 18.504 12.3555C18.5555 12.7387 18.6811 13.176 19.0443 13.5392C19.4075 13.9024 19.8448 14.0279 20.228 14.0794C20.5679 14.1251 20.98 14.125 21.4041 14.125L21.4585 14.125H29.6668V23.3333C29.6668 27.4581 29.6668 29.5205 28.3854 30.8019C27.104 32.0833 25.0416 32.0833 20.9168 32.0833H15.0835C10.9587 32.0833 8.89631 32.0833 7.6149 30.8019C6.3335 29.5205 6.3335 27.4581 6.3335 23.3333V11.6666C6.3335 7.54184 6.3335 5.47944 7.6149 4.19803C8.89631 2.91663 10.9587 2.91663 15.0835 2.91663H18.4585ZM20.4585 2.91738V11.125C20.4585 11.6246 20.4606 11.8988 20.4862 12.089L20.4872 12.0963L20.4945 12.0973C20.6847 12.1228 20.9588 12.125 21.4585 12.125H29.6661C29.6618 11.2543 29.6334 10.7556 29.4448 10.3003C29.2228 9.76426 28.8013 9.34275 27.9583 8.49975L24.0837 4.62517C23.2407 3.78216 22.8192 3.36066 22.2832 3.13864C21.8279 2.95004 21.3292 2.92165 20.4585 2.91738ZM12.6252 18.9583C12.6252 18.406 13.0729 17.9583 13.6252 17.9583L22.3752 17.9583C22.9274 17.9583 23.3752 18.406 23.3752 18.9583C23.3752 19.5106 22.9274 19.9583 22.3752 19.9583H13.6252C13.0729 19.9583 12.6252 19.5106 12.6252 18.9583ZM13.6252 23.7916C13.0729 23.7916 12.6252 24.2393 12.6252 24.7916C12.6252 25.3439 13.0729 25.7916 13.6252 25.7916H19.4585C20.0108 25.7916 20.4585 25.3439 20.4585 24.7916C20.4585 24.2393 20.0108 23.7916 19.4585 23.7916H13.6252Z" fill="#222222"/>
+                        </svg>
+                    <h2>Novo projeto</h2>
+                </div>
+                <div class="new_project_form">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="form-group">
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                            </div>
+                        {% endfor %}
+                        <button class="register_button" type="submit">Cadastrar</button>
+                        <!-- <button type="button" onclick="closeModal()">Fechar</button> -->
+                    </form>
+                </div>
             </div>
         </div>
     </section>
