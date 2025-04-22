@@ -17,7 +17,10 @@
     grid-template-columns: 20% 20% 20% 20%;
     justify-content: space-between;
 }
-
+.project_image img{
+    width: 20px;
+    height: 20px;
+}
 /* CARD */
 .project_card {
     padding: .8rem;
@@ -179,12 +182,12 @@
 }
 
 .modal button[type="submit"]:hover {
-    background-color: #6d28d9;
+    background-color: #8f60dc; 
 }
 
 .modal button[type="button"] {
     background-color: transparent;
-    color: #6b7280;
+    color: #6b7280; 
     font-weight: 500;
     border: none;
     text-decoration: underline;

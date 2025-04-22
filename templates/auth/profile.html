@@ -1,0 +1,91 @@
+{% extends 'components/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/profile.css'%}">
+<title>Perfil de {{user.name}}</title>
+{% endblock %}
+
+{% block body %}
+<main>
+    {% include 'components/sidebar.html' %}
+    <section id="main_section">
+        <div class="container">
+            <!-- Perfil -->
+            <section class="profile">
+              <div class="profile-banner">
+                <img src="{% static 'imgs/workflowyclient.svg' %}" alt="Foto de perfil" class="profile-picture" />
+              </div>
+              <button class="edit-photo">Editar foto do perfil</button>
+              <div class="profile-info">
+                <h2>{{ user.name }}</h2>
+                <p>Total de Clientes: <strong>1</strong></p>
+                <p>Projetos Criados: <strong>1</strong></p>
+              </div>
+            </section>
+        
+            <div class="main-content">
+              <!-- Minhas Informações -->
+              <section class="info-card">
+                <h3>Minhas Informações</h3>
+                <div class="info-field">
+                  <label>Nome:</label>
+                  <input type="text" value="{{ user.name }}" disabled />
+                </div>
+                <div class="info-field">
+                  <label>Área:</label>
+                  <input type="text" value="Desenvolvedora de Software" disabled />
+                </div>
+                <div class="info-field">
+                  <label>E-mail:</label>
+                  <input type="email" value="{{ user.email}}" disabled />
+                </div>
+                <div class="info-field">
+                  <label>Sobre mim:</label>
+                  <textarea disabled>Lorem ipsum dolor sit amet</textarea>
+                </div>
+                <button>Editar informações</button>
+              </section>
+        
+              <!-- Meus Projetos -->
+              <section class="projects-card">
+                <h3>Meus projetos</h3>
+                <div class="project">
+                  <img src="{% static 'imgs/workflowyroxo.svg' %}" alt="o">
+                  <div class="infoProject">
+                      <span>WorkHub</span>
+                      <p>workhub@email.com</p>
+                      <button>Editar projeto</button>
+                  </div>
+                </div>
+                <br>
+                <hr>
+                <br>
+                <!-- Meus Clientes -->
+              <section class="clients-card">
+                <h3>Meus clientes cadastrados</h3>
+                <div class="client">
+                  <img src="{% static 'imgs/workflowyclient.svg' %}" alt="o">
+                  <div class="infoClient">
+                      <span>👤 Olívia Maria Rodrigues</span>
+                      <p>olivia.rodrigues@email.com</p>
+                      <button>Editar cliente</button>
+                  </div>
+                </div>
+              </section>
+              
+              </section>
+            </div>
+          </div>
+          
+    </section>
+    {% include 'components/footer.html' %}
+</main>
+
+{% endblock %}
+
+<!-- Aqui pode ser colocado todo o conteúdo do <script> ou importar scripts pelo src -->
+{% block scripts %}
+<script>
+    
+</script>
+{% endblock %}

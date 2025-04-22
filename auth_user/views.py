@@ -167,3 +167,17 @@ class ClientPage(View):
         }
 
         return render(request, 'clientPage.html', context)
+    
+# Página de perfil do usuário
+class ProfileView(View):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect('login')
+
+        user = request.user
+
+        context = {
+            'user': user
+        }
+
+        return render(request, 'auth/profile.html', context)

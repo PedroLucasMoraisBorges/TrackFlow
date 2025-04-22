@@ -43,7 +43,9 @@
         <div class="modal" id="projectModal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
+                <!--<img src="{% static 'imgs/backProject.svg' %}" alt="imagem ficticia de projeto" class="project_image"> -->
                 <h2>➕Cadastrar novo projeto</h2>
+                
                 <form method="post">
                     {% csrf_token %}
                     {% for field in form %}
