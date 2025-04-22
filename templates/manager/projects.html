@@ -15,8 +15,11 @@
     {% include 'components/sidebar.html' %}
 
     <section id="main_section">
-        <h1>Meus Projetos</h1>
-        
+        <div class="title">
+            <h1>Meus <span class="spanName">Projetos</span></h1>
+            <hr>
+        </div>
+        <br>
         <div class="div_search">
             <form class="search">
                 <button>
@@ -40,7 +43,7 @@
         <div class="modal" id="projectModal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
-                <h2>Cadastrar novo projeto</h2>
+                <h2>➕Cadastrar novo projeto</h2>
                 <form method="post">
                     {% csrf_token %}
                     {% for field in form %}
@@ -49,13 +52,14 @@
                             {{ field }}
                         </div>
                     {% endfor %}
-                    <button type="submit">Cadastrar</button>
+                    <button type="submit">Criar projeto</button>
                     <button type="button" onclick="closeModal()">Fechar</button>
                 </form>
             </div>
         </div>
     </section>
 </main>
+{% include 'components/footer.html' %}
 {% endblock %}
 
 <!-- Aqui pode ser colocado todo o conteúdo do <script> ou importar scripts pelo src -->

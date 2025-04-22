@@ -5,6 +5,7 @@
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/clientPage.css'%}">
 <link rel="stylesheet" href="{% static 'css/search.css' %}">
+<link rel="stylesheet" href="{% static 'css/LandingPage.css'%}">
 <title>Clientes</title>
 {% endblock %}
 
@@ -14,8 +15,11 @@
     {% include 'components/sidebar.html' %}
 
     <section id="main_section">
-        <h1 class="user_greet"> Clientes </h1>
-        
+        <div class="title">
+            <h1>Meus<span class="spanName">Clientes</span></h1>
+            <hr>
+        </div>
+        <br>
         <div class="div_search">
             <form class="search" method="get">
                 <button type="submit">
@@ -73,6 +77,7 @@
             </div>
     </section>
 </main>
+{% include 'components/footer.html' %}
 {% endblock %}
 
 <!-- Aqui pode ser colocado todo o conteúdo do <script> ou importar scripts pelo src -->

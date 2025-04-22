@@ -8,8 +8,8 @@
 <style>
     aside {
         height: 100%;
-        background-color: #5B21B61A;
-        border-right: 1px solid #1E1E1E59;
+        background-color: #5B21B6;
+        border-right: 4px solid #A855F7;
         padding: 2rem 0rem;
     }
     
@@ -20,8 +20,8 @@
         justify-content: space-between;
         padding: .6rem;
         transition: .3s;
-        color: black;
-        font-weight: bold;
+        color: white;
+        font-weight: normal;
     }
 
     .menu-item img {
@@ -30,8 +30,12 @@
     }
 
     .menu-item:hover {
-        background-color: #5B21B6;
-        color: white;
+        background-color: white;
+        color: #1e1e1e;
+    }
+    .menu-item.active {
+    background-color: white;
+    color: #1e1e1e;
     }
 
     .menu-item:hover img {
@@ -50,14 +54,14 @@
     .dropdown a {
         display: block;
         padding: 0.5rem 1rem;
-        color: black;
+        color: white;
         text-decoration: none;
         transition: 0.3s;
     }
 
     .dropdown a:hover {
-        background-color: #5B21B6;
-        color: white;
+        background-color: #b587ff;
+        color: #ffffff;
     }
 
     .menu-item.open img:last-child {
@@ -71,35 +75,86 @@
 
 <aside>
     <nav>
-        <div class="menu-item" onclick="toggleDropdown('clientsDropdown', this)">
+        <!-- profile -->
+        <div class="menu-item">
             <div style="display: flex; align-items: center;">
-                <img src="{% static 'imgs/users.svg' %}" alt="users">
-                <p>Clientes</p>
+                <img src="{% static 'imgs/perfilbox.svg' %}" alt="perfil">
+                <a href="" style="color: inherit; text-decoration: none; font-weight: bold;">
+                    <p>{{user.name}}</p>
+                </a>
             </div>
-            <img src="{% static 'imgs/dropdown.svg' %}" class="dropdownIcon" alt="">
         </div>
-        <div id="clientsDropdown" class="dropdown">
-            {% for my_client in my_clients %}
-                <a href="{% url 'client_page' id=my_client.id %}">{{my_client.name}}</a>
-            {% endfor %}
-            <a href="{% url 'clients' %}">Lista de Clientes</a>
+        <!-- Início -->
+        <div class="menu-item">
+            <div style="display: flex; align-items: center;">
+                <img src="{% static 'imgs/homeIcon.svg' %}" alt="home">
+                <a href="{% url 'landing_page' %}" style="color: inherit; text-decoration: none;">
+                    <p>Início</p>
+                </a>
+            </div>
         </div>
 
+        <!-- Clientes -->
+        <div class="menu-item" onclick="toggleDropdown('clientsDropdown', this)">
+            <div style="display: flex; align-items: center;">
+                <img src="{% static 'imgs/usersWhite.svg' %}" alt="users">
+                <a href="{% url 'clients'%}" style="color: inherit; text-decoration: none;">
+                    <p>Clientes</p>
+                </a>
+            </div>
+            <img src="{% static 'imgs/dropdownW.svg' %}" class="dropdownIcon" alt="">
+        </div>
+
+        <div id="clientsDropdown" class="dropdown">
+            {% for my_client in my_clients %}
+                <a href="{% url 'client_page' id=my_client.id %}">{{ my_client.name }}</a>
+            {% endfor %}
+            <a href="#">Lista de Clientes</a>
+        </div>
+
+        <!-- Projetos -->
         <div class="menu-item" onclick="toggleDropdown('projectsDropdown', this)">
             <div style="display: flex; align-items: center;">
-                <img src="{% static 'imgs/projects.svg' %}" alt="projects">
-                <p>Projetos</p>
+                <img src="{% static 'imgs/projectsWhite.svg' %}" alt="projects">
+                <a href="{% url 'my_projects' %}" style="color: inherit; text-decoration: none;">
+                    <p>Projetos</p>
+                </a>
             </div>
-            <img src="{% static 'imgs/dropdown.svg' %}" class="dropdownIcon" alt="">
+            <img src="{% static 'imgs/dropdownW.svg' %}" class="dropdownIcon" alt="">
         </div>
+
         <div id="projectsDropdown" class="dropdown">
             {% for my_project in my_projects %}
                 <a href="{% url 'view_project' id=my_project.id %}">{{ my_project.name }}</a>
             {% endfor %}
             <a href="{% url 'my_projects' %}">Meus Projetos</a>
         </div>
+
+        <!-- Gerar com IA -->
+        <div class="menu-item">
+            <div style="display: flex; align-items: center;">
+                <img src="{% static 'imgs/iaIcone.svg' %}" alt="ai">
+                <a href="#" style="color: inherit; text-decoration: none;">
+                    <p>Gerar com IA</p>
+                </a>
+                
+            </div>
+            
+        </div>
+
+        <!-- Templates -->
+        <div class="menu-item">
+            <div style="display: flex; align-items: center;">
+                <img src="{% static 'imgs/templatesadd.svg' %}" alt="">
+                <a href="#" style="color: inherit; text-decoration: none;">
+                    <p>Templates</p>
+                </a>
+            </div>
+            
+        </div>
     </nav>
 </aside>
+
 
 <script>
     function toggleDropdown(id, element) {

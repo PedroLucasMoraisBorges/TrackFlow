@@ -1,13 +1,100 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrackFlow</title>
-</head>
-<body>
-    <h1>Olá Mundo</h1>
-    <a href="{% url 'login' %}">Login</a>
-    <a href="{% url 'register' %}">Cadastro</a>
-</body>
-</html>
+{% extends 'components/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/LandingPage.css'%}">
+<title>{{client.name}}</title>
+{% endblock %}
+
+{% block body %}
+<main>
+    {% include 'components/sidebar.html' %}
+    <section id="main_section">
+        <div class="title-section">
+            <h1>Seja bem-vindo,<span class="spanName"> {{user.name}} </span></h1>
+            <hr>
+        </div>
+    <div class="card-container">
+        <a href="{% url 'my_projects' %}" class="card">
+            <img src="{% static 'imgs/newProjectImg.svg' %}" alt="o">
+            <div class="card-footer">
+                <span>➕ criar novo projeto</span>
+            </div>
+        </a>
+    
+        <a href="{% url 'clients'%}" class="card">
+            <img src="{% static 'imgs/userGroup.svg' %}" alt="Criar Usuário">
+            <div class="card-footer">
+                <span>➕ criar novo usuário</span>
+            </div>
+        </a>
+    
+        <a href="#" class="card">
+            <img  class="gemini" src="{% static 'imgs/gemini1.svg' %}" alt="Gemini">
+            <div class="card-footer">
+                <span>➕ gerar projeto com IA</span>
+            </div>
+        </a>
+    
+        <a href="#" class="card">
+            <img src="{% static 'imgs/templateImg.svg' %}" alt="Templates">
+            <div class="card-footer">
+                <span>➕ templates</span>
+            </div>
+        </a>
+    </div>
+    <div class="title-section">
+        <h2>Últimos <span class="spanName">projetos vistos</span></h2>
+        <hr>
+    </div>
+
+    <div class="project-grid">
+        <a href="{% url 'landing_page' %}" class="project-card">
+            <img src="{% static 'imgs/cardProjectImg.svg' %}" alt="Projeto" class="project-image">
+            <div class="project-info">
+                <img src="{% static 'imgs/avatarImg.svg' %}" alt="Avatar" class="avatar">
+                <div>
+                    <p class="name">Olivia Rhye</p>
+                    <p class="email">olivia@untitledui.com</p>
+                </div>
+            </div>
+            <div class="project-title">
+                <img src="{% static 'imgs/fileDoc.svg' %}" alt="Ícone">
+                <span>AdotePets</span>
+            </div>
+        </a>
+    
+        <!-- Repita para os outros cards -->
+        <!-- ... outros projetos ... -->
+    </div>
+    
+
+    <div class="title-section">
+        <h2>Últimos <span class="spanName">usuários cadastrados</span></h2>
+        <hr>
+    </div>
+
+    <div class="profile-grid">
+        <div class="profile-card">
+            <img src="{% static 'imgs/avatarImg.svg' %}" class="avatar" alt="Avatar">
+            <div>
+                <p class="name">Olivia Rhye</p>
+                <p class="email">olivia@untitledui.com</p>
+            </div>
+        </div>
+        <!-- Repita para os outros usuários -->
+    </div>
+    
+    </section>
+
+
+    {% include 'components/footer.html' %}
+</main>
+
+{% endblock %}
+
+<!-- Aqui pode ser colocado todo o conteúdo do <script> ou importar scripts pelo src -->
+{% block scripts %}
+<script>
+    
+</script>
+{% endblock %}
