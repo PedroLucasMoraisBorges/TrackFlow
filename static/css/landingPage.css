@@ -170,7 +170,7 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: default;
     min-width: 220px;
-    
+    text-decoration: none;
 }
 
 .profile-card:hover {

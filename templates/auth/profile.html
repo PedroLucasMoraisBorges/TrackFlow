@@ -2,7 +2,7 @@
 {% load static %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/profile.css'%}">
-<title>Perfil de {{user.name}}</title>
+<title>Perfil</title>
 {% endblock %}
 
 {% block body %}
@@ -18,8 +18,8 @@
               <button class="edit-photo">Editar foto do perfil</button>
               <div class="profile-info">
                 <h2>{{ user.name }}</h2>
-                <p>Total de Clientes: <strong>1</strong></p>
-                <p>Projetos Criados: <strong>1</strong></p>
+                <p>Total de Clientes: <strong>{{clients_count}}</strong></p>
+                <p>Projetos Criados: <strong>{{projects_count}}</strong></p>
               </div>
             </section>
         
@@ -49,28 +49,32 @@
               <!-- Meus Projetos -->
               <section class="projects-card">
                 <h3>Meus projetos</h3>
-                <div class="project">
-                  <img src="{% static 'imgs/workflowyroxo.svg' %}" alt="o">
-                  <div class="infoProject">
-                      <span>WorkHub</span>
-                      <p>workhub@email.com</p>
-                      <button>Editar projeto</button>
+                {% for project in projects %}
+                  <div class="project">
+                    <img src="{% static 'imgs/workflowyroxo.svg' %}" alt="o">
+                    <div class="infoProject">
+                        <span>{{project.name}}</span>
+                        <p>{{project.fk_owner.email}}</p>
+                        <a href="{% url 'view_project' id=project.id %}">Editar projeto</a>
+                    </div>
                   </div>
-                </div>
+                {% endfor %}
                 <br>
                 <hr>
                 <br>
                 <!-- Meus Clientes -->
               <section class="clients-card">
                 <h3>Meus clientes cadastrados</h3>
-                <div class="client">
-                  <img src="{% static 'imgs/workflowyclient.svg' %}" alt="o">
-                  <div class="infoClient">
-                      <span>👤 Olívia Maria Rodrigues</span>
-                      <p>olivia.rodrigues@email.com</p>
-                      <button>Editar cliente</button>
+                {% for client in clients %}
+                  <div class="client">
+                    <img src="{% static 'imgs/workflowyclient.svg' %}" alt="o">
+                    <div class="infoClient">
+                        <span>👤 {{client}}</span>
+                        <p>{{client.email}}/p>
+                        <a href="{% url 'client_page' id=client.id %}">Ver cliente</a>
+                    </div>
                   </div>
-                </div>
+                {% endfor %}
               </section>
               
               </section>

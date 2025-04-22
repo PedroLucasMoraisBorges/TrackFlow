@@ -99,3 +99,25 @@ class EditProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ['name', 'description'] 
+    
+class CreateProjectWithAiForm(forms.Form):
+    description = forms.CharField(
+        required=True,
+        label='Descrição do Projeto',
+        widget=forms.Textarea(attrs={'id' : 'description_for_ai'})
+    )
+
+    owner = forms.ModelChoiceField(
+        queryset=User.objects.all(),
+        required=True,
+        label='Cliente',
+        widget=forms.Select(attrs={'id' : 'owner'})
+    )
+
+    def __init__(self, *args, **kwargs):
+        manager = kwargs.pop("manager", None)
+        super(CreateProjectWithAiForm, self).__init__(*args, **kwargs)
+
+        if manager:
+            manager = User.objects.get(id=manager.id)
+            self.fields['owner'].queryset = manager.clients.all()

@@ -13,9 +13,18 @@ from rest_framework.response import Response
 from rest_framework import status
 # Create your views here.
 
-class LandingPage(View):
+class Home(View):
     def get(self, request):
-        return render(request, 'landing_page.html')
+        projects = Project.objects.filter(fk_manager=request.user)
+        user = User.objects.get(id=request.user.id)
+
+        clients = user.clients.all()
+
+        context = {
+            'projects' : projects,
+            'clients' : clients
+        }
+        return render(request, 'home.html', context)
     
 # Classe para redirecionamento de tipo de usuário
 class Redirect(View):
@@ -174,10 +183,16 @@ class ProfileView(View):
         if not request.user.is_authenticated:
             return redirect('login')
 
-        user = request.user
+        user = User.objects.get(id=request.user.id)
+        projects = Project.objects.filter(fk_manager=user)
+        clients = user.clients.all()
 
         context = {
-            'user': user
+            'user': user,
+            'projects' : projects,
+            'projects_count' : projects.count(),
+            'clients' : clients,
+            'clients_count' : clients.count()
         }
 
         return render(request, 'auth/profile.html', context)

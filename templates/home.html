@@ -2,7 +2,7 @@
 {% load static %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/LandingPage.css'%}">
-<title>{{client.name}}</title>
+<title>Home</title>
 {% endblock %}
 
 {% block body %}
@@ -28,7 +28,7 @@
             </div>
         </a>
     
-        <a href="#" class="card">
+        <a href="{% url 'ai_page' %}" class="card">
             <img  class="gemini" src="{% static 'imgs/gemini1.svg' %}" alt="Gemini">
             <div class="card-footer">
                 <span>➕ gerar projeto com IA</span>
@@ -48,20 +48,22 @@
     </div>
 
     <div class="project-grid">
-        <a href="{% url 'landing_page' %}" class="project-card">
-            <img src="{% static 'imgs/cardProjectImg.svg' %}" alt="Projeto" class="project-image">
-            <div class="project-info">
-                <img src="{% static 'imgs/avatarImg.svg' %}" alt="Avatar" class="avatar">
-                <div>
-                    <p class="name">Olivia Rhye</p>
-                    <p class="email">olivia@untitledui.com</p>
+        {% for project in projects %}
+            <a href="{% url 'view_project' id=project.id %}" class="project-card">
+                <img src="{% static 'imgs/cardProjectImg.svg' %}" alt="Projeto" class="project-image">
+                <div class="project-info">
+                    <img src="{% static 'imgs/avatarImg.svg' %}" alt="Avatar" class="avatar">
+                    <div>
+                        <p class="name">{{project.fk_owner}}</p>
+                        <p class="email">{{project.fk_owner.email}}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="project-title">
-                <img src="{% static 'imgs/fileDoc.svg' %}" alt="Ícone">
-                <span>AdotePets</span>
-            </div>
-        </a>
+                <div class="project-title">
+                    <img src="{% static 'imgs/fileDoc.svg' %}" alt="Ícone">
+                    <span>{{project.name}}</span>
+                </div>
+            </a>
+        {% endfor %}
     
         <!-- Repita para os outros cards -->
         <!-- ... outros projetos ... -->
@@ -74,13 +76,15 @@
     </div>
 
     <div class="profile-grid">
-        <div class="profile-card">
-            <img src="{% static 'imgs/avatarImg.svg' %}" class="avatar" alt="Avatar">
-            <div>
-                <p class="name">Olivia Rhye</p>
-                <p class="email">olivia@untitledui.com</p>
-            </div>
-        </div>
+        {% for client in clients %}
+            <a href="{% url 'client_page' id=client.id %}" class="profile-card">
+                <img src="{% static 'imgs/avatarImg.svg' %}" class="avatar" alt="Avatar">
+                <div>
+                    <p class="name">{{client}}</p>
+                    <p class="email">{{client.email}}</p>
+                </div>
+            </a>
+        {% endfor %}
         <!-- Repita para os outros usuários -->
     </div>
     

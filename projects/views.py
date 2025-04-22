@@ -81,6 +81,16 @@ class ViewProject(View):
 from google import generativeai as genai
 import json
 
+class AiPage(View):
+    def get(self, request):
+        form = CreateProjectWithAiForm(manager=request.user)
+
+        context = {
+            'form' : form
+        }
+
+        return render(request, 'manager/aiPage.html', context)
+
 class CreateProjectWithAi(APIView):
     def post(self, request):
         genai.configure(api_key="AIzaSyBE28Htrlf6l8Bdo41GV5SmQsxYSP46aPQ")
@@ -172,22 +182,3 @@ Estrutura JSON obrigatória de saída:
                 milestone.save()
         
         return Response({'redirect_url': reverse('view_project', kwargs={'id': project.id})}, status=201)
-
-
-
-        # # Acessando alguns dados no JSON
-        # print("Nome do projeto:", project_data['project_name'])
-        # print("Descrição do projeto:", project_data['project_description'])
-
-        # # Acessando os marcos (milestones) e suas etapas
-        # for milestone in project_data['milestones']:
-        #     print(f"\nMarco: {milestone['milestone_name']}")
-        #     print(f"Descrição: {milestone['milestone_description']}")
-        #     for stage in milestone['milestone_stages']:
-        #         print(f"  Etapa: {stage['stage_name']}")
-        #         print(f"  Descrição: {stage['stage_description']}")
-
-        # # Caso queira retornar o dicionário como uma string JSON novamente:
-        # json_string = json.dumps(project_data, indent=2)  # indent=2 para deixar a formatação legível
-        # print("\nJSON formatado novamente:")
-        # print(json_string)
