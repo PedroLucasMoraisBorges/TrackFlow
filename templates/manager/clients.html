@@ -3,9 +3,9 @@
 
 <!-- Aqui pode ser colocado todo o conteúdo do <head> -->
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/clientPage.css'%}">
-<link rel="stylesheet" href="{% static 'css/search.css' %}">
 
+<link rel="stylesheet" href="{% static 'css/search.css' %}">
+<link rel="stylesheet" href="{% static 'css/clients.css' %}">
 <title>Clientes</title>
 {% endblock %}
 
@@ -16,7 +16,7 @@
 
     <section id="main_section">
         <div class="title-section">
-            <h1>Meus <span class="spanName">Clientes</span></h1>
+            <h1>Gerenciar <span class="spanName">Clientes Cadastrados</span></h1>
             <hr>
         </div>
         <br>
@@ -30,9 +30,11 @@
 
             <button class="add_button open-modal" data-modal="modal-1">
                 <img src="{% static 'imgs/add_ring.svg' %}" alt="">
-                <p>Adicionar novo cliente</p>
+                <p>Adicionar cliente</p>
             </button>
         </div>
+
+        
 
         <dialog id="modal-1">
             <div class="new_client_container">
@@ -72,9 +74,15 @@
                     </a>
                 {% endfor %}
             </div>
+
+        <div class="pagination">
+            {% if clients.has_previous %}
+                <a href="?page={{ clients.previous_page_number }}">&laquo; Anterior</a>
+            {% endif %}
     </section>
+    {% include 'components/footer.html' %}
 </main>
-{% include 'components/footer.html' %}
+
 {% endblock %}
 
 <!-- Aqui pode ser colocado todo o conteúdo do <script> ou importar scripts pelo src -->

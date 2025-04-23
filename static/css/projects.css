@@ -1,5 +1,12 @@
-.title h1{
+.title-section h1{
     margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.title-section h2{
+    margin-top: 3rem;
+    margin-bottom: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -7,9 +14,6 @@
 .spanName{
     color: #5B21B6;
     margin-left: 10px;
-}
-.title hr{
-    margin-bottom: 0;
 }
 /* LIST */
 .projects_list {
@@ -187,7 +191,7 @@
 
 .modal button[type="button"] {
     background-color: transparent;
-    color: #6b7280; 
+    color: #000000; 
     font-weight: 500;
     border: none;
     text-decoration: underline;

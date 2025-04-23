@@ -7,6 +7,7 @@
 
 <link rel="stylesheet" href="{% static 'css/search.css' %}">
 <link rel="stylesheet" href="{% static 'css/projects.css' %}">
+<link rel="stylesheet" href="{% static 'css/LandingPage.css'%}">
 {% endblock %}
 
 <!-- Aqui pode ser colocado todo o conteúdo do <body> -->
@@ -15,8 +16,8 @@
     {% include 'components/sidebar.html' %}
 
     <section id="main_section">
-        <div class="title">
-            <h1>Meus <span class="spanName">Projetos</span></h1>
+        <div class="title-section">
+            <h1>Listagem de <span class="spanName">Projetos Cadastrados </span></h1>
             <hr>
         </div>
         <br>
@@ -34,11 +35,7 @@
             </button>
         </div>
         
-        <div class="projects_list">
-            {% for project in projects %}
-                {% include 'components/projectCard.html' %}       
-            {% endfor %}
-        </div>
+        {% include 'components/projectCard.html' %}       
 
         <div class="modal" id="projectModal">
             <div class="modal-content">
@@ -60,8 +57,9 @@
             </div>
         </div>
     </section>
+    {% include 'components/footer.html' %}
 </main>
-{% include 'components/footer.html' %}
+
 {% endblock %}
 
 <!-- Aqui pode ser colocado todo o conteúdo do <script> ou importar scripts pelo src -->

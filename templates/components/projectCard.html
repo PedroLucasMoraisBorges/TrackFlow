@@ -1,15 +1,24 @@
 {% load static %}
 
 
-<a href="{% url 'view_project' id=project.id %}" class="project_card">
-    <img src="{% static 'imgs/imageProject.png' %}" class="project_img" alt="">
+<div class="project-grid">
+    {% for project in projects %}
+        <a href="{% url 'view_project' id=project.id %}" class="project-card">
+            <img src="{% static 'imgs/cardProjectImg.svg' %}" alt="Projeto" class="project-image">
+            <div class="project-info">
+                <img src="{% static 'imgs/avatarImg.svg' %}" alt="Avatar" class="avatar">
+                <div>
+                    <p class="name">{{project.fk_owner}}</p>
+                    <p class="email">{{project.fk_owner.email}}</p>
+                </div>
+            </div>
+            <div class="project-title">
+                <img src="{% static 'imgs/fileDoc.svg' %}" alt="Ícone">
+                <span>{{project.name}}</span>
+            </div>
+        </a>
+    {% endfor %}
 
-    <div class="client">
-        <p class="name">{{project.fk_owner.name}}</p>
-        <p class="email">{{project.fk_owner.email}}</p>
-    </div>
-
-    <div class="project">
-        <p>{{project.name}}</p>
-    </div>
-</a>   
+    <!-- Repita para os outros cards -->
+    <!-- ... outros projetos ... -->
+</div>

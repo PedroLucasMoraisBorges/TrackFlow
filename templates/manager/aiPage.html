@@ -3,7 +3,7 @@
 
 <!-- Aqui pode ser colocado todo o conteúdo do <head> -->
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/clientPage.css'%}">
+<link rel="stylesheet" href="{% static 'css/aiPage.css'%}">
 <link rel="stylesheet" href="{% static 'css/search.css' %}">
 
 <title>Gerar com IA</title>
@@ -16,23 +16,29 @@
 
     <section id="main_section">
         <div class="title-section">
-            <h1>Crie seu projeto com <span class="spanName">IA</span></h1>
+            <h1>Geração de projetos <span class="spanName">com IA Gemini </span></h1>
             <hr>
+            <br>
         </div>
-        <br>
-
-        <form id="generate_ai">
-            <h2>Crie o projeto com IA</h2>
+        <form id="generate_ai" class="form-ai">
+            <h2>Crie aqui seu projeto com IA</h2>
             {% csrf_token %}
 
-            {{form.description}}
+            <textarea id="description_for_ai" name="description" placeholder="Descreva de forma clara e objetiva como você deseja seu novo projeto (Ex: etapas, marcos, descrições)."></textarea>
+            <input type="hidden" id="owner" name="owner" value="{{ request.user.id }}">
 
-            </textarea>
-
-            {{form.owner}}
-
-            <button>Criar</button>
+            <button type="submit" class="btn-ai">Gerar projeto com IA</button>
+            <p class="cancel-link" onclick="history.back()">Cancelar</p>
         </form>
+
+        <!-- Tela de carregamento -->
+        <div id="loading_screen" class="loading-screen hidden">
+            <img src="{% static 'imgs/TrackFlowBranca.svg' %}" alt="logo-trackflow">
+            <div class="loader"></div>
+            <p id="loading_message">Analisando sua descrição...</p>
+            <button onclick="cancelLoading()" class="cancel-button">Cancelar</button>
+        </div>
+
     </section>
 </main>
 {% include 'components/footer.html' %}
@@ -70,5 +76,66 @@
             document.getElementById('output').textContent = 'Erro ao gerar projeto.';
         });
     });
+    const messages = [
+        "Analisando sua descrição...",
+        "Gerando etapas do projeto...",
+        "Criando marcos e entregáveis...",
+        "Finalizando estrutura do projeto..."
+    ];
+
+    let currentMsg = 0;
+    let intervalId = null;
+
+    function showLoading() {
+        document.getElementById('loading_screen').classList.remove('hidden');
+        const loadingText = document.getElementById('loading_message');
+        currentMsg = 0;
+        intervalId = setInterval(() => {
+            loadingText.textContent = messages[currentMsg];
+            currentMsg = (currentMsg + 1) % messages.length;
+        }, 2000);
+    }
+
+    function hideLoading() {
+        clearInterval(intervalId);
+        document.getElementById('loading_screen').classList.add('hidden');
+    }
+
+    function cancelLoading() {
+        hideLoading();
+        alert("Processo cancelado.");
+    }
+
+    document.getElementById('generate_ai').addEventListener('submit', function (e) {
+        e.preventDefault();
+        showLoading();
+
+        const description = document.querySelector('#description_for_ai').value;
+        const owner = document.querySelector('#owner').value;
+
+        fetch('/createProjectWithAi/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ description: description, owner: owner })
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Erro ao gerar projeto.");
+            return response.json();
+        })
+        .then(data => {
+            if (data.redirect_url) {
+                window.location.href = data.redirect_url;
+            }
+        })
+        .catch(error => {
+            console.error("Erro:", error);
+            hideLoading();
+            alert("Erro ao gerar projeto.");
+        });
+    });
+    
 </script>
 {% endblock %}
