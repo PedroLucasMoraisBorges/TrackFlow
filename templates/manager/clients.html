@@ -61,10 +61,10 @@
                     <button class="submit_client" type="submit">Cadastrar</button>
                 </form>
             </div>
-        </dialog>
-
+        </dialog>    
 
             <div>
+
                 {% for client in clients %}
                     <!-- Adicionar estilo na listagem de clientes -->
                     <a href="{% url 'client_page' id=client.id %}">

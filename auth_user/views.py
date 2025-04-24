@@ -196,3 +196,23 @@ class ProfileView(View):
         }
 
         return render(request, 'auth/profile.html', context)
+    
+# Página de templates do usuário
+class TemplatesView(View):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect('login')
+
+        user = User.objects.get(id=request.user.id)
+        projects = Project.objects.filter(fk_manager=user)
+        clients = user.clients.all()
+
+        context = {
+            'user': user,
+            'projects' : projects,
+            'projects_count' : projects.count(),
+            'clients' : clients,
+            'clients_count' : clients.count()
+        }
+
+        return render(request, 'manager/templates.html', context)

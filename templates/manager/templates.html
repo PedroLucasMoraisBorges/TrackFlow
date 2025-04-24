@@ -1,0 +1,57 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+<!-- Aqui pode ser colocado todo o conteúdo do <head> -->
+{% block head %}
+<title>Templates Disponíveis</title>
+<link rel="stylesheet" href="{% static 'css/templates.css' %}">
+<link rel="stylesheet" href="{% static 'css/LandingPage.css'%}">
+{% endblock %}
+
+<!-- Aqui pode ser colocado todo o conteúdo do <body> -->
+{% block body %}
+<main>
+    {% include 'components/sidebar.html' %}
+
+    <section id="main_section">
+        <div class="title-section">
+            <h1>Modelos de <span class="spanName">Templates Prontos</span></h1>
+            <hr>
+        </div>
+        
+        <div class="template-grid">
+            <div class="template-card">
+                <img src="{% static 'imgs/template2.png' %}" alt="Template 1">
+                <h3>Portfolio Moderno</h3>
+                <p>Modelo elegante para currículos e portfólios.</p>
+                <a href="#" class="use-btn">Usar este template</a>
+            </div>
+            
+            <div class="template-card">
+                <img src="{% static 'imgs/template2.png' %}" alt="Template 2">
+                <h3>Landing Page Startup</h3>
+                <p>Perfeito para apresentar um produto ou serviço.</p>
+                <a href="#" class="use-btn">Usar este template</a>
+            </div>
+        
+            <div class="template-card">
+                <img src="{% static 'imgs/template2.png' %}" alt="Template 3">
+                <h3>Blog Minimalista</h3>
+                <p>Ideal para escritores e publicações pessoais.</p>
+                <a href="#" class="use-btn">Usar este template</a>
+            </div>
+        </div>
+        
+
+    </section>
+    {% include 'components/footer.html' %}
+</main>
+
+{% endblock %}
+
+<!-- Aqui pode ser colocado todo o conteúdo do <script> ou importar scripts pelo src -->
+{% block scripts %}
+<script>
+    
+</script>
+{% endblock %}
