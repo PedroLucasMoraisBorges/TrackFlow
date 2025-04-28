@@ -110,7 +110,6 @@ h3{
   text-decoration: none;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
 }
 .projects-card a:hover {
   background-color: #4c1d95;
@@ -124,10 +123,13 @@ h3{
   border: none;
   padding: 6px 12px;
   border-radius: 6px;
-  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.clients-card button:hover {
+.clients-card a:hover {
   background-color: #5a5a5a;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 .infoProject, .infoClient {
   margin-left: 10px;

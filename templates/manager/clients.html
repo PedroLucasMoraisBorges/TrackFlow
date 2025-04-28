@@ -34,8 +34,6 @@
             </button>
         </div>
 
-        
-
         <dialog id="modal-1">
             <div class="new_client_container">
                 
@@ -63,14 +61,32 @@
             </div>
         </dialog>    
 
-            <div>
+            <div class="clients-container">
+                {% if clients %}
+                    <h2>Clientes</h2>
+                {% else %}
+                    <h2>Nenhum cliente encontrado</h2>
+                    <img src="" alt="">
+                {% endif %}
+
+                {% if clients.has_previous %}
+                    <a href="?page={{ clients.previous_page_number }}">&laquo; Anterior</a>
+                {% endif %}
+
+                {% if clients.has_next %}
+                    <a href="?page={{ clients.next_page_number }}">Próximo &raquo;</a>
+                {% endif %}
 
                 {% for client in clients %}
                     <!-- Adicionar estilo na listagem de clientes -->
-                    <a href="{% url 'client_page' id=client.id %}">
-                        <p>{{client.name}}</p>
-                        <p>{{client.email}}</p>
-                        <p>{{client.user_image}}</p>
+                     
+                    <a class="client-card" href="{% url 'client_page' id=client.id %}">
+                        <img src="{% static 'imgs/default-avatar.svg' %}" alt="">
+                        <a href="{% url 'client_page' id=client.id %}">
+                            <h3>{{client.name}}</h3>
+                            <p>{{client.email}}</p>
+                           <!-- <p>{{client.user_image}}</p>-->
+                        </a>
                     </a>
                 {% endfor %}
             </div>

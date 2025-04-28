@@ -4,6 +4,8 @@
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/clientPage.css'%}">
+<link rel="stylesheet" href="{% static 'css/aiPage.css'%}">
+<link rel="stylesheet" href="{% static 'css/projects.css'%}">
 <title>{{client.name}}</title>
 {% endblock %}
 
@@ -13,29 +15,44 @@
     {% include 'components/sidebar.html' %}
 
     <section id="main_section">
+        <div class="title-section">
+            <h1>Gerenciar <span class="spanName">{{client.name}}</span></h1>
+            <hr>
+            <br>
+        </div>
         <form method="post">
+            <h2>Criar projeto</h2>
             {% csrf_token %}
-        
             {% for field in form %}
-                {{field.label_tag}}
-                {{field}}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                </div>
             {% endfor %}
-        
-            <button type="submit">Cadastrar</button>
-        </form>
+            <button class="btn" type="submit">Criar projeto</button>
 
-        <form id="generate_ai">
-            <h2>Crie o projeto com IA</h2>
+        </form>
+        <br>
+        <hr>
+        <br>
+        <form id="generate_ai" class="form-ai">
+            <h2>Crie o projeto de <span class="spanName1">{{client.name}}</span> com IA</h2>
             {% csrf_token %}
 
-            <textarea id="description_for_ai" name="description">
+            <textarea id="description_for_ai" name="description" placeholder="Descreva de forma clara e objetiva como você deseja seu novo projeto (Ex: etapas, marcos, descrições)."></textarea>
+            <input type="hidden" id="owner" name="owner" value="{{ request.user.id }}">
 
-            </textarea>
-
-            <input type="hidden" name="owner" id="owner" value="{{client.id}}">
-
-            <button>Criar</button>
+            <button type="submit" class="btn-ai">Iniciar seu novo projeto</button>
+            <p class="cancel-link" onclick="history.back()">Cancelar</p>
         </form>
+
+        <!-- Tela de carregamento -->
+        <div id="loading_screen" class="loading-screen hidden">
+            <img src="{% static 'imgs/TrackFlowBranca.svg' %}" alt="logo-trackflow">
+            <div class="loader"></div>
+            <p id="loading_message">Analisando sua descrição...</p>
+            <button onclick="cancelLoading()" class="cancel-button">Cancelar</button>
+        </div>
         
         {% for project in projects %}
             <a href="{% url 'view_project' id=project.id %}">{{project.name}}</a>
@@ -76,5 +93,7 @@
             document.getElementById('output').textContent = 'Erro ao gerar projeto.';
         });
     });
+
+    
 </script>
 {% endblock %}

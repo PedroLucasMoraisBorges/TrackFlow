@@ -178,3 +178,21 @@ dialog {
     background-color: #8f60dc; 
     transition: all 0.5s cubic-bezier(0.000, 0.000, 0.230, 1);
 }
+
+button[type="submit"] {
+    background-color: #7c3aed;
+    color: white;
+    font-weight: 600;
+}
+
+button[type="submit"]:hover {
+    background-color: #8f60dc; 
+}
+
+button[type="button"] {
+    background-color: transparent;
+    color: #000000; 
+    font-weight: 500;
+    border: none;
+    text-decoration: underline;
+}

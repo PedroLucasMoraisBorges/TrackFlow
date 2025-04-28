@@ -120,6 +120,8 @@ class Clients(View):
 
         errors = getErrors([form])
 
+        print(errors)
+
         if form.is_valid():
             client = form.save(commit=False)
             client.type = 'U'
