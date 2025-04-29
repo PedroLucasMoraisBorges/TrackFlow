@@ -33,7 +33,6 @@ class Projects(View):
         form = RegisterProjectForm(request.POST, user=user)
         projects = Project.objects.filter(fk_manager = user)
 
-        print(form.errors)
         if form.is_valid():
             project = form.save(commit=False)
             project.fk_manager = user
@@ -58,7 +57,7 @@ class ViewProject(View):
         returning_milestones = []
 
         for mls in project_milestones:
-            stages = mls.stages.order_by('dt_creation')
+            stages = Stage.objects.filter(fk_milestone=mls).order_by('dt_creation')
             files = mls.files.all()
 
             returning_milestones.append(
@@ -157,8 +156,6 @@ Estrutura JSON obrigatória de saída:
         )
         project.save()
 
-        print(project.id)
-
         order = 0
 
         for mlst in project_data['milestones']:
@@ -174,11 +171,88 @@ Estrutura JSON obrigatória de saída:
             for stage in mlst['milestone_stages']:
                 stage = Stage.objects.create(
                     name = stage['stage_name'],
-                    description = stage['stage_description']
+                    description = stage['stage_description'],
+                    fk_milestone=milestone
                 )
                 stage.save()
-
-                milestone.stages.add(stage)
-                milestone.save()
         
+        return Response({'redirect_url': reverse('view_project', kwargs={'id': project.id})}, status=201)
+
+class DeleteProject(APIView):
+    def get(self, request, id):
+        Project.objects.delete(id=id)
+
+        return Response(
+            {   
+                'message' : 'Projeto deletadu com sucesso!',
+            }, status = status.HTTP_200_OK
+        )
+
+def createProjectWithObject(project_data, user):
+    project = Project.objects.create(
+            name = project_data['project_name'],
+            description = project_data['project_description'],
+            fk_manager = user,
+        )
+    project.save()
+
+    order = 0
+
+    for mlst in project_data['milestones']:
+        order += 1
+        milestone = Milestone.objects.create(
+            name = mlst['milestone_name'],
+            description = mlst['milestone_description'],
+            order = order,
+            fk_project = project
+        )
+        milestone.save()
+
+        for stage in mlst['milestone_stages']:
+            stage = Stage.objects.create(
+                name = stage['stage_name'],
+                description = stage['stage_description'],
+                fk_milestone = milestone
+            )
+            stage.save()
+    
+    return project
+
+
+class CopyProject(APIView):
+    def get(self, request, id):
+        project = Project.objects.get(id=id)
+
+        object = {}
+        milestone_list_objects = []
+
+        object.update({
+            "project_name": project.name,
+            "project_description": project.description,
+        })
+
+        milestones = Milestone.objects.filter(fk_project=project).order_by('order')
+        for mls in milestones:
+            milestone_object = {
+                "milestone_name": mls.name,
+                "milestone_description": mls.description,
+                "milestone_stages": []
+            }
+            stages = Stage.objects.filter(fk_milestone=mls).order_by('dt_creation')
+
+            for stage in stages:
+                milestone_object['milestone_stages'].append({
+                    "stage_name": stage.name,
+                    "stage_description": stage.description
+                })
+            
+            milestone_list_objects.append(milestone_object)
+        
+        object.update({
+            'milestones' : milestone_list_objects
+        })
+
+        jsonObject = json.dumps(object, indent=4, ensure_ascii=False)
+
+        project = createProjectWithObject(object, request.user)
         return Response({'redirect_url': reverse('view_project', kwargs={'id': project.id})}, status=201)

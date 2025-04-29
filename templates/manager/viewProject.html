@@ -13,6 +13,9 @@
     {% include 'components/sidebar.html' %}
 
     <section id="main_section">
+        <button link="{% url 'copy_project' id=projetc.id %}" id="copy_project">Fazer uma cópia</button>
+
+
         <article class="roadMap_milestones">
             {% for milestone in milestones %}
                 <div id="{{milestone.info.id}}">
@@ -62,5 +65,36 @@
 
         element.classList.toggle("active");
     }
+</script>
+
+<script>
+    document.getElementById('copy_project').addEventListener('click', function (e) {
+        const link = document.getElementById('copy_project').getAttribute('link')
+
+        console.log(link)
+
+
+        fetch(link, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Erro ao gerar projeto.");
+            return response.json();
+        })
+        .then(data => {
+            console.log()
+            if (data.redirect_url) {
+                window.location.href = data.redirect_url;
+            }
+        })
+        .catch(error => {
+            console.error("Erro:", error);
+            document.getElementById('output').textContent = 'Erro ao gerar projeto.';
+        });
+    });
 </script>
 {% endblock %}
