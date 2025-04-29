@@ -15,10 +15,9 @@ class CreateStage(APIView):
         milestone = Milestone.objects.get(id=id)
 
         if form.is_valid():
-            stage = form.save()
-            milestone.stages.add(stage)
-
-            print(milestone.stages.all())
+            stage = form.save(commit=False)
+            stage.fk_milestone = milestone
+            stage.save()
 
             return Response(
                 {   
@@ -43,7 +42,6 @@ class EditStage(APIView):
         stage = Stage.objects.get(id=id)
         form = EditStageForm(request.POST, request.FILES, instance=stage)
 
-        print("kdklfdklfsfdsfdsfsdfdfds")
 
         if form.is_valid():
             stage = form.save()
@@ -64,4 +62,14 @@ class EditStage(APIView):
                 'message' : 'Falha no formulário',
                 'errors' : getErrors([form])
             }, status = status.HTTP_400_BAD_REQUEST
+        )
+
+class DeleteStage(APIView):
+    def get(self, request, id):
+        Stage.objects.delete(id=id)
+
+        return Response(
+            {   
+                'message' : 'Etapa deletada com sucesso!',
+            }, status = status.HTTP_200_OK
         )

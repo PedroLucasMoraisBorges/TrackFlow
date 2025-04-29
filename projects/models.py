@@ -9,6 +9,7 @@ class Project(models.Model):
     description = models.TextField(null=False)
     is_completed = models.BooleanField(default=False)
     dt_created = models.DateField(auto_now_add=True)
+    metadata = models.JSONField(default=dict, blank=True)
 
     fk_manager = models.ForeignKey(User, related_name='project_manager', on_delete=models.CASCADE)
-    fk_owner = models.ForeignKey(User, related_name='project_owner', on_delete=models.CASCADE)
+    fk_owner = models.ForeignKey(User, related_name='project_owner', on_delete=models.CASCADE, null=True)

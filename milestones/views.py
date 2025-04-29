@@ -24,7 +24,7 @@ class RegisterMilestonePage(View):
 
         if milestone_id != 'first_creation':
             milestone = get_object_or_404(Milestone, id=milestone_id)
-            stages = milestone.stages.all()
+            stages = Stage.objects.filter(fk_milestone=milestone)
 
             for stage in stages:
                 stage_list.append(
@@ -71,6 +71,14 @@ class CreateMilestone(APIView):
             milestone.fk_project = project
             milestone.save()
 
+            project.metadata['milestones'].append({
+                "milestone_name": milestone.name,
+                "milestone_description": milestone.description,
+                "milestone_stages": []
+            })
+
+            project.save()
+
             return Response(
                 {
                     "message": "Marco criado com sucesso",
@@ -105,3 +113,13 @@ class MarkLastMilestone(View):
         project = Project.objects.get(id=milestone.fk_project.id)
 
         return redirect('view_project', id=project.id)
+
+class DeleteMilestone(APIView):
+    def get(self, request, id):
+        Milestone.objects.delete(id=id)
+
+        return Response(
+            {   
+                'message' : 'Marco deletado com sucesso!',
+            }, status = status.HTTP_200_OK
+        )
