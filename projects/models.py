@@ -8,6 +8,7 @@ class Project(models.Model):
     name = models.CharField(max_length=64)
     description = models.TextField(null=False)
     is_completed = models.BooleanField(default=False)
+    is_archived = models.BooleanField(default=False)
     dt_created = models.DateField(auto_now_add=True)
     metadata = models.JSONField(default=dict, blank=True)
 

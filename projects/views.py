@@ -18,7 +18,11 @@ from geralUtilits import *
 class Projects(View):
     def get(self, request):
         user = request.user
-        projects = Project.objects.filter(fk_manager = user)
+        if request.user.type == 'U':
+            projects = Project.objects.filter(is_archived=False, fk_owner=request.user)
+        elif request.user.type == 'G':
+            projects = Project.objects.filter(is_archived=False, fk_manager=request.user)
+            
         form = RegisterProjectForm(user=request.user)
 
         context = {
@@ -184,7 +188,7 @@ class DeleteProject(APIView):
 
         return Response(
             {   
-                'message' : 'Projeto deletadu com sucesso!',
+                'message' : 'Projeto deletado com sucesso!',
             }, status = status.HTTP_200_OK
         )
 
@@ -227,7 +231,7 @@ class CopyProject(APIView):
         milestone_list_objects = []
 
         object.update({
-            "project_name": project.name,
+            "project_name": f"Cópia - {project.name}",
             "project_description": project.description,
         })
 
@@ -256,3 +260,53 @@ class CopyProject(APIView):
 
         project = createProjectWithObject(object, request.user)
         return Response({'redirect_url': reverse('view_project', kwargs={'id': project.id})}, status=201)
+
+class CompleteProjects(View):
+    def get(self, request):
+        if request.user.type == 'U':
+            projects = Project.objects.filter(is_completed=True, fk_owner=request.user)
+        elif request.user.type == 'G':
+            projects = Project.objects.filter(is_completed=True, fk_manager=request.user)
+        
+        context = {
+            'projects' : projects
+        }
+
+        return render(request, 'completeProjects.html', context)
+    
+
+class ArchivedProjects(View):
+    def get(self, request):
+        if request.user.type == 'U':
+            projects = Project.objects.filter(is_archived=True, fk_owner=request.user)
+        elif request.user.type == 'G':
+            projects = Project.objects.filter(is_archived=True, fk_manager=request.user)
+
+        context = {
+            'projects' : projects
+        }
+
+        return render(request, 'archivedProjects.html', context)
+    
+
+class ArchiveProject(APIView):
+    def put(self, request, id):
+        project = Project.objects.get(id=id)
+        project.is_archived = True
+        project.save()
+
+        if project.is_archived == True:
+            return Response({'redirect_url': reverse('archived_projects')}, status=200)
+        else:
+            return Response({"error": "Falha ao arquivar o projeto."}, status=status.HTTP_400_BAD_REQUEST)
+
+class DeArchiveProject(APIView):
+    def put(self, request, id):
+        project = Project.objects.get(id=id)
+        project.is_archived = False
+        project.save()
+
+        if project.is_archived == False:
+            return Response({'redirect_url': reverse('projects')}, status=200)
+        else:
+            return Response({"error": "Falha ao desarquivar o projeto."}, status=status.HTTP_400_BAD_REQUEST)

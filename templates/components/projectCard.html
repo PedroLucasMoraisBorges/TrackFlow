@@ -1,15 +1,27 @@
 {% load static %}
 
 
+
 <div class="project-grid">
+    {% if not projects %}
+        <div>
+            <p>Você não tem projetos concluídos ainda.</p>
+        </div>
+    {% endif %}
+    
     {% for project in projects %}
         <a href="{% url 'view_project' id=project.id %}" class="project-card">
             <img src="{% static 'imgs/cardProjectImg.svg' %}" alt="Projeto" class="project-image">
             <div class="project-info">
                 <img src="{% static 'imgs/avatarImg.svg' %}" alt="Avatar" class="avatar">
                 <div>
-                    <p class="name">{{project.fk_owner}}</p>
-                    <p class="email">{{project.fk_owner.email}}</p>
+                    {% if project.fk_owner %}
+                        <p class="name">{{project.fk_owner}}</p>
+                        <p class="email">{{project.fk_owner.email}}</p>
+                    {% else %}
+                        <p class="name">Sem Cliente Vinculado</p>
+                        <p class="email">Sem Cliente Vinculado</p>
+                    {% endif %}
                 </div>
             </div>
             <div class="project-title">
@@ -18,7 +30,4 @@
             </div>
         </a>
     {% endfor %} 
-
-    <!-- Repita para os outros cards -->
-    <!-- ... outros projetos ... -->
 </div>

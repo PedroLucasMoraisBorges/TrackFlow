@@ -9,5 +9,5 @@ urlpatterns = [
     path('manager/clients', Clients.as_view(), name='clients'),
     path('clientPage/<str:id>', ClientPage.as_view(), name='client_page'),
     path('perfil', ProfileView.as_view(), name='profile'),
-    path('templates', TemplatesView.as_view(), name='templates')
+    path('templates', TemplatesView.as_view(), name='templates'),
 ]

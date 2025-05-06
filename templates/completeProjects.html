@@ -17,7 +17,7 @@
 
     <section id="main_section">
         <div class="title-section">
-            <h1>Listagem de <span class="spanName">Projetos Cadastrados </span></h1>
+            <h1>Listagem de <span class="spanName">Projetos Completos </span></h1>
             <hr>
         </div>
         <br>
@@ -28,34 +28,10 @@
                 </button>
                 <input type="text" placeholder="Buscar por projetos" name="search">
             </form>
-
-            <button class="add_button" onclick="openModal()">
-                <img src="{% static 'imgs/add_ring.svg' %}" alt="">
-                <p>Criar novo projeto</p>
-            </button>
         </div>
         
         {% include 'components/projectCard.html' %}      
-
-        <div class="modal" id="projectModal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <!--<img src="{% static 'imgs/backProject.svg' %}" alt="imagem ficticia de projeto" class="project_image"> -->
-                <h2>➕Cadastrar novo projeto</h2>
-                
-                <form method="post">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="form-group">
-                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                            {{ field }}
-                        </div>
-                    {% endfor %}
-                    <button type="submit">Criar projeto</button>
-                    <button type="button" onclick="closeModal()">Fechar</button>
-                </form>
-            </div>
-        </div>
+         
     </section>
     {% include 'components/footer.html' %}
 </main>
