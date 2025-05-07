@@ -139,29 +139,6 @@ dialog {
   
 /* Efeitos na listagem de clientes */
 
-.clients-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-  animation: fadeIn 0.8s ease forwards;
-  background-color: #111;
-}
-
-.client-card{
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 16px;
-  padding: 1.5rem;
-  text-decoration: none;
-  color: #333;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
 
 
 /* Paginação */
@@ -184,4 +161,13 @@ dialog {
 
 .pagination a:hover {
   background-color: #6d28d9;
+}
+.error-message p {
+  color: red;
+  margin-top: 5px;
+  font-size: 0.9rem;
+}
+
+.card-client{
+  background-color: black;
 }

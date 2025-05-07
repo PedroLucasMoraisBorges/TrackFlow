@@ -12,11 +12,29 @@
     }
 
     header p {
-        font-size: 22px;
+        font-size: 18px;
+    }
+    
+    .btn-header:hover {
+        text-decoration: underline;
+        color: #d4a7ff;
     }
 </style>
 
 
 <header>
     <img src="{% static 'imgs/TrackFlowBranca.svg' %}" alt="logo-trackflow">
+    
+    <form method="post" action="{% url 'logout' %}" style="display: flex; align-items: center;">
+        {% csrf_token %}
+        <button class="btn-header" type="submit" style="background: none; border: none; color: inherit; cursor: pointer; display: flex; align-items: center;">
+            <img src="{% static 'imgs/logoutIcon.svg' %}" alt="logout" style="margin-right: 8px;">
+            <p style="margin-right: 0.5rem; font-weight: light; ">Sair</p>
+        </button>
+    </form>
 </header>
+
+
+<script>
+
+</script>

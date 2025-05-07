@@ -21,7 +21,7 @@
             <br>
         </div>
         <form method="post">
-            <h2>Criar projeto</h2>
+            <h2>Adicione novo projeto para {{client.name}}</h2>
             {% csrf_token %}
             {% for field in form %}
                 <div class="form-group">
@@ -29,9 +29,10 @@
                     {{ field }}
                 </div>
             {% endfor %}
-            <button class="btn" type="submit">Criar projeto</button>
+            <button type="submit">Criar projeto</button>
 
         </form>
+        <br>
         <br>
         <hr>
         <br>

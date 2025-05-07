@@ -6,7 +6,50 @@
 
 <link rel="stylesheet" href="{% static 'css/search.css' %}">
 <link rel="stylesheet" href="{% static 'css/clients.css' %}">
+
+
 <title>Clientes</title>
+
+<style>
+    .client{
+        display: flex;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 10px;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+    }
+    .client:hover{
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .client a{
+        width: 100%;
+        background-color: #1e1e1e;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 1rem;
+        display: block;
+        width: 100%;
+        text-align: center;
+        text-decoration: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .client a:hover{
+        background-color: #5a5a5a;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+</style>
 {% endblock %}
 
 <!-- Aqui pode ser colocado todo o conteúdo do <body> -->
@@ -65,7 +108,7 @@
                 {% if clients %}
                     <h2>Clientes</h2>
                 {% else %}
-                    <h2>Nenhum cliente encontrado</h2>
+                    <h2 style="color: #5f5656;">Nenhum cliente encontrado...</h2>
                     <img src="" alt="">
                 {% endif %}
 
@@ -78,16 +121,14 @@
                 {% endif %}
 
                 {% for client in clients %}
-                    <!-- Adicionar estilo na listagem de clientes -->
-                     
-                    <a class="client-card" href="{% url 'client_page' id=client.id %}">
-                        <img src="{% static 'imgs/default-avatar.svg' %}" alt="">
-                        <a href="{% url 'client_page' id=client.id %}">
-                            <h3>{{client.name}}</h3>
-                            <p>{{client.email}}</p>
-                           <!-- <p>{{client.user_image}}</p>-->
-                        </a>
-                    </a>
+                <div class="client">
+                    <img src="{% static 'imgs/workflowyclient.svg' %}" alt="o">
+                    <div class="infoClient">
+                        <h4>{{client}}</h4>
+                        <p>{{client.email}} </p>
+                        <a  href="{% url 'client_page' id=client.id %}">Ver cliente</a>
+                    </div>
+                  </div>
                 {% endfor %}
             </div>
 
@@ -115,15 +156,16 @@
         });
     });
 
-const closeButton = document.querySelectorAll('.close-modal');
+    const closeButton = document.querySelectorAll('.close-modal');
 
-closeButton.forEach(button => {
-    button.addEventListener('click', () => {
-        const modalId = button.getAttribute('data-modal');
-        const modal = document.getElementById(modalId);
+        closeButton.forEach(button => {
+            button.addEventListener('click', () => {
+            const modalId = button.getAttribute('data-modal');
+            const modal = document.getElementById(modalId);
 
-        modal.close();
+            modal.close();
+        });
     });
-});
+    
 </script>
 {% endblock %}

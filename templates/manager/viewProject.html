@@ -5,6 +5,7 @@
 {% block head %}
 <title>{{projetc.name}}</title>
 <link rel="stylesheet" href="{% static 'css/milestone.css' %}">
+<link rel="stylesheet" href="{% static 'css/cardComents.css' %}">
 {% endblock %}
 
 
@@ -13,24 +14,27 @@
     {% include 'components/sidebar.html' %}
 
     <section id="main_section">
-        <button link="{% url 'copy_project' id=projetc.id %}" id="copy_project">Fazer uma cópia</button>
+        <button class="btn-copia" link="{% url 'copy_project' id=projetc.id %}" id="copy_project">Fazer uma cópia</button>
+        
+        <br>
 
-
-        <article class="roadMap_milestones">
+        <hr>
+        <article class="roadmap-milestones">
             {% for milestone in milestones %}
-                <div id="{{milestone.info.id}}">
-                    <div>
-                        <p>{{milestone.info.order}}° Marco</p>
+                <div class="milestone {% if milestone.info.is_active %}active{% endif %}">
+                    <div class="circle">
+                        <p>{{ milestone.info.order }}° marco</p>
                     </div>
-
-                    <div>
-                        {{milestone.info.name}}
+                    <div class="label">
+                        {{ milestone.info.name }}
                     </div>
                 </div>
             {% endfor %}
         </article>
+        
+
         {% for milestone in milestones %}
-            <section id="milestoneDiv{{milestone.info.id}}" order="{{milestone.info.order}}">
+            <section class="sectionCard" id="milestoneDiv{{milestone.info.id}}" order="{{milestone.info.order}}">
                 {% with milestone=milestone.info files=milestone.files %}
                     {% include 'components/milestoneCard.html' %}
                 {% endwith %}
@@ -42,6 +46,43 @@
                 </div>
             </section>
         {% endfor %}
+
+        <!--Seção de comentarios-->
+        <section class="comments_section">
+            <h3 class="comments_title">
+              📝 Comentários 
+              <span class="comments_subtitle">(dúvidas, perguntas e respostas...)</span>
+            </h3>
+          
+            <form class="question_form" method="post">
+              <label for="question_textarea">
+                <strong>Escreva aqui suas <span class="highlight">dúvidas</span></strong>
+                <span class="form_hint">(serão respondidas futuramente pelo gestor.)</span>
+              </label>
+              <textarea id="question_textarea" name="question" required></textarea>
+              <button type="submit">Fazer pergunta</button>
+            </form>
+          
+            <div class="comments_list">
+              <p class="list_label">ⓘ Lista de comentários anteriores</p>
+                <hr>
+                <br>
+              <div class="comments_cards">
+                <div class="question_card">
+                  <h4>Lista das suas <span class="highlight">dúvidas</span></h4>
+                  <p class="card_hint">(Estão listadas suas principais dúvidas aqui.)</p>
+                  <p class="comment_text">Estou com problemas em entender o marco e etapa número 2.</p>
+                </div>
+          
+                <div class="answer_card">
+                  <h4>Respostas das suas <span class="highlight">dúvidas</span></h4>
+                  <p class="card_hint">(Estão listadas suas principais dúvidas aqui.)</p>
+                  <p class="comment_answer">Você deve reler todas as etapas anteriores, boa sorte!</p>
+                </div>
+              </div>
+            </div>
+          </section>
+          
     </section>
 </main>
 {% endblock %}

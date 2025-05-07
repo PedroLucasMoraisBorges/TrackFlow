@@ -4,7 +4,7 @@
     <div class="title">
         <div class="info">
             <img src="{% static 'imgs/info.svg' %}" alt="info">
-            <h3>{{milestone.name}}</h3>
+            <p>{{milestone.name}}</p>
         </div>
 
         <div class="buttonEdit"><img src="{% static 'imgs/edit.svg' %}" alt=""></div>
@@ -22,7 +22,7 @@
     <div class="title">
         <div class="info">
             <img src="{% static 'imgs/info.svg' %}" alt="info">
-            <h3>Arquivos anexados do {{milestone.name}} (imagens, PDF’s, arquivos, etc.)</h3>
+            <p>Arquivos anexados do {{milestone.name}} (imagens, PDF’s, arquivos, etc.)</p>
         </div>
     </div>
 
@@ -40,9 +40,13 @@
         </div>
     </div>
 
-    <form class="uploadForm" url="{% url 'create_file' id=milestone.id type='milestone' %}">
+    <form class="uploadForm" action="{% url 'create_file' id=milestone.id type='milestone' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{file_form.file}}
-        <button type="submit">Upload</button>
+        <label class="uploadLabel">
+            {{ file_form.file }}
+            <span>Selecionar arquivo</span>
+        </label>
+        <button class="uploadButton" type="submit">Upload</button>
     </form>
+    
 </article>
