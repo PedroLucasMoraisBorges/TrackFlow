@@ -19,8 +19,8 @@
               <button class="edit-photo" type="submit">Editar foto do perfil</button>
               <div class="profile-info">
                 <h2>{{ user.name }}</h2>
-                <p>Total de Clientes: <strong>{{clients_count}}</strong></p>
-                <p>Projetos Criados: <strong>{{projects_count}}</strong></p>
+                <p>👥 Total de Clientes: <strong>{{clients_count}}</strong></p>
+                <p>📁 Projetos Criados: <strong>{{projects_count}}</strong></p>
               </div>
             </section>
         
@@ -54,8 +54,8 @@
                   <div class="project">
                     <img src="{% static 'imgs/workflowyroxo.svg' %}" alt="o">
                     <div class="infoProject">
-                        <h4>{{project.name}}</h4>
-                        <p>{{project.fk_owner.email}}</p>
+                        <h4>📁{{project.name}}</h4>
+                        <p>📧{{project.fk_owner.email}}</p>
                         <a href="{% url 'view_project' id=project.id %}">Editar projeto</a>
                     </div>
                   </div>
@@ -70,8 +70,8 @@
                   <div class="client">
                     <img src="{% static 'imgs/workflowyclient.svg' %}" alt="o">
                     <div class="infoClient">
-                        <h4>{{client}}</h4>
-                        <p>{{client.email}} </p>
+                        <h4>👤{{client}}</h4>
+                        <p>📧{{client.email}} </p>
                         <a href="{% url 'client_page' id=client.id %}">Ver cliente</a>
                     </div>
                   </div>

@@ -21,7 +21,8 @@
             <br>
         </div>
         <form method="post">
-            <h2>Adicione novo projeto para {{client.name}}</h2>
+            <h2>Adicione<span class="spanName">novo projeto</span> para {{client.name}}</h2>
+            <br>
             {% csrf_token %}
             {% for field in form %}
                 <div class="form-group">
@@ -29,7 +30,9 @@
                     {{ field }}
                 </div>
             {% endfor %}
-            <button type="submit">Criar projeto</button>
+            <button type="submit" style="background-color: #7c3aed;
+            color: white;
+            font-weight: 600; width: 100%; border: none; padding: .8rem; border-radius: 10rem; cursor: pointer;">Criar projeto</button>
 
         </form>
         <br>

@@ -12,6 +12,7 @@
 
 <style>
     .client{
+        width: 50%;
         display: flex;
         background-color: white;
         border: 1px solid #ddd;
@@ -24,7 +25,7 @@
         cursor: pointer;
     }
     .client:hover{
-        transform: translateY(-3px);
+        transform: translateY(-2px);
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     }
 
@@ -46,8 +47,12 @@
     }
     .client a:hover{
         background-color: #5a5a5a;
-        transform: translateY(-3px);
+        transform: translateY(-1px);
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+
+    }
+    .infoClient{
+        width: 100%;
     }
 </style>
 {% endblock %}
@@ -124,8 +129,8 @@
                 <div class="client">
                     <img src="{% static 'imgs/workflowyclient.svg' %}" alt="o">
                     <div class="infoClient">
-                        <h4>{{client}}</h4>
-                        <p>{{client.email}} </p>
+                        <h4>👤{{client}}</h4>
+                        <p>📧{{client.email}} </p>
                         <a  href="{% url 'client_page' id=client.id %}">Ver cliente</a>
                     </div>
                   </div>
