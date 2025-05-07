@@ -81,7 +81,7 @@ class ViewProject(View):
 
         return render(request, 'manager/viewProject.html', context)
     
-from google import generativeai as genai
+from google import genai
 import json
 
 class AiPage(View):
@@ -96,8 +96,7 @@ class AiPage(View):
 
 class CreateProjectWithAi(APIView):
     def post(self, request):
-        genai.configure(api_key="AIzaSyBE28Htrlf6l8Bdo41GV5SmQsxYSP46aPQ")
-        model = genai.GenerativeModel('gemini-1.5-pro')
+        client = genai.Client(api_key="AIzaSyARcjGW6FTXp3Abgtn4BvGp25l8ixV5l4E")
 
         prompt = request.data.get("description")  
         ownerId = request.data.get("owner")
@@ -119,7 +118,8 @@ Regras gerais:
      6. Nunca utilize nomes genéricos como “Etapa 1” ou “Marco 1”. Sempre nomeie com base no conteúdo específico.
      7. A saída deve ser exclusivamente no formato JSON, conforme a estrutura a seguir.
      8. A saída deve ser exclusivamente no formato JSON, obedecendo à estrutura abaixo.
-     9. Não adicione a palavra json para identificar o objeto, isso atrapalha a manipulação dos dados.
+     9. Não adicione a palavra json para identificar o objeto, isso atrapalha a manipulação dos dados. A adição da palavra "json" no início será considerado um erro gravíssimo.
+     10. A resposta deve conter apenas o objeto JSON. Nada mais.
 
 Descrição do projeto fornecida pelo usuário:
 {prompt}
@@ -144,9 +144,14 @@ Estrutura JSON obrigatória de saída:
   ]
 }}
 """
-        response = model.generate_content(complete_prompt)
-        
-        project_data = json.loads(response.text)
+        response = client.models.generate_content(
+            model="gemini-2.0-flash",
+            contents=complete_prompt,
+        )
+        teste = response.text.replace("```json", "```")
+        teste = teste.replace("```", "")
+        print(f"Response Text: {teste}")
+        project_data = json.loads(teste)
 
         owner = User.objects.get(id=ownerId)
 

@@ -31,7 +31,7 @@ class Redirect(View):
     def get(self, request):
         user = request.user
         if not user.is_authenticated:
-            return redirect('landing_page')
+            return redirect('login')
         if user.type == 'U':
             return redirect('client page')
         elif user.type == 'G':
