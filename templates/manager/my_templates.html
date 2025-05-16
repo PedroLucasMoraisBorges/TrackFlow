@@ -15,53 +15,16 @@
 
     <section id="main_section">
         <div class="title-section">
-            <h1>Modelos de <span class="spanName">Templates Prontos</span></h1>
+            <h1>Meus <span class="spanName">Templates</span></h1>
             <hr>
         </div>
-        
-        <div class="template-grid">
-            <div class="template-card">
-                <img src="{% static 'imgs/template2.png' %}" alt="Template 1">
-                <h3>Portfolio Moderno</h3>
-                <p>Modelo elegante para currículos e portfólios.</p>
-                <a href="#" class="use-btn">Usar este template</a>
-            </div>
-            
-            <div class="template-card">
-                <img src="{% static 'imgs/template2.png' %}" alt="Template 2">
-                <h3>Landing Page Startup</h3>
-                <p>Perfeito para apresentar um produto ou serviço.</p>
-                <a href="#" class="use-btn">Usar este template</a>
-            </div>
-        
-            <div class="template-card">
-                <img src="{% static 'imgs/template2.png' %}" alt="Template 3">
-                <h3>Blog Minimalista</h3>
-                <p>Ideal para escritores e publicações pessoais.</p>
-                <a href="#" class="use-btn">Usar este template</a>
-            </div>
-        </div>
-
-        <h2>Templates cadastrados por usuários</h2>
+    
         <div class="template-grid">
             {% for template in templates %}
                 <div class="template-card">
                     <img src="{% static 'imgs/template2.png' %}" alt="Template 1">
                     <h3>{{template.info.metadata.project_name}}</h3>
                     <p>{{template.info.fk_user.email}}</p>
-        
-                    {% if  template.rate_count != 0 %}
-                        <p>{{template.rate}} ({{template.rate_count}})</p>
-                    {% else %}
-                        <p>{{template.rate}}</p>
-                    {% endif %}
-
-                    <form action="{% url 'rate_template' id=template.info.id %}" method="post">
-                        {% csrf_token %}
-                        <p>Avalie</p>
-                        {{form.rate}}
-                        <button type="submit">Salvar</button>
-                    </form>
                     <button href="#" template_id="{{template.id}}" onclick="openModal('{{template.info.id}}')" class="use-btn">Preview</button>
                 </div>
 
@@ -96,7 +59,9 @@
                     </div>
                 </dialog>
             {% endfor %}
-        </div>        
+        </div>
+        
+
     </section>
     {% include 'components/footer.html' %}
 </main>

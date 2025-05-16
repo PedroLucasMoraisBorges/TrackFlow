@@ -42,6 +42,14 @@ class Projects(View):
             project.fk_manager = user
             project.save()
 
+            project.metadata = {
+                "project_name": project.name,
+                "project_description": project.description,
+                "milestones": []
+            }
+
+            project.save()
+
             return redirect('register_milestone', project_id=project.id, milestone_id='first_creation')
 
         context = {
@@ -73,7 +81,7 @@ class ViewProject(View):
             )
         
         context = {
-            'projetc' : project,
+            'project' : project,
             'edit_project_form' : edit_project_form,
             'milestones' : returning_milestones,
             'file_form' : RegisterFileForm(),
@@ -150,7 +158,7 @@ Estrutura JSON obrigatória de saída:
         )
         teste = response.text.replace("```json", "```")
         teste = teste.replace("```", "")
-        print(f"Response Text: {teste}")
+
         project_data = json.loads(teste)
 
         owner = User.objects.get(id=ownerId)
@@ -161,7 +169,8 @@ Estrutura JSON obrigatória de saída:
             name = project_data['project_name'],
             description = project_data['project_description'],
             fk_manager = request.user,
-            fk_owner = owner
+            fk_owner = owner,
+            metadata = project_data
         )
         project.save()
 
@@ -202,6 +211,7 @@ def createProjectWithObject(project_data, user):
             name = project_data['project_name'],
             description = project_data['project_description'],
             fk_manager = user,
+            metadata = project_data
         )
     project.save()
 
@@ -315,3 +325,62 @@ class DeArchiveProject(APIView):
             return Response({'redirect_url': reverse('projects')}, status=200)
         else:
             return Response({"error": "Falha ao desarquivar o projeto."}, status=status.HTTP_400_BAD_REQUEST)
+    
+class CopyProjectToTemplate(View):
+    def get(self, request, id):
+        project = Project.objects.get(id=id)
+
+        template = Templates.objects.create(
+            fk_user = request.user,
+            metadata = project.metadata
+        )
+
+        template.save()
+
+        return redirect('my_templates')
+    
+class MyTemplates(View):
+    def get(self, request):
+        templates = Templates.objects.filter(
+            fk_user = request.user
+        )
+
+        templatesReturn = []
+
+        for template in templates:
+            rate = 0
+            count_rates = 0
+
+            evaluates = Evaluation.objects.filter(fk_template=template)
+
+            for evaluate in evaluates:
+                rate += evaluate.rate
+                count_rates += 1
+        
+            templatesReturn.append(
+                {
+                    'info' : template,
+                    'rate' : round(rate/count_rates, 1) if count_rates >= 1 else "Sem avaliações",
+                    'rate_count' : count_rates
+                }
+            )
+            
+        context = {
+            'templates' : templatesReturn
+        }
+
+        return render(request, 'manager/my_templates.html', context)
+    
+class RateTemplate(View):
+    def post(self, request, id):
+        form = RateTemplateForm(request.POST)
+        
+        template = Templates.objects.get(id=id)
+
+        if form.is_valid():
+            evaluate = form.save(commit=False)
+            evaluate.fk_user = request.user
+            evaluate.fk_template = template
+            evaluate.save()
+
+        return redirect('templates')

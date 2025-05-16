@@ -14,10 +14,26 @@ class CreateStage(APIView):
         form = RegisterStageForm(request.POST, request.FILES)
         milestone = Milestone.objects.get(id=id)
 
+        project = milestone.fk_project
+        milestones_object = project.metadata.get("milestones", [])
+
         if form.is_valid():
             stage = form.save(commit=False)
             stage.fk_milestone = milestone
             stage.save()
+
+            for milestone_object in milestones_object:
+                
+                if milestone_object["id"] == str(milestone.id):
+                    milestone_object["milestone_stages"].append({
+                        "id": str(stage.id),
+                        'stage_name': stage.name,
+                        'description': stage.description
+                    })
+                    break
+            
+            project.metadata["milestones"] = milestones_object
+            project.save()
 
             return Response(
                 {   
@@ -25,7 +41,7 @@ class CreateStage(APIView):
                     'stage' : {
                         'id' : stage.id,
                         'name' : stage.name,
-                        'description' : stage.description
+                        'stage_description' : stage.description
                     }
                 }, status = status.HTTP_201_CREATED
             )

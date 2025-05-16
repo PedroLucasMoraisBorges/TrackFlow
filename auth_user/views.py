@@ -199,22 +199,39 @@ class ProfileView(View):
 
         return render(request, 'auth/profile.html', context)
     
+from projects.forms import RateTemplateForm
 # Página de templates do usuário
 class TemplatesView(View):
     def get(self, request):
-        if not request.user.is_authenticated:
-            return redirect('login')
+        form = RateTemplateForm()
+        templates = Templates.objects.filter(
+            fk_user = request.user
+        )
 
-        user = User.objects.get(id=request.user.id)
-        projects = Project.objects.filter(fk_manager=user)
-        clients = user.clients.all()
+        templatesReturn = []
+
+        for template in templates:
+            rate = 0
+            count_rates = 0
+
+            evaluates = Evaluation.objects.filter(fk_template=template)
+
+            for evaluate in evaluates:
+                rate += evaluate.rate
+                count_rates += 1
+        
+            templatesReturn.append(
+                {
+                    'info' : template,
+                    'rate' : round(rate/count_rates, 1) if count_rates >= 1 else "Sem avaliações",
+                    'rate_count' : count_rates
+                }
+            )
+
 
         context = {
-            'user': user,
-            'projects' : projects,
-            'projects_count' : projects.count(),
-            'clients' : clients,
-            'clients_count' : clients.count()
+            'templates': templatesReturn,
+            'form' : form
         }
 
         return render(request, 'manager/templates.html', context)
