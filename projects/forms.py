@@ -121,3 +121,27 @@ class CreateProjectWithAiForm(forms.Form):
         if manager:
             manager = User.objects.get(id=manager.id)
             self.fields['owner'].queryset = manager.clients.all()
+
+class RateTemplateForm(forms.ModelForm):
+    choices = [
+        (0.0, 0.0),
+        (0.5, 0.5),
+        (1.0, 1.0),
+        (1.5, 1.5),
+        (2.0, 2.0),
+        (2.5, 2.5),
+        (3.0, 3.0),
+        (3.5, 3.5),
+        (4.0, 4.0),
+        (4.5, 4.5),
+        (5.0, 5.0),
+    ]
+    rate = forms.ChoiceField(
+        choices=choices,
+        label='Nota',
+        widget=forms.Select()
+    )
+
+    class Meta:
+        model = Evaluation
+        fields = ['rate']

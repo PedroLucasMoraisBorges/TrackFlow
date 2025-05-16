@@ -14,7 +14,9 @@
     {% include 'components/sidebar.html' %}
 
     <section id="main_section">
-        <button class="btn-copia" link="{% url 'copy_project' id=projetc.id %}" id="copy_project">Fazer uma cópia</button>
+        <button class="btn-copia" link="{% url 'copy_project' id=project.id %}" id="copy_project">Fazer uma cópia</button>
+
+        <a href="{% url 'parse_project_to_template' id=project.id %}">Publicar Template</a>
         
         <br>
 

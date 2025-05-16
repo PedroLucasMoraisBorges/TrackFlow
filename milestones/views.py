@@ -58,6 +58,16 @@ class RegisterMilestonePage(View):
             milestone.fk_project = project
             milestone.save()
 
+            project.metadata['milestones'].append(
+                {   
+                    "id": str(milestone.id),
+                    "milestone_name": milestone.name,
+                    "milestone_description": milestone.description,
+                    "milestone_stages": []
+                })
+            
+            project.save()
+
             return redirect('register_milestone', project_id=project_id, milestone_id=milestone.id)
 
 class CreateMilestone(APIView):
