@@ -89,7 +89,7 @@ class ViewProject(View):
 
         return render(request, 'manager/viewProject.html', context)
     
-from google import genai
+import google.generativeai as genai
 import json
 
 class AiPage(View):

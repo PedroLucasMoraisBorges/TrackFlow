@@ -1,14 +1,13 @@
 {% extends 'components/base.html' %}
 {% load static %}
 
-<!-- Aqui pode ser colocado todo o conteúdo do <head> -->
 {% block head %}
 <title>Templates Disponíveis</title>
 <link rel="stylesheet" href="{% static 'css/templates.css' %}">
 <link rel="stylesheet" href="{% static 'css/LandingPage.css'%}">
+<link rel="stylesheet" href="{% static 'css/templatePreview.css'%}">
 {% endblock %}
 
-<!-- Aqui pode ser colocado todo o conteúdo do <body> -->
 {% block body %}
 <main>
     {% include 'components/sidebar.html' %}
@@ -20,62 +19,64 @@
         </div>
         
         <div class="template-grid">
-            <div class="template-card">
+            <div class="template-preview">
                 <img src="{% static 'imgs/template2.png' %}" alt="Template 1">
                 <h3>Portfolio Moderno</h3>
                 <p>Modelo elegante para currículos e portfólios.</p>
-                <a href="#" class="use-btn">Usar este template</a>
+                <a href="#" class="btn-preview">Usar este template</a>
             </div>
             
-            <div class="template-card">
+            <div class="template-preview">
                 <img src="{% static 'imgs/template2.png' %}" alt="Template 2">
                 <h3>Landing Page Startup</h3>
                 <p>Perfeito para apresentar um produto ou serviço.</p>
-                <a href="#" class="use-btn">Usar este template</a>
+                <a href="#" class="btn-preview">Usar este template</a>
             </div>
         
-            <div class="template-card">
+            <div class="template-preview">
                 <img src="{% static 'imgs/template2.png' %}" alt="Template 3">
                 <h3>Blog Minimalista</h3>
                 <p>Ideal para escritores e publicações pessoais.</p>
-                <a href="#" class="use-btn">Usar este template</a>
+                <a href="#" class="btn-preview">Usar este template</a>
             </div>
         </div>
 
-        <h2>Templates cadastrados por usuários</h2>
+        <h2>Templates cadastrados<span class="spanName">por usuários</span></h2>
+        <hr>
+    
         <div class="template-grid">
             {% for template in templates %}
-                <div class="template-card">
-                    <img src="{% static 'imgs/template2.png' %}" alt="Template 1">
+                <div class="template-preview">
+                    <img src="{% static 'imgs/templatesCriados.png' %}" alt="Template do usuário">
                     <h3>{{template.info.metadata.project_name}}</h3>
-                    <p>{{template.info.fk_user.email}}</p>
+                    <p>📧{{template.info.fk_user.email}}</p>
         
                     {% if  template.rate_count != 0 %}
-                        <p>{{template.rate}} ({{template.rate_count}})</p>
+                        <p>⭐{{template.rate}} ({{template.rate_count}} avaliações)</p>
                     {% else %}
-                        <p>{{template.rate}}</p>
+                        nota:<p>{{template.rate}}</p>
                     {% endif %}
 
                     <form action="{% url 'rate_template' id=template.info.id %}" method="post">
                         {% csrf_token %}
-                        <p>Avalie</p>
-                        {{form.rate}}
-                        <button type="submit">Salvar</button>
+                        <span>Avalie: </span>
+                        {{form.rate}} 
+                        <button type="submit" class="salve-btn" >Salvar</button>
                     </form>
-                    <button href="#" template_id="{{template.id}}" onclick="openModal('{{template.info.id}}')" class="use-btn">Preview</button>
+                    
+                    <button type="button" onclick="openModal('{{template.info.id}}')" class="preview-btn" style="width: 100%; margin-top: 10px;">Preview</button>
                 </div>
-
 
                 <dialog id="{{template.info.id}}">
                     <div class="new_client_container">
-                        
                         <div class="modal_header">
                             <div class="new_client_label">
                                 <h2>{{template.info.metadata.project_name}}</h2>
                             </div>
 
-                            <button class="close-modal">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10ZM9.17 14.83l5.66-5.66M14.83 14.83 9.17 9.17" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <button class="close-modal" type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10ZM9.17 14.83l5.66-5.66M14.83 14.83 9.17 9.17" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                 </svg>
                             </button>
                         </div>
@@ -100,12 +101,10 @@
     </section>
     {% include 'components/footer.html' %}
 </main>
-
 {% endblock %}
 
-<!-- Aqui pode ser colocado todo o conteúdo do <script> ou importar scripts pelo src -->
 {% block scripts %}
 <script>
-    
+  
 </script>
 {% endblock %}

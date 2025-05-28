@@ -14,9 +14,48 @@
     {% include 'components/sidebar.html' %}
 
     <section id="main_section">
-        <button class="btn-copia" link="{% url 'copy_project' id=project.id %}" id="copy_project">Fazer uma cópia</button>
+       <div style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
+    <a 
+        id="copy_project"
+        link="{% url 'copy_project' id=project.id %}"
+        style="
+        padding: 8px 16px;
+        background-color: #f97316;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        "
+        onmouseover="this.style.backgroundColor='#ea580c'; this.style.transform='scale(1.03)'"
+        onmouseout="this.style.backgroundColor='#f97316'; this.style.transform='scale(1)'"
+    >
+        Fazer uma cópia
+    </a>
 
-        <a href="{% url 'parse_project_to_template' id=project.id %}">Publicar Template</a>
+    <a 
+        href="{% url 'parse_project_to_template' id=project.id %}" 
+        style="
+        padding: 8px 16px;
+        background-color: #240558;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        text-align: center;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        "
+        onmouseover="this.style.backgroundColor='#1e044b'; this.style.transform='scale(1.03)'"
+        onmouseout="this.style.backgroundColor='#240558'; this.style.transform='scale(1)'"
+    >
+        Publicar Template
+    </a>
+    </div>
+
         
         <br>
 

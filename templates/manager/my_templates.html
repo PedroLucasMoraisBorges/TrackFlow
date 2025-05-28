@@ -22,10 +22,10 @@
         <div class="template-grid">
             {% for template in templates %}
                 <div class="template-card">
-                    <img src="{% static 'imgs/template2.png' %}" alt="Template 1">
+                    <div class="bar-template" style="background-color: #5B21B6;">. </div>
                     <h3>{{template.info.metadata.project_name}}</h3>
-                    <p>{{template.info.fk_user.email}}</p>
-                    <button href="#" template_id="{{template.id}}" onclick="openModal('{{template.info.id}}')" class="use-btn">Preview</button>
+                    <p>criador: {{template.info.fk_user.email}}</p>
+                    <button href="#" template_id="{{template.id}}" onclick="openModal('{{template.info.id}}')" class="use-btn" style="border: none; cursor: pointer;">Preview</button>
                 </div>
 
 

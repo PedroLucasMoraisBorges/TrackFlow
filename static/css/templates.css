@@ -49,7 +49,6 @@
     text-decoration: none;
     transition: background-color 0.2s;
 }
-
 .use-btn:hover {
     background-color: #5B21B6;
 }

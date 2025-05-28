@@ -1,0 +1,129 @@
+.template-preview {
+    background-color: #F5F5F5;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    max-width: 280px;
+    
+    margin: 16px auto;
+    font-family: 'Inter', sans-serif;
+    transition: transform 0.2s ease;
+}
+.template-preview:hover {
+    transform: scale(1.01);
+}
+
+.template-preview img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.template-preview h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #181818;
+    margin-bottom: 4px;
+}
+
+.template-preview p {
+    font-size: 0.9rem;
+    color: #444444;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #0000003d;
+}
+
+.template-preview form {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.salve-btn {
+    background-color: #F97316;
+    color: #fff;
+    margin-left: 12px;
+    padding: 5px 30px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.salve-btn:hover {
+    background-color: #ea6c13;
+}
+
+.preview-btn {
+    background-color: #181818;
+    color: #fff;
+    padding: 6px 16px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.preview-btn:hover {
+    background-color: #2d2d2d;
+}
+
+/* Modal dialog */
+dialog {
+    width: 80%;
+    max-width: 800px;
+    border: none;
+    border-radius: 12px;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+    font-family: 'Inter', sans-serif;
+    z-index: 1000;
+}
+
+.new_client_container {
+    background-color: #fff;
+    padding: 24px;
+}
+
+.modal_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 16px;
+}
+
+.modal_header h2 {
+    font-size: 1.5rem;
+    color: #181818;
+}
+
+.close-modal {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+.body h3 {
+    font-size: 1.1rem;
+    color: #F97316;
+    margin-top: 16px;
+}
+
+.body h4 {
+    font-size: 1rem;
+    color: #181818;
+    margin-top: 8px;
+}
+
+.body p {
+    font-size: 0.95rem;
+    color: #444444;
+    margin-bottom: 8px;
+}
