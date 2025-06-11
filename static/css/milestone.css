@@ -1,3 +1,60 @@
+.form-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group textarea {
+    border-radius: 15px;
+    resize: vertical;
+    height: 100px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #7c3aed;
+}
+
+.submitButton {
+    background-color: #7c3aed;
+    color: white;
+    font-weight: 600;
+    width: 100%;
+    border: none;
+    padding: .8rem;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+.submitButtonStage {
+    background-color: #7c3aed;
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: .8rem;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
 .milestone-card {
   border-radius: 5px;
   padding: 0;
@@ -183,19 +240,27 @@
 }
 
 .stages {
-  border-radius: 5px;
-  background-color: white;
+    border-radius: 5px;
+    margin-top: 2rem;
+}
+
+.stage-wrapper {
+    margin-bottom: 1.5rem; /* espaço entre os cards */
+}
+
+.stage-wrapper .buttons button{
+    margin-right: 1rem;
 }
 
 .stage-card {
-  display: flex;
-  justify-content: space-between;
-  background-color: white;
-  padding: 0.4rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  color: black;
-  transition: background-color 0.5s, color 0.3s;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    color: black;
+    transition: background-color 0.5s ease, color 0.3s ease;
 }
 
 .stage-card .stage_name {
@@ -222,14 +287,14 @@
 }
 
 .dropdown-content {
-  max-height: 0;
-  overflow: hidden;
-  background-color: #33363F;
-  color: white;
-  border-radius: 0 0 5px 5px;
-  transition: max-height 0.3s, padding 0.3s;
-  position: relative;
-  padding-bottom: 3rem;
+    max-height: 0;
+    overflow: hidden;
+    background-color: #33363F;
+    color: white;
+    border-radius: 0 0 5px 5px;
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+    position: relative;
+    padding-bottom: 3rem;
 }
 
 .dropdown-content p {
@@ -290,7 +355,15 @@
   border: 0;
 }
 
-.save-btn,
+.save-btn, .cancel-btn {
+    background-color: #6a0dad;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
 .cancel-btn {
   background-color: #6a0dad;
   color: white;
@@ -330,4 +403,130 @@
   overflow-x: auto;
   scroll-behavior: smooth;
   margin: 2rem 0;
+}
+
+.milestone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 120px;
+    text-align: center;
+    color: #888;
+}
+
+.milestone .circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #e2e2e2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+}
+
+.milestone.active .circle {
+    border: 3px solid #9333ea; /* Roxo */
+    background-color: #fff;
+    color: #9333ea;
+}
+
+.milestone .label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.milestone.active .label {
+    color: #9333ea;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .roadmap-milestones {
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+    }
+}
+.uploadForm {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-bottom: 3.5rem;
+    padding-left: 1.5rem;
+    background-color: white;
+}
+
+.uploadLabel {
+    position: relative;
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    background-color: #f5f5f5;
+    border: 2px dashed #33363F;
+    border-radius: 12px;
+    cursor: pointer;
+    color: #1e1e1e;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.uploadLabel:hover {
+    background-color: #c9d2f0;
+}
+
+.uploadLabel input[type="file"] {
+    display: none;
+}
+
+.uploadLabel span {
+    pointer-events: none;
+}
+
+.uploadButton {
+    background-color: #33363F;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.uploadButton:hover {
+    background-color: #5f6475;
+    transform: translateY(-1px);
+}
+
+.milestoneButtons {
+    margin-top: 3rem;
+}
+
+.saveM, .saveP {
+    padding: 1rem;
+    text-decoration: none;
+    border-radius: 15px;
+    margin-right: 1rem;
+}
+
+.saveM {
+    color: black;
+    border: 1px solid black;
+}
+
+.saveP {
+    background-color: #6a0dad;
+    color: white;
 }

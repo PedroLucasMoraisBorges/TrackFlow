@@ -41,7 +41,7 @@ class CreateStage(APIView):
                     'stage' : {
                         'id' : stage.id,
                         'name' : stage.name,
-                        'stage_description' : stage.description
+                        'description' : stage.description
                     }
                 }, status = status.HTTP_201_CREATED
             )

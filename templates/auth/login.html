@@ -10,11 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
-    <div style="display: none;" class="errors">
-        {% for error in errors %}
-            <p>{{error}}</p>
-        {% endfor %}
-    </div>
+    {% include 'components/errors.html' %}
     
     <main class="container">
         <div class="login-container">

@@ -104,7 +104,7 @@ class AiPage(View):
 
 class CreateProjectWithAi(APIView):
     def post(self, request):
-        client = genai.Client(api_key="AIzaSyARcjGW6FTXp3Abgtn4BvGp25l8ixV5l4E")
+        client = genai.Client(api_key="AIzaSyBlhJsKVQrVxvtRjv-TnLeeg3GhB2eM8_4")
 
         prompt = request.data.get("description")  
         ownerId = request.data.get("owner")

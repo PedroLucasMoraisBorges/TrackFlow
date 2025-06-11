@@ -1,16 +1,21 @@
 {% load static %}
 
-<div class="stage-card" onclick="toggleStageDropdown(this)" id="stage{{stage.id}}">
-    <div class="stage_name">
-        <img src="{% static 'imgs/bar-chart-steps.svg' %}" alt="">
-        <p>{{ stage.name }}</p>
+<div class="stage-wrapper">
+    <div class="stage-card" onclick="toggleStageDropdown(this)" id="stage{{ stage.id }}">
+        <div class="stage_name">
+            <img src="{% static 'imgs/bar-chart-steps.svg' %}" alt="">
+            <h3>{{ stage.name }}</h3>
+        </div>
+        <img class="dropdown-icon" src="{% static 'imgs/dropdown.svg' %}" alt="">
     </div>
-    <img class="dropdown-icon" src="{% static 'imgs/dropdown.svg' %}" alt="">
+
+    <form class="dropdown-content" url="{% url 'edit_stage' id=stage.id %}">
+        {% csrf_token %}
+        <p>{{ stage.description }}</p>
+        <div class="buttons">
+            <button class="buttonEdit" onclick="enableEdit(this)">
+                <img src="{% static 'imgs/edit.svg' %}" alt="">
+            </button>
+        </div>
+    </form>
 </div>
-<form class="dropdown-content" id="stage.id" url="{% url 'edit_stage' id=stage.id %}">
-    {% csrf_token %}
-    <p>{{ stage.description }}</p>
-    <div class="buttons">
-        <button class="buttonEdit" onclick="enableEdit(this)"><img src="{% static 'imgs/edit.svg' %}" alt=""></button>
-    </div>
-</form>
