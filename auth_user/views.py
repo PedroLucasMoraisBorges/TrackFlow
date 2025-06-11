@@ -204,9 +204,7 @@ from projects.forms import RateTemplateForm
 class TemplatesView(View):
     def get(self, request):
         form = RateTemplateForm()
-        templates = Templates.objects.filter(
-            fk_user = request.user
-        )
+        templates = Templates.objects.filter()
 
         templatesReturn = []
 

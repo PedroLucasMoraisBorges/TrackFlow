@@ -59,9 +59,20 @@ class RegisterUserProjectForm(forms.ModelForm):
         })
     )
 
+    dt_init = forms.DateField(
+        required=False,
+        label='Data de início do projeto',
+        widget=forms.DateInput()
+    )
+
+    time_interval = forms.IntegerField(
+        required=False,
+        label='Intervalo de tempo'
+    )
+
     class Meta:
         model = Project
-        fields = ['name', 'description'] 
+        fields = ['name', 'description', 'dt_init', 'time_interval',] 
 
 class EditProjectForm(forms.ModelForm):
     name = forms.CharField(

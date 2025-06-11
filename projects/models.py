@@ -11,6 +11,8 @@ class Project(models.Model):
     is_archived = models.BooleanField(default=False)
     dt_created = models.DateField(auto_now_add=True)
     metadata = models.JSONField(default=dict, blank=True)
+    dt_init = models.DateField(null=True)
+    time_interval = models.IntegerField(null=True)
 
     fk_manager = models.ForeignKey(User, related_name='project_manager', on_delete=models.CASCADE)
     fk_owner = models.ForeignKey(User, related_name='project_owner', on_delete=models.CASCADE, null=True)

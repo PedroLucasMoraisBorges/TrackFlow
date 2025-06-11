@@ -104,7 +104,9 @@ class AiPage(View):
 
 class CreateProjectWithAi(APIView):
     def post(self, request):
-        client = genai.Client(api_key="AIzaSyBlhJsKVQrVxvtRjv-TnLeeg3GhB2eM8_4")
+        genai.configure(api_key="AIzaSyBlhJsKVQrVxvtRjv-TnLeeg3GhB2eM8_4")
+        model = genai.GenerativeModel("gemini-2.0-flash")
+
 
         prompt = request.data.get("description")  
         ownerId = request.data.get("owner")
@@ -152,10 +154,8 @@ Estrutura JSON obrigatória de saída:
   ]
 }}
 """
-        response = client.models.generate_content(
-            model="gemini-2.0-flash",
-            contents=complete_prompt,
-        )
+        response = model.generate_content(complete_prompt)
+
         teste = response.text.replace("```json", "```")
         teste = teste.replace("```", "")
 
@@ -384,3 +384,11 @@ class RateTemplate(View):
             evaluate.save()
 
         return redirect('templates')
+
+class CreateProjectWithTemplate(View):
+    def get(self, request, id):
+        template = Templates.objects.get(id=id)
+        project = createProjectWithObject(template.metadata, request.user)
+
+        if project:
+            return redirect('view_project', id=project.id)
