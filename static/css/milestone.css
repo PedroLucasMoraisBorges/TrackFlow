@@ -1,461 +1,333 @@
 .milestone-card {
-    border-radius: 5px;
-    padding: 0;
-    margin-bottom: 2rem;
+  border-radius: 5px;
+  padding: 0;
+  margin-bottom: 2rem;
 }
 
 .milestone-card .title {
-    background-color: #5B21B6;
-    display: flex;
-    padding: .2rem 1rem;
-    margin-top: 2rem;
-    border-radius: 5px 5px 0px 0px;
+  background-color: #5B21B6;
+  display: flex;
+  padding: 0.2rem 1rem;
+  margin-top: 2rem;
+  border-radius: 5px 5px 0 0;
 }
 
 .milestone-card .title .info {
-    display: flex;
-    align-items: center;
-    color: white;
-    width: 100%;
-    font-size: 18px;
+  display: flex;
+  align-items: center;
+  color: white;
+  width: 100%;
+  font-size: 18px;
 }
 
-.milestone-card .title .info img {
-    width: 30px;
-    margin-right: .3rem;
+.milestone-card .title .info img,
+.milestoneDocuments .title .info img {
+  width: 30px;
+  margin-right: 0.3rem;
 }
 
-.buttonEdit {
-    background-color: white;
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+.buttonEdit,
+.milestoneDocuments .buttonEdit {
+  background-color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
-.milestone-card .buttonEdit img {
-    width: 24px;
+.milestone-card .buttonEdit img,
+.milestoneDocuments .buttonEdit img {
+  width: 24px;
 }
 
-
-/* Description */
 .description {
-    margin-bottom: 1rem;
-    padding: 1rem 2rem;
-    background-color: white;
-    border-radius: 0px 0px 5px 5px;
-    padding-bottom: 2rem;
+  margin-bottom: 1rem;
+  padding: 1rem 2rem 2rem;
+  background-color: white;
+  border-radius: 0 0 5px 5px;
 }
 
 .d_title {
-    background-color: #D09EFF;
-    color: #100028;
-    border: 0.7px solid #10002880;
-    padding: 1px 80px;
-    width: min-content;
-    font-weight: bold;
-    border-radius: 20px;
-    margin-bottom: .4rem;
+  background-color: #D09EFF;
+  color: #100028;
+  border: 0.7px solid #10002880;
+  padding: 1px 80px;
+  width: fit-content;
+  font-weight: bold;
+  border-radius: 20px;
+  margin-bottom: 0.4rem;
 }
 
-
-/* Milestone Image */
 .slider {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid #100028;
-    padding: 1rem 1.5rem;
-    border-radius: 5px;
-    box-shadow: 0 4px 4px #00000040;
-    margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #100028;
+  padding: 1rem 1.5rem;
+  border-radius: 5px;
+  box-shadow: 0 4px 4px #00000040;
+  margin-bottom: 1.5rem;
 }
 
 .slider-content {
-    height: 600px;
-    width: 100%;
+  height: 600px;
+  width: 100%;
 }
 
 .slider button {
-    background-color: white;
-    border-radius: 100%;
-    border: 0.7px solid #100028;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
+  background-color: white;
+  border-radius: 50%;
+  border: 0.7px solid #100028;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
 }
 
 .slider button img {
-    width: 100%;
+  width: 100%;
 }
 
 .no_image {
-    display: flex;
-    justify-content: center;
-    width: 70%;
+  display: flex;
+  justify-content: center;
+  width: 70%;
 }
-.slider #no_image{
-    width: 40% !important;
-    height: auto;
+
+.slider #no_image {
+  width: 40% !important;
+  height: auto;
 }
 
 .slider-content img {
-    width: 100%;  /* Ajusta a largura ao container */
-    height: 100%; /* Ajusta a altura ao container */
-    object-fit: contain; /* Mantém a proporção da imagem sem cortes */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 #previous {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
-/* MilestoneDocuments */
 .milestoneDocuments {
-    border-radius: 5px;
-    padding: 0;
-    font-family: "Inter", sans-serif;
+  border-radius: 5px;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
 }
 
 .milestoneDocuments .title {
-    background-color: #33363F;
-    display: flex;
-    padding: .3rem 1rem;
-    border-radius: 5px 5px 0px 0px;
+  background-color: #33363F;
+  display: flex;
+  padding: 0.3rem 1rem;
+  border-radius: 5px 5px 0 0;
 }
 
 .milestoneDocuments .title .info {
-    display: flex;
-    align-items: center;
-    color: white;
-    width: 100%;
-    font-size: 18px;
-}
-
-.milestoneDocuments .title .info img {
-    width: 30px;
-    margin-right: .3rem;
-}
-
-.milestoneDocuments .buttonEdit {
-    background-color: white;
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.milestoneDocuments .buttonEdit img {
-    width: 24px;
+  display: flex;
+  align-items: center;
+  color: white;
+  width: 100%;
+  font-size: 18px;
 }
 
 .milestoneDocuments .documents {
-    background-color: white;
-    border-radius: 0px 0px 5px 5px;
-    padding: 1.4rem 2.5rem 1.4rem 2.5rem;
+  background-color: white;
+  border-radius: 0 0 5px 5px;
+  padding: 1.4rem 2.5rem;
 }
 
 .milestoneDocuments .geralDocs h4 {
-    font-size: 20px;
-    margin-bottom: 1rem;
-}
-.milestoneDocuments .geralDocs span{
-    color: #5B21B6;
-    text-decoration: underline;
+  font-size: 20px;
+  margin-bottom: 1rem;
 }
 
-.milestoneDocuments .geralDocs .docList{
-    display: grid;
-    grid-template-columns: 19% 19% 19% 19% 19%;
-    justify-content: space-between;
+.milestoneDocuments .geralDocs span {
+  color: #5B21B6;
+  text-decoration: underline;
+}
+
+.milestoneDocuments .geralDocs .docList {
+  display: grid;
+  grid-template-columns: repeat(5, 19%);
+  justify-content: space-between;
 }
 
 .milestoneDocuments .docItem {
-    display: flex;
-    align-items: center;
-    gap: 8px; 
-    padding: 8px;
-    border: 1px solid #8C8C8C;
-    border-radius: 5px;
-    width: 100%; 
-    max-width: 200px; 
-    white-space: nowrap; 
-    overflow: hidden; 
-    text-overflow: ellipsis;
-    text-decoration: none;
-    margin-bottom: 1rem;
-    color: #383737;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid #8C8C8C;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  color: #383737;
 }
 
 .milestoneDocuments .docItem p {
-    flex: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-
-/* STAGES */
-
 .stages {
-    border-radius: 5px;
-    background-color: white;
+  border-radius: 5px;
+  background-color: white;
 }
 
 .stage-card {
-    display: flex;
-    justify-content: space-between;
-    background-color: white;
-    padding: 0.4rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    color: black;
-    transition: background-color 0.5s ease, color 0.3s ease;
-    
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  color: black;
+  transition: background-color 0.5s, color 0.3s;
 }
 
 .stage-card .stage_name {
-    display: flex;
-    width: 100%;
-    align-items: center;
+  display: flex;
+  width: 100%;
+  align-items: center;
 }
 
 .stage-card .stage_name img {
-    margin-right: 20px;
-    width: 1.8rem;
-    transition: filter 0.3s ease;
+  margin-right: 20px;
+  width: 1.8rem;
+  transition: filter 0.3s;
 }
 
 .stage-card h3 {
-    font-weight: normal;
-    font-size: 1.2rem;
-    transition: color 0.1s ease;
+  font-weight: normal;
+  font-size: 1.2rem;
+  transition: color 0.1s;
 }
 
 .dropdown-icon {
-    width: 1rem;
-    transition: transform 0.3s ease, filter 0.3s ease;
+  width: 1rem;
+  transition: transform 0.3s, filter 0.3s;
 }
 
 .dropdown-content {
-    max-height: 0;
-    overflow: hidden;
-    background-color: #33363F;
-    color: white;
-    border-radius: 0 0 5px 5px;
-    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
-    position: relative;
-    padding-bottom: 3rem; /* Garante espaço para os botões no final */
+  max-height: 0;
+  overflow: hidden;
+  background-color: #33363F;
+  color: white;
+  border-radius: 0 0 5px 5px;
+  transition: max-height 0.3s, padding 0.3s;
+  position: relative;
+  padding-bottom: 3rem;
 }
 
 .dropdown-content p {
-    margin-bottom: 2rem;
-    padding: 0rem 2rem 0rem 2rem;
+  margin-bottom: 2rem;
+  padding: 0 2rem;
 }
 
 .dropdown-content .buttonEdit {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 }
 
 .stage-card.active {
-    background-color: #33363F;
-    color: white;
-    border-radius: 5px 5px 0px 0px;
+  background-color: #33363F;
+  color: white;
+  border-radius: 5px 5px 0 0;
 }
 
 .stage-card.active .stage_name img,
 .stage-card.active .dropdown-icon {
-    filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1);
 }
 
 .stage-card + .dropdown-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
-    padding: 0 20px; /* Remove padding quando fechado */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s, padding 0.3s;
+  padding: 0 20px;
 }
 
 .stage-card.active + .dropdown-content {
-    max-height: 300px; /* Ajuste conforme o conteúdo */
-    padding: 10px 20px;
+  max-height: 300px;
+  padding: 10px 20px;
 }
+
 .stage-card.active .dropdown-icon {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
-
-.edit-input, .edit-textarea {
-    width: 100%;
-    padding: 5px;
-    font-size: 1rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+.edit-input,
+.edit-textarea {
+  width: 100%;
+  padding: 5px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
 .edit-textarea {
-    resize: vertical;
-    min-height: 50px;
+  resize: vertical;
+  min-height: 50px;
 }
 
 .buttonEdit {
-    display: flex;
-    gap: 5px;
-    border: 0;
+  display: flex;
+  gap: 5px;
+  border: 0;
 }
 
-.save-btn, .cancel-btn {
-    background-color: #6a0dad;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-l
+.save-btn,
 .cancel-btn {
-    background-color: #d9534f;
+  background-color: #6a0dad;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
-.btn-copia{
-    background-color: #7c3aed;
-    color: white;
-    width: 100%;
-    font-weight: 600;
-    border-radius: 5px;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
+.cancel-btn {
+  background-color: #d9534f;
 }
-.btn-copia:hover{
-    background-color: #8f60dc; 
+
+.btn-copia {
+  background-color: #7c3aed;
+  color: white;
+  width: 100%;
+  font-weight: 600;
+  border-radius: 5px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-copia:hover {
+  background-color: #8f60dc;
 }
 
 .roadmap-milestones {
-    display: flex;
-    justify-content: space-between;
-    gap: 1.5rem;
-    padding: 2rem;
-    border-radius: 12px;
-    background-color: #fff;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    margin: 2rem 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 2rem;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  margin: 2rem 0;
 }
-
-.milestone {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.6rem;
-    min-width: 120px;
-    text-align: center;
-    color: #888;
-}
-
-.milestone .circle {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: #e2e2e2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 0.9rem;
-    position: relative;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.06);
-}
-
-.milestone.active .circle {
-    border: 3px solid #9333ea; /* Roxo */
-    background-color: #fff;
-    color: #9333ea;
-}
-
-.milestone .label {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #333;
-    transition: color 0.3s ease;
-}
-
-.milestone.active .label {
-    color: #9333ea;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-/* Responsivo */
-@media (max-width: 768px) {
-    .roadmap-milestones {
-        flex-wrap: nowrap;
-        overflow-x: scroll;
-    }
-}
-.uploadForm {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    flex-wrap: wrap;
-    padding-bottom: 3.5rem;
-    padding-left: 1.5rem;
-    background-color: white;
-}
-
-.uploadLabel {
-    position: relative;
-    display: inline-block;
-    padding: 0.4rem 1.2rem;
-    background-color: #f5f5f5;
-    border: 2px dashed #33363F;
-    border-radius: 12px;
-    cursor: pointer;
-    color: #1e1e1e;
-    font-weight: 500;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.uploadLabel:hover {
-    background-color: #c9d2f0;
-}
-
-.uploadLabel input[type="file"] {
-    display: none;
-}
-
-.uploadLabel span {
-    pointer-events: none;
-}
-
-.uploadButton {
-    background-color: #33363F;
-    color: white;
-    border: none;
-    padding: 0.6rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.uploadButton:hover {
-    background-color: #5f6475;
-    transform: translateY(-1px);
-}
-

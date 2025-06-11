@@ -6,7 +6,78 @@
 <link rel="stylesheet" href="{% static 'css/templates.css' %}">
 <link rel="stylesheet" href="{% static 'css/LandingPage.css'%}">
 <link rel="stylesheet" href="{% static 'css/templatePreview.css'%}">
+<style>
+
+.preview_modal {
+    background-color: #7C3AED;
+    padding-inline: 30px;
+    padding-block: 15px;
+    margin: 5px;
+    border-style: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.preview_modal:hover{
+    background-color: #F0E0FE;
+    color: #7C3AED;
+
+}
+
+dialog {
+    padding: 0;
+    border: none;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    margin: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.new_client_container {
+    padding: 2rem;
+    background-color: white;
+    border-radius: 12px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.close-modal {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+</style>
 {% endblock %}
+
 
 {% block body %}
 <main>
@@ -64,7 +135,7 @@
                         <button type="submit" class="salve-btn" >Salvar</button>
                     </form>
                     
-                    <button type="button" onclick="openModal('{{template.info.id}}')" class="preview-btn" style="width: 100%; margin-top: 10px;">Preview</button>
+                    <button class="preview_modal" type="button" onclick="openModal('{{template.info.id}}')" class="preview-btn" style="width: 100%; margin-top: 10px;">Preview</button>
                 </div>
 
                 <dialog id="{{template.info.id}}">
@@ -105,6 +176,43 @@
 
 {% block scripts %}
 <script>
-  
+
+    function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.showModal();
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const closeButtons = document.querySelectorAll('.close-modal');
+
+        closeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const dialog = button.closest('dialog');
+                if (dialog) {
+                    dialog.close();
+                }
+            });
+        });
+
+        // Fechar ao clicar fora do modal (no backdrop)
+        document.querySelectorAll('dialog').forEach(dialog => {
+            dialog.addEventListener('click', event => {
+                const rect = dialog.getBoundingClientRect();
+                const isInDialog = (
+                    rect.top <= event.clientY && event.clientY <= rect.bottom &&
+                    rect.left <= event.clientX && event.clientX <= rect.right
+                );
+
+                // Se clicou fora da caixa do modal, fecha
+                if (!isInDialog) {
+                    dialog.close();
+                }
+            });
+        });
+    });
+
 </script>
 {% endblock %}
+

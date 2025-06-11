@@ -1,11 +1,14 @@
 .template-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     background-color: #F5F5F5;
     border: 1px solid #E5E7EB;
     border-radius: 16px;
     padding: 16px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.06);
     max-width: 280px;
-    
     margin: 16px auto;
     font-family: 'Inter', sans-serif;
     transition: transform 0.2s ease;
@@ -57,8 +60,9 @@
     background-color: #ea6c13;
 }
 
-.preview-btn {
-    background-color: #181818;
+.btn-preview {
+    margin-top: 5px;
+    background-color: #2d2d2d;
     color: #fff;
     padding: 6px 16px;
     border: none;
@@ -66,9 +70,11 @@
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    text-decoration: none;
 }
-.preview-btn:hover {
-    background-color: #2d2d2d;
+.btn-preview:hover {
+    background-color: #fff;
+    color: #2d2d2d ;
 }
 
 /* Modal dialog */
