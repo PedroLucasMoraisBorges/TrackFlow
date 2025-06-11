@@ -174,54 +174,7 @@ body {
 }
 
 
-/* Popup styles */
-.popup {
-    position: fixed;
-    bottom: 20px; /* Alinha na parte inferior */
-    left: 20px; /* Alinha à esquerda */
-    padding-right: 2rem;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    animation: slideUp 0.5s ease-out;
-    max-width: 300px;
-}
 
-@keyframes slideUp {
-    from {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-@keyframes fadeOut {
-    from {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    to {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-}
-
-.popup.error {
-    border-left: 4px solid #dc2626;
-    background-color: #fff1f2;
-}
-
-.popup-message {
-    color: #dc2626;
-    font-size: 0.9rem;
-}
 
 
 @media (max-width: 768px) {

@@ -44,7 +44,7 @@ if (stage_form) {
             dropdownContent.id = stage.id
             dropdownContent.setAttribute("url", `/editStage/${stage.id}`);
             dropdownContent.classList.add("dropdown-content");
-    
+
             dropdownContent.innerHTML = `<p>${stage.description}</p><div class="buttons"><button class="buttonEdit" onclick="enableEdit(this)"><img src="/static/imgs/edit.svg" alt=""></button></div>`
     
             let csrfInput = document.createElement("input");

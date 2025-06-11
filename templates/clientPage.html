@@ -15,6 +15,8 @@
     {% include 'components/sidebar.html' %}
 
     <section id="main_section">
+        {% include 'components/errors.html' %}
+        
         <div class="title-section">
             <h1>Gerenciar <span class="spanName">{{client.name}}</span></h1>
             <hr>
@@ -32,7 +34,7 @@
             {% endfor %}
             <button type="submit" style="background-color: #7c3aed;
             color: white;
-            font-weight: 600; width: 100%; border: none; padding: .8rem; border-radius: 10rem; cursor: pointer;">Criar projeto</button>
+            font-weight: 600; width: 100%; border: none; padding: .8rem; border-radius: 15px; cursor: pointer; font-size: 1rem;">Criar projeto</button>
 
         </form>
         <br>
