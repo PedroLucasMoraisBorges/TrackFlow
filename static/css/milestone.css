@@ -409,10 +409,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.6rem;
-    min-width: 120px;
     text-align: center;
-    color: #888;
+    transition: background-color 0.3s ease-in-out;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    position: relative;
+    flex: 1 0 120px; /* Flex grow, shrink, and basis */
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    border-style: none;
 }
 
 .milestone .circle {
@@ -428,13 +435,41 @@
     position: relative;
     transition: all 0.3s ease-in-out;
     box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+    cursor: pointer;
+} 
+
+.milestone:hover {
+  background-color: #f3f3f3;
+  transform: scale(1.02);
+}
+
+.milestone.active {
+    background-color: #f3e8ff;
+    transform: scale(1.05);
 }
 
 .milestone.active .circle {
-    border: 3px solid #9333ea; /* Roxo */
+    border: 3px solid #9333ea;
     background-color: #fff;
     color: #9333ea;
 }
+
+
+.roadmap-milestones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.milestone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 120px; /* largura fixa para padronizar */
+    text-align: center;
+}
+
 
 .milestone .label {
     font-size: 0.9rem;
@@ -448,6 +483,11 @@
     font-weight: bold;
     text-decoration: underline;
 }
+
+.sectionCard {
+    display: none;
+}
+
 
 /* Responsivo */
 @media (max-width: 768px) {
