@@ -17,11 +17,7 @@ from geralUtilits import *
 # Create your views here.
 class Projects(View):
     def get(self, request):
-        user = request.user
-        if request.user.type == 'U':
-            projects = Project.objects.filter(is_archived=False, fk_owner=request.user)
-        elif request.user.type == 'G':
-            projects = Project.objects.filter(is_archived=False, fk_manager=request.user)
+        projects = Project.objects.filter(is_archived=False, fk_manager=request.user)
             
         form = RegisterProjectForm(user=request.user)
 
@@ -392,3 +388,12 @@ class CreateProjectWithTemplate(View):
 
         if project:
             return redirect('view_project', id=project.id)
+
+class ClientProjects(View):
+    def get(self, request):
+        projects = Project.objects.filter(is_archived=False, fk_owner=request.user)
+        context = {
+            'projects' : projects,
+        }
+
+        return render(request, 'clients/clientProjects.html', context)
