@@ -61,32 +61,35 @@
         <br>
 
         <hr>
-        <article class="roadmap-milestones">
-            {% for milestone in milestones %}
-                <div class="milestone {% if milestone.info.is_active %}active{% endif %}">
-                    <div class="circle">
-                        <p>{{ milestone.info.order }}° marco</p>
-                    </div>
-                    <div class="label">
-                        {{ milestone.info.name }}
-                    </div>
-                </div>
-            {% endfor %}
-        </article>
+    <article class="roadmap-milestones">
+        {% for milestone in milestones %}
+            <button class="milestone {% if milestone.info.is_active %}active{% endif %}" 
+        type="button"
+        data-milestone-id="{{ milestone.info.id }}">
+    <div class="circle">
+        <p>{{ milestone.info.order }}° marco</p>
+    </div>
+    <div class="label">
+        {{ milestone.info.name }}
+    </div>
+            </button>
+        {% endfor %}
+    </article>
+
         
 
         {% for milestone in milestones %}
-            <section class="sectionCard" id="milestoneDiv{{milestone.info.id}}" order="{{milestone.info.order}}">
-                {% with milestone=milestone.info files=milestone.files %}
-                    {% include 'components/milestoneCard.html' %}
-                {% endwith %}
+    <section class="sectionCard" id="milestoneDiv{{milestone.info.id}}" order="{{milestone.info.order}}" style="{% if not forloop.first %}display:none;{% endif %}">
+        {% with milestone=milestone.info files=milestone.files %}
+            {% include 'components/milestoneCard.html' %}
+        {% endwith %}
 
-                <div class="stages">
-                    {% for stage in milestone.stages %}
-                        {% include 'components/stageCard.html' %}
-                    {% endfor %}
-                </div>
-            </section>
+        <div class="stages">
+            {% for stage in milestone.stages %}
+                {% include 'components/stageCard.html' %}
+            {% endfor %}
+        </div>
+    </section>
         {% endfor %}
 
         <!--Seção de comentarios-->
@@ -179,5 +182,26 @@
             document.getElementById('output').textContent = 'Erro ao gerar projeto.';
         });
     });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add click listeners to all milestone buttons
+    document.querySelectorAll('.milestone').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            // Remove active class from all buttons
+            document.querySelectorAll('.milestone').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Hide all sectionCards
+            document.querySelectorAll('.sectionCard').forEach(sec => sec.style.display = 'none');
+
+            // Show the selected sectionCard
+            const id = btn.getAttribute('data-milestone-id');
+            const target = document.getElementById('milestoneDiv' + id);
+            if (target) target.style.display = 'block';
+        });
+    });
+});
 </script>
 {% endblock %}
