@@ -33,7 +33,7 @@ class Redirect(View):
         if not user.is_authenticated:
             return redirect('login')
         if user.type == 'U':
-            return redirect('client page')
+            return redirect('client_projects')
         elif user.type == 'G':
             return redirect('clients')
 
@@ -57,7 +57,6 @@ class Login(View):
             login(request, user)
             return redirect('/')
         
-        print(errors)
         context = {
             'errors' : errors,
             'form'   : form

@@ -1,0 +1,86 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+<!-- Aqui pode ser colocado todo o conteúdo do <head> -->
+{% block head %}
+<title>Projetos</title>
+
+<link rel="stylesheet" href="{% static 'css/search.css' %}">
+<link rel="stylesheet" href="{% static 'css/projects.css' %}">
+<link rel="stylesheet" href="{% static 'css/LandingPage.css'%}">
+{% endblock %}
+
+<!-- Aqui pode ser colocado todo o conteúdo do <body> -->
+{% block body %}
+<main>
+    {% include 'components/sidebar.html' %}
+
+    <section id="main_section">
+        <div class="title-section">
+            <h1>Listagem de <span class="spanName">Projetos Vinculados</span></h1>
+            <hr>
+        </div>
+        <br>
+        <div class="div_search">
+            <form class="search">
+                <button>
+                    <img src="{% static 'imgs/search.svg' %}" alt="lupa">
+                </button>
+                <input type="text" placeholder="Buscar por projetos" name="search">
+            </form>
+
+            <button class="add_button" onclick="openModal()">
+                <img src="{% static 'imgs/add_ring.svg' %}" alt="">
+                <p>Criar novo projeto</p>
+            </button>
+        </div>
+        
+        {% include 'components/projectCard.html' %}      
+
+        <div class="modal" id="projectModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <!--<img src="{% static 'imgs/backProject.svg' %}" alt="imagem ficticia de projeto" class="project_image"> -->
+                <h2>➕Cadastrar novo projeto</h2>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    <button type="submit">Criar projeto</button>
+                    <button type="button" onclick="closeModal()">Fechar</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    {% include 'components/footer.html' %}
+</main>
+
+{% endblock %}
+
+<!-- Aqui pode ser colocado todo o conteúdo do <script> ou importar scripts pelo src -->
+{% block scripts %}
+<script>
+    // Abrir o modal
+    function openModal() {
+        document.getElementById("projectModal").style.display = "block";
+    }
+
+    // Fechar o modal
+    function closeModal() {
+        document.getElementById("projectModal").style.display = "none";
+    }
+
+    // Fechar o modal ao clicar fora da caixa de conteúdo
+    window.onclick = function(event) {
+        var modal = document.getElementById("projectModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+{% endblock %}

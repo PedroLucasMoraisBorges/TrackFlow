@@ -12,5 +12,6 @@ urlpatterns = [
     path('parseProjectToTemplate/<str:id>', CopyProjectToTemplate.as_view(), name='parse_project_to_template'),
     path('myTemplates/', MyTemplates.as_view(), name='my_templates'),
     path('rateTemplate/<str:id>', RateTemplate.as_view(), name='rate_template'),
-    path('createProjectWithTemplate/<str:id>', CreateProjectWithTemplate.as_view(), name='create_project_with_template')
+    path('createProjectWithTemplate/<str:id>', CreateProjectWithTemplate.as_view(), name='create_project_with_template'),
+    path('clientProjects/', ClientProjects.as_view(), name='client_projects')
 ]

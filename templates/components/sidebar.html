@@ -12,7 +12,7 @@
         border-right: 4px solid #A855F7;
         padding: 2rem 0rem;
     }
-    
+
     .menu-item {
         cursor: pointer;
         display: flex;
@@ -33,9 +33,10 @@
         background-color: white;
         color: #1e1e1e;
     }
+
     .menu-item.active {
-    background-color: white;
-    color: #1e1e1e;
+        background-color: white;
+        color: #1e1e1e;
     }
 
     .menu-item:hover img {
@@ -84,6 +85,29 @@
                 </a>
             </div>
         </div>
+
+        {% if user.type == "U" %}
+            <!-- Início -->
+        <div class="menu-item" onclick="toggleDropdown('projectsDropdown', this)">
+            <div style="display: flex; align-items: center;">
+                <img src="{% static 'imgs/projectsWhite.svg' %}" alt="projects">
+                <a href="{% url 'client_projects' %}" style="color: inherit; text-decoration: none;">
+                    <p>Projetos</p>
+                </a>
+            </div>
+            <img src="{% static 'imgs/dropdownW.svg' %}" class="dropdownIcon" alt="">
+        </div>
+
+        <div id="projectsDropdown" class="dropdown">
+            {% for my_project in my_projects %}
+            <a href="{% url 'view_project' id=my_project.id %}">{{ my_project.name }}</a>
+            {% endfor %}
+            <a href="{% url 'client_projects' %}">Meus Projetos</a>
+        </div>
+        {% endif %}
+        
+
+        {% if user.type == "G" %}
         <!-- Início -->
         <div class="menu-item">
             <div style="display: flex; align-items: center;">
@@ -107,7 +131,7 @@
 
         <div id="clientsDropdown" class="dropdown">
             {% for my_client in my_clients %}
-                <a href="{% url 'client_page' id=my_client.id %}">{{ my_client.name }}</a>
+            <a href="{% url 'client_page' id=my_client.id %}">{{ my_client.name }}</a>
             {% endfor %}
             <a href="{% url 'clients' %}">Lista de Clientes</a>
         </div>
@@ -125,7 +149,7 @@
 
         <div id="projectsDropdown" class="dropdown">
             {% for my_project in my_projects %}
-                <a href="{% url 'view_project' id=my_project.id %}">{{ my_project.name }}</a>
+            <a href="{% url 'view_project' id=my_project.id %}">{{ my_project.name }}</a>
             {% endfor %}
             <a href="{% url 'my_projects' %}">Meus Projetos</a>
             <a href="{% url 'complete_projects' %}">Projetos Completos</a>
@@ -138,9 +162,9 @@
                 <a href="{% url 'ai_page' %}" style="color: inherit; text-decoration: none;">
                     <p>Gerar com IA</p>
                 </a>
-                
+
             </div>
-            
+
         </div>
 
         <!-- Templates -->
@@ -161,6 +185,9 @@
                 </a>
             </div>
         </div>
+        {% endif %}
+
+
     </nav>
 </aside>
 
