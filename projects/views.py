@@ -56,6 +56,13 @@ class Projects(View):
 
         return render(request, 'manager/projects.html', context)
     
+from datetime import timedelta
+
+def calculate_end_date(project):
+    if project.dt_init and project.time_interval is not None:
+        return project.dt_init + timedelta(days=project.time_interval)
+    return None
+
 class ViewProject(View):
     def get(self, request, id):
         project = Project.objects.get(id=id)

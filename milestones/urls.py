@@ -8,5 +8,6 @@ urlpatterns = [
     path('deleteMilestone/<str:id>', DeleteMilestone.as_view(), name='delete_milestone'),
 
     # API
-    path('createMilestone/<str:id>', CreateMilestone.as_view(), name='create_milestone')
+    path('createMilestone/<str:id>', CreateMilestone.as_view(), name='create_milestone'),
+    path('editMilestone/<str:id>', EditMilestone.as_view(), name='edit_milestone')
 ]

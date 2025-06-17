@@ -136,3 +136,31 @@ class DeleteMilestone(APIView):
                 'message' : 'Marco deletado com sucesso!',
             }, status = status.HTTP_200_OK
         )
+from geralUtilits import getErrors
+    
+class EditMilestone(APIView):
+    def put(self, request, id):
+        milestone = Milestone.objects.get(id=id)
+        form = EditMilestoneForm(request.POST, request.FILES, instance=milestone)
+
+
+        if form.is_valid():
+            milestone = form.save()
+
+            return Response(
+                {   
+                    'message' : 'Etapa editada com sucesso!',
+                    'milestone' : {
+                        'id' : milestone.id,
+                        'name' : milestone.name,
+                        'description' : milestone.description
+                    }
+                }, status = status.HTTP_201_CREATED
+            )
+
+        return Response(
+            {
+                'message' : 'Falha no formulário',
+                'errors' : getErrors([form])
+            }, status = status.HTTP_400_BAD_REQUEST
+        )

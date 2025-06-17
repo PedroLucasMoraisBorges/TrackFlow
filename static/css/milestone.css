@@ -355,6 +355,13 @@
   border: 0;
 }
 
+.edit-button-group {
+  display: flex;
+}
+
+.edit-button-group button {
+  margin-right: 1rem;
+}
 .save-btn, .cancel-btn {
     background-color: #6a0dad;
     color: white;

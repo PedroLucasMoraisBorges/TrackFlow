@@ -2,24 +2,25 @@
 
 <link rel="stylesheet" href="{% static 'css/milestone_card.css' %}">
 
-<div class="milestone-card" id="{{milestone.id}}">
+<div class="milestone-card" id="{{milestone.id}}" url="{% url 'edit_milestone' id=milestone.id %}">
     <div class="title">
         <div class="info">
             <img src="{% static 'imgs/info.svg' %}" alt="info">
             <p>{{milestone.name}}</p>
         </div>
 
-        <div class="buttonEdit"><img src="{% static 'imgs/edit.svg' %}" alt=""></div>
+        <div class="buttonEdit" onclick="enableEditMilestone(this)"><img src="{% static 'imgs/edit.svg' %}" alt="">
+        </div>
     </div>
 
-    <div class="description">
+    <div class="description" id="milestone_d_{{milestone.id}}">
         <p class="d_title">
             Descrição
         </p>
         <p>{{milestone.description}}</p>
     </div>
 </div>
-   <div class="general_docs"></div>
+<!-- <div class="general_docs"></div>
     <article class="milestoneDocuments">
         <div class="title">
             <div class="info">
@@ -41,16 +42,17 @@
                     {% endfor %}
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <form class="uploadForm" action="{% url 'create_file' id=milestone.id type='milestone' %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <label class="uploadLabel">
-                {{ file_form.file }}
-                <span>Selecionar arquivo</span>
-            </label>
-            <button class="uploadButton" type="submit">Upload</button>
-        </form>
-    </div>
+<!-- <form class="uploadForm" action="{% url 'create_file' id=milestone.id type='milestone' %}" method="post"
+    enctype="multipart/form-data">
+    {% csrf_token %}
+    <label class="uploadLabel">
+        {{ file_form.file }}
+        <span>Selecionar arquivo</span>
+    </label>
+    <button class="uploadButton" type="submit">Upload</button>
+</form> -->
+</div>
 
 </article>

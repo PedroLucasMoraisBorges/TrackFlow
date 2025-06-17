@@ -123,3 +123,122 @@ function cancelEdit(button) {
     // Restaurando o botão Editar
     restoreEditButton(button.parentElement)
 }
+
+
+
+// Milestone
+
+// Milestone
+
+function enableEditMilestone(button) {
+    let milestoneCard = button.closest(".milestone-card");
+    let titleContainer = milestoneCard.querySelector(".title .info p");
+    let descContainer = milestoneCard.querySelector(".description p:last-of-type");
+
+    if (!titleContainer || !descContainer) {
+        console.error("Erro: Elementos de nome ou descrição não encontrados.");
+        return;
+    }
+
+    // Inputs
+    let nameInput = document.createElement("input");
+    nameInput.type = "text";
+    nameInput.value = titleContainer.textContent.trim();
+    nameInput.name = "name";
+    nameInput.classList.add("edit-input");
+    nameInput.setAttribute("data-original", titleContainer.textContent.trim());
+
+    let descInput = document.createElement("textarea");
+    descInput.value = descContainer.textContent.trim();
+    descInput.name = "description";
+    descInput.classList.add("edit-textarea");
+    descInput.setAttribute("data-original", descContainer.textContent.trim());
+
+    titleContainer.replaceWith(nameInput);
+    descContainer.replaceWith(descInput);
+
+    // Oculta o botão de editar (sem remover)
+    button.style.display = "none";
+
+    // Container de botões na seção .description
+    let descriptionContainer = milestoneCard.querySelector(".description");
+
+    let buttonGroup = document.createElement("div");
+    buttonGroup.classList.add("edit-button-group");
+
+    let saveButton = document.createElement("button");
+    saveButton.classList.add("save-btn");
+    saveButton.textContent = "Salvar";
+    saveButton.onclick = function () { saveEditMilestone(this); };
+
+    let cancelButton = document.createElement("button");
+    cancelButton.classList.add("cancel-btn");
+    cancelButton.textContent = "Cancelar";
+    cancelButton.onclick = function () { cancelEditMilestone(this); };
+
+    buttonGroup.appendChild(saveButton);
+    buttonGroup.appendChild(cancelButton);
+    descriptionContainer.appendChild(buttonGroup);
+}
+
+
+function saveEditMilestone(button) {
+    let milestoneCard = button.closest(".milestone-card");
+    let nameInput = milestoneCard.querySelector("input[name='name']");
+    let descInput = milestoneCard.querySelector("textarea[name='description']");
+
+    let formData = new FormData();
+    formData.append("name", nameInput.value);
+    formData.append("description", descInput.value);
+
+    let csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+    let url = milestoneCard.getAttribute("url");
+
+    fetch(url, {
+        method: "PUT",
+        body: formData,
+        headers: {
+            "X-CSRFToken": csrftoken
+        }
+    });
+
+    let newTitle = document.createElement("p");
+    newTitle.textContent = nameInput.value;
+
+    let newDesc = document.createElement("p");
+    newDesc.textContent = descInput.value;
+
+    nameInput.replaceWith(newTitle);
+    descInput.replaceWith(newDesc);
+
+    restoreEditMilestoneButton(milestoneCard);
+}
+
+
+function cancelEditMilestone(button) {
+    let milestoneCard = button.closest(".milestone-card");
+    let nameInput = milestoneCard.querySelector("input[name='name']");
+    let descInput = milestoneCard.querySelector("textarea[name='description']");
+
+    let originalTitle = document.createElement("p");
+    originalTitle.textContent = nameInput.getAttribute("data-original");
+
+    let originalDesc = document.createElement("p");
+    originalDesc.textContent = descInput.getAttribute("data-original");
+
+    nameInput.replaceWith(originalTitle);
+    descInput.replaceWith(originalDesc);
+
+    restoreEditMilestoneButton(milestoneCard);
+}
+
+
+function restoreEditMilestoneButton(milestoneCard) {
+    // Remove o grupo de botões se existir
+    let buttonGroup = milestoneCard.querySelector(".edit-button-group");
+    if (buttonGroup) buttonGroup.remove();
+
+    // Mostra o botão de editar novamente
+    let editButton = milestoneCard.querySelector(".buttonEdit");
+    if (editButton) editButton.style.display = "";
+}

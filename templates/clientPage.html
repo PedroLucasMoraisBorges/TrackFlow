@@ -6,7 +6,164 @@
 <link rel="stylesheet" href="{% static 'css/clientPage.css'%}">
 <link rel="stylesheet" href="{% static 'css/aiPage.css'%}">
 <link rel="stylesheet" href="{% static 'css/projects.css'%}">
+<link rel="stylesheet" href="{% static 'css/LandingPage.css'%}">
 <title>{{client.name}}</title>
+
+<style>
+    .form-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Input, textarea e select principais */
+.form-group input,
+.form-group textarea,
+.form-group select {
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+}
+
+/* Campos pequenos (inteiros, números, arquivos) */
+.form-group input[type="number"],
+.form-group input[type="file"],
+.form-group input[type="date"] {
+    max-width: 300px;
+    padding: 0.5rem 0.75rem;
+}
+
+/* Textarea personalizado */
+.form-group textarea {
+    border-radius: 15px;
+    resize: vertical;
+    height: 120px;
+    min-height: 80px;
+}
+
+/* Foco com destaque roxo */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
+}
+
+/* Botão principal de envio */
+.submitButton,
+form button[type="submit"] {
+    background-color: #7c3aed;
+    color: white;
+    font-weight: 600;
+    width: 100%;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.submitButton:hover,
+form button[type="submit"]:hover {
+    background-color: #5b21b6;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.form-group.half {
+    flex: 1 1 200px; /* Responsivo: mínimo de 200px */
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.form_buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-start;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.btn-action {
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.manual-btn {
+    background-color: #7c3aed; /* Roxo padrão */
+    color: white;
+}
+
+.manual-btn:hover {
+    background-color: #6b21a8; /* Tom mais escuro no hover */
+}
+
+.ai-btn {
+    background-color: #4f46e5; /* Azul violeta para diferenciar */
+    color: white;
+}
+
+.ai-btn:hover {
+    background-color: #4338ca;
+}
+
+</style>
 {% endblock %}
 
 
@@ -22,35 +179,60 @@
             <hr>
             <br>
         </div>
-        <form method="post">
-            <h2>Adicione<span class="spanName">novo projeto</span> para {{client.name}}</h2>
-            <br>
-            {% csrf_token %}
-            {% for field in form %}
-                <div class="form-group">
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    {{ field }}
-                </div>
-            {% endfor %}
-            <button type="submit" style="background-color: #7c3aed;
-            color: white;
-            font-weight: 600; width: 100%; border: none; padding: .8rem; border-radius: 15px; cursor: pointer; font-size: 1rem;">Criar projeto</button>
 
-        </form>
-        <br>
-        <br>
-        <hr>
-        <br>
-        <form id="generate_ai" class="form-ai">
-            <h2>Crie o projeto de <span class="spanName1">{{client.name}}</span> com IA</h2>
-            {% csrf_token %}
+        <div class="form_buttons">
+            <button class="btn-action manual-btn" onclick="openModal('manualProjectModal')">➕ Novo Projeto Manual</button>
+            <button class="btn-action ai-btn" onclick="openModal('aiProjectModal')">🤖 Criar com IA</button>
+        </div>
 
-            <textarea id="description_for_ai" name="description" placeholder="Descreva de forma clara e objetiva como você deseja seu novo projeto (Ex: etapas, marcos, descrições)."></textarea>
-            <input type="hidden" id="owner" name="owner" value="{{ request.user.id }}">
+        <div class="modal" id="manualProjectModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('manualProjectModal')">&times;</span>
+                <h2>➕ Cadastrar novo projeto para <span class="spanName">{{client.name}}</span></h2>
+                <form method="post">
+                    {% csrf_token %}
 
-            <button type="submit" class="btn-ai">Iniciar seu novo projeto</button>
-            <p class="cancel-link" onclick="history.back()">Cancelar</p>
-        </form>
+                    <div class="form-group">
+                        <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                        {{ form.name }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+                        {{ form.description }}
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="{{ form.dt_init.id_for_label }}">{{ form.dt_init.label }}</label>
+                            {{ form.dt_init }}
+                        </div>
+
+                        <div class="form-group half">
+                            <label for="{{ form.time_interval.id_for_label }}">{{ form.time_interval.label }}</label>
+                            {{ form.time_interval }}
+                        </div>
+                    </div>
+
+                    <button type="submit">Criar projeto</button>
+                    <button type="button" onclick="closeModal('manualProjectModal')">Fechar</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal" id="aiProjectModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('aiProjectModal')">&times;</span>
+                <h2>🤖 Criar projeto com IA para <span class="spanName1">{{client.name}}</span></h2>
+                <form id="generate_ai" class="form-ai">
+                    {% csrf_token %}
+                    <textarea id="description_for_ai" name="description" placeholder="Descreva o projeto (ex: etapas, marcos, descrições)..."></textarea>
+                    <input type="hidden" id="owner" name="owner" value="{{ request.user.id }}">
+                    <button type="submit">Iniciar projeto com IA</button>
+                    <button style="color: white;" type="button" onclick="closeModal('aiProjectModal')">Fechar</button>
+                </form>
+            </div>
+        </div>
 
         <!-- Tela de carregamento -->
         <div id="loading_screen" class="loading-screen hidden">
@@ -59,10 +241,30 @@
             <p id="loading_message">Analisando sua descrição...</p>
             <button onclick="cancelLoading()" class="cancel-button">Cancelar</button>
         </div>
-        
-        {% for project in projects %}
-            <a href="{% url 'view_project' id=project.id %}">{{project.name}}</a>
-        {% endfor %}
+
+        <div class="projects" style="margin-top: 2rem;">
+            <h2>Gerenciar <span class="spanName">Projetos</span></h2>
+            <hr>
+            <br>
+            
+            <div class="project-grid">
+                {% if not projects %}
+                    <div>
+                        <p>Você não tem projetos concluídos ainda.</p>
+                    </div>
+                {% endif %}
+                
+                {% for project in projects %}
+                    <a href="{% url 'view_project' id=project.id %}" class="project-card">
+                        <img src="{% static 'imgs/cardProjectImg.svg' %}" alt="Projeto" class="project-image">
+                        <div class="project-title">
+                            <img src="{% static 'imgs/fileDoc.svg' %}" alt="Ícone">
+                            <span>{{project.name}}</span>
+                        </div>
+                    </a>
+                {% endfor %} 
+            </div>
+        </div>
     </section>
 </main>
 {% endblock %}
@@ -102,4 +304,24 @@
 
     
 </script>
+
+<script>
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = "block";
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        const modals = document.querySelectorAll(".modal");
+        modals.forEach(modal => {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    }
+</script>
+
 {% endblock %}

@@ -1,6 +1,7 @@
 from django.db import models
 from auth_user.models import *
 import uuid
+from datetime import date, timedelta
 
 # Create your models here.
 class Project(models.Model):
@@ -17,6 +18,17 @@ class Project(models.Model):
     fk_manager = models.ForeignKey(User, related_name='project_manager', on_delete=models.CASCADE)
     fk_owner = models.ForeignKey(User, related_name='project_owner', on_delete=models.CASCADE, null=True)
 
+    def get_end_date(self):
+        if self.dt_init and self.time_interval is not None:
+            return self.dt_init + timedelta(days=self.time_interval)
+        return None
+
+    def days_until_end(self):
+        end_date = self.get_end_date()
+        if end_date:
+            return (end_date - date.today()).days
+        return None
+    
     def __str__(self):
         return self.name
     

@@ -167,6 +167,12 @@ class ClientPage(View):
             project.fk_manager = user
             project.save()
 
+            project.metadata = {
+                "project_name": project.name,
+                "project_description": project.description,
+                "milestones": []
+            }
+
             return redirect('register_milestone', project_id=project.id, milestone_id='first_creation')
 
         context = {

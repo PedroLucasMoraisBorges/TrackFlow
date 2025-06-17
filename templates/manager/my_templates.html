@@ -20,10 +20,14 @@
         </div>
     
         <div class="template-grid">
+            {% if templates|length == 0 %}
+                <p>Você não orfertou nenhum template ainda</p>
+            {% endif %}
+
             {% for template in templates %}
                 <div class="template-card">
                     <div class="bar-template" style="background-color: #5B21B6;">. </div>
-                    <h3>{{template.info.metadata.project_name}}</h3>
+                    <!-- <h3>{{template.info.metadata.project_name}}</h3> -->
                     <p>criador: {{template.info.fk_user.email}}</p>
                     <button href="#" template_id="{{template.id}}" onclick="openModal('{{template.info.id}}')" class="use-btn" style="border: none; cursor: pointer;">Preview</button>
                 </div>

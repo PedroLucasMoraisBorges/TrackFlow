@@ -1,14 +1,15 @@
 from django import forms
 from.models import *
 from auth_user.models import *
+from django.utils.timezone import now
 
 class RegisterProjectForm(forms.ModelForm):
     name = forms.CharField(
-        required = True,
-        label = 'Nome',
-        widget = forms.TextInput(attrs={
-            'placeholder' : 'Nome do Projeto',
-            'class' : ''
+        required=True,
+        label='Nome',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Nome do Projeto',
+            'class': ''
         })
     )
 
@@ -16,11 +17,10 @@ class RegisterProjectForm(forms.ModelForm):
         required=True,
         label='Descrição',
         widget=forms.Textarea(attrs={
-            'placeholder' : 'Descrição do projeto',
-            'class' : ''
+            'placeholder': 'Descrição do projeto',
+            'class': ''
         })
     )
-
 
     fk_owner = forms.ModelChoiceField(
         required=True,
@@ -31,9 +31,35 @@ class RegisterProjectForm(forms.ModelForm):
         })
     )
 
+    dt_init = forms.DateField(
+        required=False,
+        label='Data de início do projeto',
+        widget=forms.DateInput(
+            attrs={
+                'type': 'date',
+                'min': now().date().isoformat(),  # <--- Define o mínimo como hoje
+                'class': ''
+            }
+        )
+    )
+
+    time_interval = forms.IntegerField(
+        required=False,
+        label='Intervalo de tempo'
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        dt_init = cleaned_data.get('dt_init')
+        time_interval = cleaned_data.get('time_interval')
+
+        if time_interval and not dt_init:
+            self.add_error('dt_init', 'Se o intervalo de tempo for definido, a data de início é obrigatória.')
+
+
     class Meta:
         model = Project
-        fields = ['name', 'description', 'fk_owner']
+        fields = ['name', 'description', 'fk_owner', 'dt_init', 'time_interval']
 
     def __init__(self, *args, user=None, **kwargs):
         super().__init__(*args, **kwargs)
@@ -62,13 +88,27 @@ class RegisterUserProjectForm(forms.ModelForm):
     dt_init = forms.DateField(
         required=False,
         label='Data de início do projeto',
-        widget=forms.DateInput()
+        widget=forms.DateInput(
+            attrs={
+                'type': 'date',
+                'min': now().date().isoformat(),  # <--- Define o mínimo como hoje
+                'class': ''
+            }
+        )
     )
 
     time_interval = forms.IntegerField(
         required=False,
         label='Intervalo de tempo'
     )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        dt_init = cleaned_data.get('dt_init')
+        time_interval = cleaned_data.get('time_interval')
+
+        if time_interval and not dt_init:
+            self.add_error('dt_init', 'Se o intervalo de tempo for definido, a data de início é obrigatória.')
 
     class Meta:
         model = Project
